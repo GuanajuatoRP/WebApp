@@ -75,9 +75,13 @@ namespace GRPAuth.Controllers
             return Unauthorized();
         }
 
+        /// <summary>
+        /// appelé par le bot lorsqu'un user execute la commande /register
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns>token</returns>
         [HttpPost]
         [Route("Register")]
-        [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
             var userExists = await userManager.FindByNameAsync(model.Username);
@@ -89,35 +93,58 @@ namespace GRPAuth.Controllers
 
             GRPUser user = new GRPUser()
             {
-                Email = model.Email,
+                Email = model.DiscordId,
                 SecurityStamp = Guid.NewGuid().ToString(),
                 UserName = model.Username
             };
-            var result = await userManager.CreateAsync(user, model.Password);
+
+            var result = await userManager.CreateAsync(user);
             if (!result.Succeeded)
             {
                 logger.LogAuthError("Une erreur est survenue lors de la création de l'utilisateur", result.Errors, model.Username);
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = ResponseStatus.Error, Message = "Impossible de créer l'utilisateur, une erreur est survenue" });
             }
 
-            return Ok(new Response { Status = ResponseStatus.Success, Message = "Utilisateur créé avec succès" });
+
+            var registrationToken = await userManager.GenerateEmailConfirmationTokenAsync(user);
+            logger.LogAuth($"Utilisateur {model.Username} avec le DiscordId {model.DiscordId} a été enregistré", model.Username);
+
+            return Ok(new Response { Status = ResponseStatus.Success, Message = registrationToken });
+        }
+
+        [HttpDelete]
+        [Route("DeleteUser/{discordId}")]
+        public async Task<IActionResult> DeleteUser([FromRoute] string discordId)
+        {
+            var user = await userManager.FindByEmailAsync(discordId);
+            if(user != null)
+                await userManager.DeleteAsync(user);
+
+            return Ok();
         }
 
         [HttpPost]
         [Route("ConfirmDiscord")]
         public async Task<IActionResult> ConfirmDiscord([FromBody] ConfirmDiscordModel model)
         {
-            if (model.Username == null || model.Code == null)
+            if (model.DiscordId == null || model.Code == null || model.Password == null)
                 return BadRequest(new Response { Status = ResponseStatus.Error, Message = "Nom d'utilisateur ou Code invalide" });
 
-            var user = await userManager.FindByNameAsync(model.Username);
+            var user = await userManager.FindByEmailAsync(model.DiscordId);
             if (user == null)
                 return BadRequest(new Response { Status = ResponseStatus.Error, Message = "Nom d'utilisateur invalide" });
 
-            if (user.EmailConfirmed) return Ok(new Response { Status = ResponseStatus.Warning, Message = "Le compte discord a déjà été validé" });
 
+            var result = await userManager.AddPasswordAsync(user, model.Password);
+            if (!result.Succeeded)
+            {
+                return BadRequest(new Response { Status = ResponseStatus.Error, Message = "Le compte discord a déjà un mot de passe" });
+            }
+
+            if (user.EmailConfirmed) return Ok(new Response { Status = ResponseStatus.Warning, Message = "Le compte discord a déjà été validé" });
             await userManager.ConfirmEmailAsync(user, model.Code);
-            logger.LogAuth($"{model.Username} a confirmé son compte discord", model.Username);
+
+            logger.LogAuth($"{model.DiscordId} a confirmé son compte discord", model.DiscordId);
             return Ok(new Response { Status = ResponseStatus.Success, Message = "Le compte discord a été validé avec succès" });
         }
 

@@ -180,6 +180,7 @@ public static class StartupConfig
             options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
             options.User.RequireUniqueEmail = false;
         })
+            .AddDefaultTokenProviders()
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<GRPAuthContext>();
 
