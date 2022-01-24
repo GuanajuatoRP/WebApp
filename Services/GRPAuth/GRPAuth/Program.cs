@@ -88,7 +88,8 @@ public static class StartupConfig
         {
             o.AddDefaultPolicy(builder =>
             {
-                builder.WithOrigins(originsAllowed.ToArray()).AllowAnyHeader().WithMethods("PUT", "DELETE", "GET", "POST").Build();
+                //builder.WithOrigins(originsAllowed.ToArray()).AllowAnyHeader().WithMethods("PUT", "DELETE", "GET", "POST").Build();
+                builder.AllowAnyOrigin().AllowAnyHeader().WithMethods("PUT", "DELETE", "GET", "POST").Build();
             });
         });
     }
