@@ -112,18 +112,18 @@ namespace GRPAuth.Controllers
             return Ok(new Response { Status = ResponseStatus.Success, Message = registrationToken });
         }
 
-        [HttpPost]
-        [Route("UserExist")]
-        public async Task<IActionResult> UserExist([FromBody] UserExistModel model)
+        [HttpGet]
+        [Route("UserExist/{discordId}")]
+        public async Task<IActionResult> UserExist([FromRoute] string discordId)
         {
-            var userExists = await userManager.FindByIdAsync(model.DiscordId);
+            var userExists = await userManager.FindByEmailAsync(discordId);
             if (userExists == null)
             {
-                logger.LogAuth($"L'utilisateur ayant le DiscordId {model.DiscordId} n'existe pas");
-                return BadRequest(new Response { Status = ResponseStatus.Error, Message = $"L'utilisateur ayant le DiscordId {model.DiscordId} n'existe pas" });
+                logger.LogAuth($"L'utilisateur ayant le DiscordId {discordId} n'existe pas");
+                return BadRequest(new Response { Status = ResponseStatus.Error, Message = $"L'utilisateur ayant le DiscordId {discordId} n'existe pas" });
             } else
             {
-                logger.LogAuth($"Utilisateur ayant le DiscordId {model.DiscordId} existe");
+                logger.LogAuth($"Utilisateur ayant le DiscordId {discordId} existe");
                 return Ok(new Response { Status = ResponseStatus.Success, Message = "L'utilisateur existe" });
             }
         }
