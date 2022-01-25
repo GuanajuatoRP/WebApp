@@ -4,6 +4,3 @@ obj
 node_modules
 .env
 .vscode
-Program.cs
-launchSettings.json
-Services/GRPAuth/GRPAuth/appsettings.Development.json

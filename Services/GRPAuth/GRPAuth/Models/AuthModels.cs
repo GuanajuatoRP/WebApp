@@ -11,10 +11,6 @@
         public string Username { get; set; }
         public string DiscordId { get; set; }
     }
-    public struct UserExistModel
-    {
-        public string DiscordId { get; set; }
-    }
     public struct ConfirmDiscordModel
     {
         public string DiscordId { get; set; }
