@@ -112,6 +112,22 @@ namespace GRPAuth.Controllers
             return Ok(new Response { Status = ResponseStatus.Success, Message = registrationToken });
         }
 
+        [HttpGet]
+        [Route("UserExist/{discordId}")]
+        public async Task<IActionResult> UserExist([FromRoute] string discordId)
+        {
+            var userExists = await userManager.FindByEmailAsync(discordId);
+            if (userExists == null)
+            {
+                logger.LogAuth($"L'utilisateur ayant le DiscordId {discordId} n'existe pas");
+                return BadRequest(new Response { Status = ResponseStatus.Error, Message = $"L'utilisateur ayant le DiscordId {discordId} n'existe pas" });
+            } else
+            {
+                logger.LogAuth($"Utilisateur ayant le DiscordId {discordId} existe");
+                return Ok(new Response { Status = ResponseStatus.Success, Message = "L'utilisateur existe" });
+            }
+        }
+
         [HttpDelete]
         [Route("DeleteUser/{discordId}")]
         public async Task<IActionResult> DeleteUser([FromRoute] string discordId)
