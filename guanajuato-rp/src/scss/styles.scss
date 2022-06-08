@@ -1,0 +1,21 @@
+@import './variables.scss';
+
+html {
+  overflow-y: auto !important;
+}
+.backgroundImg {
+  background-image: url('assets/background-grad.png');
+  background-color: rgba($color: #ffffff, $alpha: 0.4);
+  background-size: 60%;
+  background-position: bottom right;
+  background-repeat: no-repeat;
+}
+.navbar-title {
+  text-overflow: clip;
+  overflow: visible;
+}
+.list-item-selected {
+  color: #ff0000;
+  margin: 0px;
+  padding: 0px;
+}
