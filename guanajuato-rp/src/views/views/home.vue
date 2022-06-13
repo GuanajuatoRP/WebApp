@@ -10,14 +10,14 @@
             reverse-transition="fade-transition"
             transition="fade-transition"
           >
-            <v-row class="fill-height" align="center" justify="center">
+            <!--<v-row class="fill-height" align="center" justify="center">
               <div class="display-3 white--text">{{ slides[i] }}</div>
-            </v-row>
+            </v-row> -->
           </v-carousel-item>
         </v-carousel>
       </v-row>
       <v-row dense>
-        <v-col v-for="card in cards" :key="card.title" :cols="card.flex">
+        <v-col v-for="card in cards" :key="card.title" cols="12" md="8">
           <v-card elevation="3" outlined>
             <v-img
               :src="card.src"
@@ -26,16 +26,13 @@
               height="400px"
             >
               <v-card-text v-text="card.text"></v-card-text>
-              <div>
-                <vue-markdown :source="src"></vue-markdown>
-              </div>
             </v-img>
           </v-card>
         </v-col>
-        <v-col :cols="4">
+        <v-col cols="12" md="4">
           <iframe
             src="https://discord.com/widget?id=877644017255465011&theme=dark"
-            width="550"
+            width="100%"
             height="400"
             allowtransparency="true"
             frameborder="0"
@@ -54,15 +51,19 @@ import { UserAPI } from '@/api/UserAPI';
 @Component
 export default class Home extends Vue {
   private items = [];
-  private slides = ['Innovation', 'Design', 'Technology', 'coucou'];
+  // private slides = ['Innovation', 'Design', 'Technology', 'coucou'];
   private cards = [{ text: 'VlaVlaVla mon text', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 8 }];
   private markdown = '# Hello world';
 
   mounted() {
-    UserAPI.getCarouselImage().then((srcList: any) => {
-      this.items = srcList;
-      console.log(srcList);
-    });
+    UserAPI.getCarouselImage()
+      .then((srcList: any) => {
+        this.items = srcList;
+        console.log(this.items);
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
   }
 }
 </script>

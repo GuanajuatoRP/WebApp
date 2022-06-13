@@ -23,35 +23,30 @@ export default class Sessions extends Vue {
     return {
       sessions: [
         {
-          id: 'eee',
           number: 5,
           date: '13/06/2022',
           nbParticipants: 6,
           type: 'Livreur',
         },
         {
-          id: 'ddd',
           number: 4,
           date: '12/06/2022',
           nbParticipants: 8,
           type: 'Livreur',
         },
         {
-          id: 'ccc',
           number: 3,
           date: '11/06/2022',
           nbParticipants: 3,
           type: 'Livreur',
         },
         {
-          id: 'bbb',
           number: 2,
           date: '10/06/2022',
           nbParticipants: 12,
           type: 'Livreur',
         },
         {
-          id: 'aaa',
           number: 1,
           date: '10/06/2022',
           nbParticipants: 5,

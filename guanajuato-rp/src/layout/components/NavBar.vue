@@ -32,14 +32,14 @@
         <v-btn color="primary"> Se connecter </v-btn>
       </template>
 
-      <v-list>
+      <!--<v-list>
         <v-list-item v-for="right_menu_item in right_menu" :key="right_menu_item" :to="{ path: right_menu_item.route }">
           <v-list-item-icon>
             <v-icon>{{ right_menu_item.icon }}</v-icon>
           </v-list-item-icon>
           <v-list-item-title>{{ right_menu_item.title }}</v-list-item-title>
         </v-list-item>
-      </v-list>
+      </v-list> -->
     </v-menu>
   </v-app-bar>
 </template>
@@ -59,6 +59,7 @@ export default class NavBar extends Vue {
   @PropSync('Drawer')
   private drawer!: boolean;
   private routesDisplay: (RouteConfig | undefined)[] = [];
+  private connected = true;
 
   mounted() {
     this.routesDisplay = routes.flatMap((e) => e.children).filter((r) => r && r.meta && !r.meta.hidden);

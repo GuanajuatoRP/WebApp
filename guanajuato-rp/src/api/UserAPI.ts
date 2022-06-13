@@ -10,6 +10,7 @@ export class UserAPI {
   }
 
   static async getCarouselImage() {
-    return await BaseApi.AppAnonymous.get('api/Web/CarouselImages');
+    const response = await BaseApi.AppAnonymous.get('api/Web/CarouselImages');
+    return response.data;
   }
 }

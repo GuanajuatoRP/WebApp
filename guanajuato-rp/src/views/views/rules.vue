@@ -17,7 +17,8 @@
                     <v-expansion-panel v-for="(item, j) in text[i].panel" :key="j" class="pannelsRules">
                       <v-expansion-panel-header>{{ item }}</v-expansion-panel-header>
                       <v-expansion-panel-content>
-                        {{ text[i].content[j] }}
+                        {{ text[i].content[j] }}<br />
+                        {{ markdown }}
                       </v-expansion-panel-content>
                     </v-expansion-panel>
                   </v-expansion-panels>
@@ -36,17 +37,14 @@ import { Component, Vue } from 'vue-property-decorator';
 
 @Component
 export default class Rules extends Vue {
-  data() {
-    return {
-      model: null,
-      tabs: ['Règlements', 'Info Générale', 'GameModes'],
-      text: [
-        { panel: ['Discord', 'Serveur'], content: ['aaa', 'bbb'] },
-        { panel: ['Achat Voiture', 'Imatriculation', 'vente'], content: ['aaa', 'bbb', 'ccc'] },
-        { panel: ['Livreur', 'Balade'], content: ['aaa', 'bbb'] },
-      ],
-    };
-  }
+  private markdown = '# Hello World';
+  private model = null;
+  private tabs = ['Règlements', 'Info Générale', 'GameModes'];
+  private text = [
+    { panel: ['Discord', 'Serveur'], content: ['aaa', 'bbb'] },
+    { panel: ['Achat Voiture', 'Imatriculation', 'vente'], content: ['aaa', 'bbb', 'ccc'] },
+    { panel: ['Livreur', 'Balade'], content: ['aaa', 'bbb'] },
+  ];
 }
 </script>
 <style></style>
