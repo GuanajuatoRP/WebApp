@@ -6,7 +6,8 @@ export default class BaseApi {
   static get AppAnonymous() {
     if (!this._appAnonymous) {
       this._appAnonymous = axios.create({
-        baseURL: process.env.VUE_APP_API,
+        baseURL: 'https://localhost:49153',
+        // baseURL: process.env.VUE_APP_USERAPI,
       });
     }
     return this._appAnonymous;
@@ -16,7 +17,7 @@ export default class BaseApi {
   static get AppLogged() {
     if (!this._appLogged) {
       this._appLogged = axios.create({
-        baseURL: process.env.VUE_APP_API,
+        baseURL: process.env.VUE_APP_CARAPI,
         headers: { Authorization: `Bearer ${AuthModule.token}` },
       });
     }
@@ -27,7 +28,7 @@ export default class BaseApi {
   static get Authentication() {
     if (!this._authentication) {
       this._authentication = axios.create({
-        baseURL: process.env.VUE_APP_APIAUTH,
+        baseURL: process.env.VUE_APP_USERAPI,
       });
     }
     return this._authentication;

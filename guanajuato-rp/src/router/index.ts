@@ -25,40 +25,6 @@ export const routes: Array<RouteConfig> = [
       },
     ],
   },
-  /* ##### Calendrier ##### */
-  {
-    path: NavigationModule.calendarRoute,
-    component: LayoutBase,
-    children: [
-      {
-        path: '',
-        name: NavigationModule.calendar,
-        component: () => import('@/views/views/calendar.vue'),
-        meta: {
-          hidden: false,
-          icon: 'mdi-calendar',
-          title: NavigationModule.calendarTitle,
-        },
-      },
-    ],
-  },
-  /* ##### News ##### */
-  {
-    path: NavigationModule.newsRoute,
-    component: LayoutBase,
-    children: [
-      {
-        path: '',
-        name: NavigationModule.news,
-        component: () => import('@/views/views/news.vue'),
-        meta: {
-          hidden: false,
-          icon: 'mdi-newspaper-variant-outline',
-          title: NavigationModule.newsTitle,
-        },
-      },
-    ],
-  },
   /* ##### Réglements ##### */
   {
     path: NavigationModule.rulesRoute,
@@ -93,23 +59,6 @@ export const routes: Array<RouteConfig> = [
       },
     ],
   },
-  /* ##### Entreprises ##### */
-  {
-    path: NavigationModule.entreprisesRoute,
-    component: LayoutBase,
-    children: [
-      {
-        path: '',
-        name: NavigationModule.entreprises,
-        component: () => import('@/views/entreprises/entreprises.vue'),
-        meta: {
-          hidden: false,
-          icon: 'mdi-office-building-outline',
-          title: NavigationModule.entreprisesTitle,
-        },
-      },
-    ],
-  },
   /* ##### Entreprises/Dealership ##### */
   {
     path: NavigationModule.entreprisesDealershipRoute,
@@ -127,143 +76,196 @@ export const routes: Array<RouteConfig> = [
       },
     ],
   },
-  /* ##### Entreprises/Mecano ##### */
-  {
-    path: NavigationModule.entreprisesMecanoRoute,
-    component: LayoutBase,
-    children: [
-      {
-        path: '',
-        name: NavigationModule.entreprisesMecano,
-        component: () => import('@/views/entreprises/mecano.vue'),
-        meta: {
-          hidden: false,
-          icon: 'mdi-car-cog',
-          title: NavigationModule.entreprisesMecanoTitle,
-        },
-      },
-    ],
-  },
-  /* ##### Statistiques ##### */
-  /* ##### Mentions légales ##### */
-  {
-    path: NavigationModule.legalRoute,
-    component: LayoutBase,
-    children: [
-      {
-        path: '',
-        name: NavigationModule.legal,
-        component: () => import('@/views/views/legal.vue'),
-        meta: {
-          hidden: true,
-          icon: 'mdi-scale-balance',
-          title: NavigationModule.legalTitle,
-        },
-      },
-    ],
-  },
-  /* ##### Auth/login ##### */
-  {
-    path: NavigationModule.loginRoute,
-    component: LayoutBase,
-    children: [
-      {
-        path: '',
-        name: NavigationModule.login,
-        component: () => import('@/views/authentication/login.vue'),
-        meta: {
-          hidden: true,
-          icon: 'mdi-login-variant',
-          title: NavigationModule.loginTitle,
-        },
-      },
-    ],
-  },
-  /* ##### Auth/logout ##### */
-  {
-    path: NavigationModule.logoutRoute,
-    component: LayoutBase,
-    children: [
-      {
-        path: '',
-        name: NavigationModule.logout,
-        component: () => import('@/views/authentication/logout.vue'),
-        meta: {
-          hidden: true,
-          icon: 'mdi-logout-variant',
-          title: NavigationModule.logoutTitle,
-        },
-      },
-    ],
-  },
-  /* ##### Auth/confirmaccount ##### */
-  {
-    path: NavigationModule.confirmAccountRoute,
-    component: LayoutBase,
-    children: [
-      {
-        path: '',
-        name: NavigationModule.confirmAccount,
-        component: () => import('@/views/authentication/confirmaccount.vue'),
-        meta: {
-          hidden: true,
-          icon: 'mdi-account-outline',
-          title: NavigationModule.confirmAccountTitle,
-        },
-      },
-    ],
-  },
-  /* ##### Auth/forgotpassword ##### */
-  {
-    path: NavigationModule.forgotPasswordRoute,
-    component: LayoutBase,
-    children: [
-      {
-        path: '',
-        name: NavigationModule.forgotPassword,
-        component: () => import('@/views/authentication/forgotpassword.vue'),
-        meta: {
-          hidden: true,
-          icon: 'mdi-account-outline',
-          title: NavigationModule.forgotPasswordTitle,
-        },
-      },
-    ],
-  },
-  /* ##### Auth/resetpassword ##### */
-  {
-    path: NavigationModule.resetPasswordRoute,
-    component: LayoutBase,
-    children: [
-      {
-        path: '',
-        name: NavigationModule.resetPassword,
-        component: () => import('@/views/authentication/resetpassword.vue'),
-        meta: {
-          hidden: true,
-          icon: 'mdi-account-outline',
-          title: NavigationModule.resetPasswordTitle,
-        },
-      },
-    ],
-  },
-  /* ##### Profile ##### */
-  {
-    path: NavigationModule.profileRoute,
-    component: LayoutBase,
-    children: [
-      {
-        path: '',
-        name: NavigationModule.profile,
-        component: () => import('@/views/profile/profile.vue'),
-        meta: {
-          hidden: true,
-          icon: 'mdi-account-outline',
-          title: NavigationModule.profileTitle,
-        },
-      },
-    ],
-  },
+  // /* ##### Calendrier ##### */
+  // {
+  //   path: NavigationModule.calendarRoute,
+  //   component: LayoutBase,
+  //   children: [
+  //     {
+  //       path: '',
+  //       name: NavigationModule.calendar,
+  //       component: () => import('@/views/views/calendar.vue'),
+  //       meta: {
+  //         hidden: false,
+  //         icon: 'mdi-calendar',
+  //         title: NavigationModule.calendarTitle,
+  //       },
+  //     },
+  //   ],
+  // },
+  // /* ##### News ##### */
+  // {
+  //   path: NavigationModule.newsRoute,
+  //   component: LayoutBase,
+  //   children: [
+  //     {
+  //       path: '',
+  //       name: NavigationModule.news,
+  //       component: () => import('@/views/views/news.vue'),
+  //       meta: {
+  //         hidden: false,
+  //         icon: 'mdi-newspaper-variant-outline',
+  //         title: NavigationModule.newsTitle,
+  //       },
+  //     },
+  //   ],
+  // },
+
+  // /* ##### Entreprises ##### */
+  // {
+  //   path: NavigationModule.entreprisesRoute,
+  //   component: LayoutBase,
+  //   children: [
+  //     {
+  //       path: '',
+  //       name: NavigationModule.entreprises,
+  //       component: () => import('@/views/entreprises/entreprises.vue'),
+  //       meta: {
+  //         hidden: false,
+  //         icon: 'mdi-office-building-outline',
+  //         title: NavigationModule.entreprisesTitle,
+  //       },
+  //     },
+  //   ],
+  // },
+
+  // /* ##### Entreprises/Mecano ##### */
+  // {
+  //   path: NavigationModule.entreprisesMecanoRoute,
+  //   component: LayoutBase,
+  //   children: [
+  //     {
+  //       path: '',
+  //       name: NavigationModule.entreprisesMecano,
+  //       component: () => import('@/views/entreprises/mecano.vue'),
+  //       meta: {
+  //         hidden: false,
+  //         icon: 'mdi-car-cog',
+  //         title: NavigationModule.entreprisesMecanoTitle,
+  //       },
+  //     },
+  //   ],
+  // },
+  // /* ##### Statistiques ##### */
+  // /* ##### Mentions légales ##### */
+  // {
+  //   path: NavigationModule.legalRoute,
+  //   component: LayoutBase,
+  //   children: [
+  //     {
+  //       path: '',
+  //       name: NavigationModule.legal,
+  //       component: () => import('@/views/views/legal.vue'),
+  //       meta: {
+  //         hidden: true,
+  //         icon: 'mdi-scale-balance',
+  //         title: NavigationModule.legalTitle,
+  //       },
+  //     },
+  //   ],
+  // },
+  // /* ##### Auth/login ##### */
+  // {
+  //   path: NavigationModule.loginRoute,
+  //   component: LayoutBase,
+  //   children: [
+  //     {
+  //       path: '',
+  //       name: NavigationModule.login,
+  //       component: () => import('@/views/authentication/login.vue'),
+  //       meta: {
+  //         hidden: true,
+  //         icon: 'mdi-login-variant',
+  //         title: NavigationModule.loginTitle,
+  //       },
+  //     },
+  //   ],
+  // },
+  // /* ##### Auth/logout ##### */
+  // {
+  //   path: NavigationModule.logoutRoute,
+  //   component: LayoutBase,
+  //   children: [
+  //     {
+  //       path: '',
+  //       name: NavigationModule.logout,
+  //       component: () => import('@/views/authentication/logout.vue'),
+  //       meta: {
+  //         hidden: true,
+  //         icon: 'mdi-logout-variant',
+  //         title: NavigationModule.logoutTitle,
+  //       },
+  //     },
+  //   ],
+  // },
+  // /* ##### Auth/confirmaccount ##### */
+  // {
+  //   path: NavigationModule.confirmAccountRoute,
+  //   component: LayoutBase,
+  //   children: [
+  //     {
+  //       path: '',
+  //       name: NavigationModule.confirmAccount,
+  //       component: () => import('@/views/authentication/confirmaccount.vue'),
+  //       meta: {
+  //         hidden: true,
+  //         icon: 'mdi-account-outline',
+  //         title: NavigationModule.confirmAccountTitle,
+  //       },
+  //     },
+  //   ],
+  // },
+  // /* ##### Auth/forgotpassword ##### */
+  // {
+  //   path: NavigationModule.forgotPasswordRoute,
+  //   component: LayoutBase,
+  //   children: [
+  //     {
+  //       path: '',
+  //       name: NavigationModule.forgotPassword,
+  //       component: () => import('@/views/authentication/forgotpassword.vue'),
+  //       meta: {
+  //         hidden: true,
+  //         icon: 'mdi-account-outline',
+  //         title: NavigationModule.forgotPasswordTitle,
+  //       },
+  //     },
+  //   ],
+  // },
+  // /* ##### Auth/resetpassword ##### */
+  // {
+  //   path: NavigationModule.resetPasswordRoute,
+  //   component: LayoutBase,
+  //   children: [
+  //     {
+  //       path: '',
+  //       name: NavigationModule.resetPassword,
+  //       component: () => import('@/views/authentication/resetpassword.vue'),
+  //       meta: {
+  //         hidden: true,
+  //         icon: 'mdi-account-outline',
+  //         title: NavigationModule.resetPasswordTitle,
+  //       },
+  //     },
+  //   ],
+  // },
+  // /* ##### Profile ##### */
+  // {
+  //   path: NavigationModule.profileRoute,
+  //   component: LayoutBase,
+  //   children: [
+  //     {
+  //       path: '',
+  //       name: NavigationModule.profile,
+  //       component: () => import('@/views/profile/profile.vue'),
+  //       meta: {
+  //         hidden: true,
+  //         icon: 'mdi-account-outline',
+  //         title: NavigationModule.profileTitle,
+  //       },
+  //     },
+  //   ],
+  // },
   /* autre => redirect to home */
   {
     path: '*',

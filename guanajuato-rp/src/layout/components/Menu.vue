@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer app width="220" v-model="drawer" class="pt-0">
+  <v-navigation-drawer v-model="drawer" app width="220" class="pt-0">
     <v-list nav dense flat>
       <v-list-item align="center" justify="center">
         <v-list-item-content>
@@ -8,9 +8,9 @@
         </v-list-item-content>
       </v-list-item>
       <v-list-group
-        no-action
         v-for="route in routesDisplay"
         :key="route.meta.title"
+        no-action
         class="m-0 p-0"
         active-class="list-item-selected"
         append-icon=""

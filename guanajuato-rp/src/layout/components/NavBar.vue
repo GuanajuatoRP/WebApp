@@ -4,7 +4,7 @@
       <v-img v-bind="props" gradient="to top right, rgba(30,30,30,.7), rgba(255,255,255,.7)"></v-img>
     </template>
 
-    <v-app-bar-nav-icon @click="changeDrawer(!drawer)" class="d-flex"></v-app-bar-nav-icon>
+    <v-app-bar-nav-icon class="d-flex" @click="changeDrawer(!drawer)"></v-app-bar-nav-icon>
 
     <v-img
       alt="Guanajuato Logo"

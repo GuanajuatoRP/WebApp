@@ -22,9 +22,9 @@ class NavigationMod extends VuexModule {
   public news = 'News';
 
   /* ##### Réglements ##### */
-  public rulesRoute = '/rules';
-  public rulesTitle = 'Réglements';
-  public rules = 'Rules';
+  public rulesRoute = '/info';
+  public rulesTitle = 'Informations Générales';
+  public rules = 'Info';
 
   /* ##### Sessions ##### */
   public sessionsRoute = '/sessions';

@@ -10,26 +10,26 @@
     <v-card-text class="mt-5">
       <v-form v-model="isValid">
         <v-text-field
+          v-model="username"
           label="Utilisateur"
           prepend-inner-icon="mdi-account"
           name="login"
-          v-model="username"
           class="roundCorners"
           autofocus
           outlined
           :rules="stringRules"
         ></v-text-field>
         <v-text-field
+          v-model="password"
           label="Mot de passe"
           name="password"
           outlined
           class="roundCorners"
           prepend-inner-icon="mdi-lock"
           :type="showPassword ? 'text' : 'password'"
-          v-model="password"
           :rules="stringRules"
-          @keypress.enter="login"
           :append-icon="showPassword ? `mdi-eye` : 'mdi-eye-off'"
+          @keypress.enter="login"
           @click:append="showPassword = !showPassword"
         ></v-text-field>
       </v-form>

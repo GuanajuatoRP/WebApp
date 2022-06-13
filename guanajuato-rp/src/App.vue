@@ -2,15 +2,15 @@
   <v-app>
     <router-view />
     <v-alert
+      v-if="updateAvailable"
       style="position: fixed; left: 0; bottom: 0; width: 100%; margin-bottom: 0px"
       app
       class="text-center"
       color="#d3f5d7"
-      v-if="updateAvailable"
       dense
     >
       <span class="mt-2"> Une nouvelle version de l'application est disponible ! </span>
-      <v-btn class="ml-5" color="success" @click.stop="updateApp" small>
+      <v-btn class="ml-5" color="success" small @click.stop="updateApp">
         <v-icon left>mdi-sync-circle</v-icon> Mettre à jour
       </v-btn>
     </v-alert>
