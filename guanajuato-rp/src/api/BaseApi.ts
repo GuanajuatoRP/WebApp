@@ -34,9 +34,21 @@ export default class BaseApi {
     return this._authentication;
   }
 
+  private static _carsApi: AxiosInstance | null;
+  static get CarsApi() {
+    if (!this._carsApi) {
+      this._carsApi = axios.create({
+        //baseURL: process.env.VUE_APP_CARAPI,
+        baseURL: 'https://localhost:49159',
+      });
+    }
+    return this._carsApi;
+  }
+
   static reset() {
     this._authentication = null;
     this._appAnonymous = null;
     this._appLogged = null;
+    this._carsApi = null;
   }
 }

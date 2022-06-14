@@ -1,104 +1,85 @@
 <template>
   <v-container fluid>
-    <button @click="resetGrid">Reset Grid</button>
-    <div v-if="showGrid" style="height: 100vh">
-      <ag-grid-vue
-        style="width: 100%; height: 100%"
-        class="ag-theme-alpine"
-        id="myGrid"
-        :gridOptions="gridOptions"
-        @grid-ready="onGridReady"
-        :columnDefs="columnDefs"
-        :defaultColDef="defaultColDef"
-        :enableRangeSelection="true"
-        :rowData="rowData"
-      ></ag-grid-vue>
+    <v-row>
+      <v-col cols="12" sm="6" md="3" pa-2>
+        <v-combobox v-model="selectedMaker" :items="makers" label="Marque" :loading="makerLoading" outlined ma-1>
+        </v-combobox>
+      </v-col>
+      <v-col cols="12" sm="6" md="3" pa-2>
+        <v-combobox v-model="selectedPays" :items="pays" label="Pays" :loading="paysLoading" outlined ma-1>
+        </v-combobox>
+      </v-col>
+      <v-col cols="12" sm="6" md="3" pa-2>
+        <v-combobox v-model="selectedType" :items="types" label="Types" :loading="typeLoading" outlined ma-1>
+        </v-combobox>
+      </v-col>
+      <v-col cols="12" sm="6" md="3" pa-2>
+        <v-text-field v-model="selectedName" label="Modèle" outlined />
+      </v-col>
+    </v-row>
+    <div>
+      <v-btn color="primary" class="float-right">Rechercher</v-btn>
     </div>
   </v-container>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
-import { AgGridVue } from 'ag-grid-vue';
-import { GridOptions, ColDef, GridApi, ColumnApi } from 'ag-grid-community';
+import { CarsApi } from '@/api/CarsApi';
+import { Component, Vue } from 'vue-property-decorator';
 
-@Component({
-  components: {
-    AgGridVue,
-  },
-})
+@Component
 export default class Concessionnaire extends Vue {
-  @Prop()
-  gridOptions: GridOptions | null | undefined;
-  @Prop()
-  columnDefs: ColDef[] | null | undefined;
-  @Prop()
-  defaultColDef: ColDef | null | undefined;
-  @Prop()
-  gridApi: GridApi | null | undefined;
-  @Prop()
-  gridColumnApi: ColumnApi | null | undefined;
-  @Prop()
-  rowData: any[] | null | undefined;
-  @Prop()
-  rowData1: any[] | null | undefined;
-  @Prop()
-  rowData2: any[] | null | undefined;
-  private showGrid = true;
-  private appInit = false;
-  public beforeMount() {
-    this.gridOptions = {};
-    this.columnDefs = [
-      { field: 'athlete' },
-      { field: 'age' },
-      { field: 'country' },
-      { field: 'year' },
-      { field: 'date' },
-      { field: 'sport' },
-      { field: 'gold' },
-      { field: 'silver' },
-      { field: 'bronze' },
-      { field: 'total' },
-    ];
-    this.defaultColDef = {
-      flex: 1,
-      minWidth: 100,
-    };
-  }
+  private makers = null;
+  private selectedMaker = '';
+  private makerLoading = true;
+
+  private pays = null;
+  private selectedPays = '';
+  private paysLoading = true;
+
+  private types = null;
+  private selectedType = '';
+  private typeLoading = true;
+
+  private selectedModel = '';
+
   mounted() {
-    // eslint-disable-next-line
-    this.gridApi = this.gridOptions!.api;
-    // eslint-disable-next-line
-    this.gridColumnApi = this.gridOptions!.columnApi;
+    this.loadMakers();
+    this.loadPays();
+    this.loadTypes();
   }
-  private onGridReady() {
-    const httpRequest = new XMLHttpRequest();
-    const updateData = (data: any[]) => {
-      this.rowData1 = data.slice(0, 10);
-      this.rowData2 = data.slice(10, 20);
-      this.rowData = this.rowData1;
-    };
-    if (!this.appInit) {
-      httpRequest.open(
-        'GET',
-        'https://raw.githubusercontent.com/ag-grid/ag-grid/master/grid-packages/ag-grid-docs/src/olympicWinnersSmall.json'
-      );
-      httpRequest.send();
-      httpRequest.onreadystatechange = () => {
-        if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-          updateData(JSON.parse(httpRequest.responseText));
-        }
-      };
-      this.appInit = true;
-    }
+
+  async loadMakers() {
+    await CarsApi.getListMakers()
+      .then((response: any) => {
+        this.makers = response;
+        this.makerLoading = false;
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
   }
-  private resetGrid() {
-    this.showGrid = false;
-    // eslint-disable-next-line
-    this.rowData = this.rowData![0].athlete === 'Michael Phelps' ? this.rowData2 : this.rowData1;
-    setTimeout(() => {
-      this.showGrid = true;
-    }, 10);
+
+  async loadPays() {
+    await CarsApi.getListPays()
+      .then((response: any) => {
+        this.pays = response;
+        this.paysLoading = false;
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
+  }
+
+  async loadTypes() {
+    await CarsApi.getListTypes()
+      .then((response: any) => {
+        this.types = response;
+        this.typeLoading = false;
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
   }
 }
 </script>
