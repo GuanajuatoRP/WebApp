@@ -6,7 +6,7 @@ export default class BaseApi {
   static get AppAnonymous() {
     if (!this._appAnonymous) {
       this._appAnonymous = axios.create({
-        baseURL: 'https://localhost:49153',
+        baseURL: 'https://localhost:49155',
         // baseURL: process.env.VUE_APP_USERAP  I,
       });
     }
