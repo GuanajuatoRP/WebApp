@@ -20,7 +20,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { AgGridVue } from 'ag-grid-vue';
-import { GridOptions, ColDef, GridApi, ColumnApi, GridReadyEvent } from 'ag-grid-community';
+import { GridOptions, ColDef, GridApi, ColumnApi } from 'ag-grid-community';
 
 @Component({
   components: {
@@ -66,7 +66,9 @@ export default class Dealership extends Vue {
     };
   }
   mounted() {
+    // eslint-disable-next-line
     this.gridApi = this.gridOptions!.api;
+    // eslint-disable-next-line
     this.gridColumnApi = this.gridOptions!.columnApi;
   }
   private onGridReady() {
@@ -92,6 +94,7 @@ export default class Dealership extends Vue {
   }
   private resetGrid() {
     this.showGrid = false;
+    // eslint-disable-next-line
     this.rowData = this.rowData![0].athlete === 'Michael Phelps' ? this.rowData2 : this.rowData1;
     setTimeout(() => {
       this.showGrid = true;
