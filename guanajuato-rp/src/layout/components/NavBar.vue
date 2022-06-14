@@ -29,29 +29,7 @@
         <v-btn v-model="connected" icon v-bind="attrs" v-on="on">
           <v-icon color="black">mdi-account</v-icon>
         </v-btn>
-        <v-dialog v-model="dialog" persistent max-width="600px">
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn color="primary" dark v-bind="attrs" v-on="on"> Se connecter </v-btn>
-          </template>
-          <v-card>
-            <v-card-title>
-              <span class="text-h5">Login</span>
-            </v-card-title>
-            <v-card-text>
-              <v-container>
-                <v-form ref="form" v-model="valid" lazy-validation>
-                  <v-text-field v-model="userName" :rules="userNameRules" label="UserName" required></v-text-field>
-                  <v-text-field v-model="password" :rules="passwordRules" label="Password" required></v-text-field>
-                </v-form>
-              </v-container>
-            </v-card-text>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn :disabled="!valid" color="success" class="mt-2 mx-1" @click="validate"> Se Connecter </v-btn>
-              <v-btn color="error" class="mt-2 mx-1" @click="reset"> Annuler </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
+        <Login />
       </template>
 
       <!--<v-list>
@@ -73,8 +51,9 @@ import { RouteConfig } from 'vue-router';
 import { routes } from '@/router';
 import { PropSync } from 'vue-property-decorator';
 import { NavigationModule } from '@/store/modules/NavigationMod';
+import Login from './Login.vue';
 
-@Component
+@Component({ components: { Login } })
 export default class NavBar extends Vue {
   @PropSync('NavBar')
   private navbar!: boolean;
@@ -82,21 +61,6 @@ export default class NavBar extends Vue {
   private drawer!: boolean;
   private routesDisplay: (RouteConfig | undefined)[] = [];
   private connected = true;
-
-  private dialog = false;
-  private valide = true;
-  private userName = '';
-  private userNameRules = [(v: any) => !!v || 'Un username est requis'];
-  private password = '';
-  private passwordRules = [(v: any) => !!v || 'Un mot de passe est requis'];
-
-  public validate() {
-    this?.$refs.form.validate();
-  }
-  public reset() {
-    this?.$refs.form.reset();
-    this.dialog = false;
-  }
 
   mounted() {
     this.routesDisplay = routes.flatMap((e) => e.children).filter((r) => r && r.meta && !r.meta.hidden);

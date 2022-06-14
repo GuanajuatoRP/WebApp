@@ -66,12 +66,6 @@ class NavigationMod extends VuexModule {
   public legalTitle = 'Mentions légales';
   public legal = 'Legal';
 
-  /* ##### Authentication ##### */
-  //login
-  public loginRoute = '/login';
-  public loginTitle = 'Connexion';
-  public login = 'Login';
-
   //logout
   public logoutRoute = '/logout';
   public logoutTitle = 'Déconnexion';
