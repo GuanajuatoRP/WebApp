@@ -17,15 +17,12 @@
                     <v-expansion-panel v-for="tab in cat.categories" :key="tab" class="pannelsRules">
                       <v-expansion-panel-header>{{ tab.title }}</v-expansion-panel-header>
                       <v-expansion-panel-content>
-                        {{ tab.rawText }}
-                        <!--<div v-html="">{{ tab.rawText }}</div>-->
+                        <div v-html="tab.rawText"></div>
                       </v-expansion-panel-content>
                     </v-expansion-panel>
-                  </v-expansion-panels>
-                </v-row></v-card-text
-              >
-            </v-card></v-container
-          >
+                  </v-expansion-panels> </v-row
+              ></v-card-text> </v-card
+          ></v-container>
         </v-tab-item>
       </v-tabs-items>
     </v-card>
@@ -35,17 +32,11 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { InfoGeneralApi } from '@/api/InfoGeneralApi';
+import { marked } from 'marked';
 
 @Component
 export default class Rules extends Vue {
-  private markdown = '# Hello World';
   private model = null;
-  private tabs = ['Règlements', 'Info Générale', 'GameModes'];
-  private text = [
-    { panel: ['Discord', 'Serveur'], content: ['aaa', 'bbb'] },
-    { panel: ['Achat Voiture', 'Imatriculation', 'vente'], content: ['aaa', 'bbb', 'ccc'] },
-    { panel: ['Livreur', 'Balade'], content: ['aaa', 'bbb'] },
-  ];
 
   @Prop()
   textList: any;
@@ -54,6 +45,11 @@ export default class Rules extends Vue {
     InfoGeneralApi.getText()
       .then((response: any) => {
         this.textList = response;
+        this.textList.forEach((category: any) => {
+          category.categories.forEach((tab: any) => {
+            tab.rawText = marked(tab.rawText);
+          });
+        });
       })
       .catch((err: any) => {
         console.log(err);
