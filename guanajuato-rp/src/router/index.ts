@@ -59,7 +59,7 @@ export const routes: Array<RouteConfig> = [
       },
     ],
   },
-  /* ##### Entreprises/Dealership ##### */
+  /* ##### Entreprises/Concessionnaire ##### */
   {
     path: NavigationModule.entreprisesDealershipRoute,
     component: LayoutBase,
@@ -177,23 +177,6 @@ export const routes: Array<RouteConfig> = [
   //         hidden: true,
   //         icon: 'mdi-scale-balance',
   //         title: NavigationModule.legalTitle,
-  //       },
-  //     },
-  //   ],
-  // },
-  // /* ##### Auth/login ##### */
-  // {
-  //   path: NavigationModule.loginRoute,
-  //   component: LayoutBase,
-  //   children: [
-  //     {
-  //       path: '',
-  //       name: NavigationModule.login,
-  //       component: () => import('@/views/authentication/login.vue'),
-  //       meta: {
-  //         hidden: true,
-  //         icon: 'mdi-login-variant',
-  //         title: NavigationModule.loginTitle,
   //       },
   //     },
   //   ],
