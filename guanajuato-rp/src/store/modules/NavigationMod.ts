@@ -36,6 +36,11 @@ class NavigationMod extends VuexModule {
   public entreprisesTitle = 'Entreprises';
   public entreprises = 'Entreprises';
 
+  //test
+  public TestRoute = '/Test';
+  public TestTitle = 'Test';
+  public Test = 'Test';
+
   //dealership
   public entreprisesConcessionnaireRoute = '/entreprises/concessionnaire';
   public entreprisesConcessionnaireTitle = 'Concessionnaire';

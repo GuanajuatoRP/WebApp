@@ -76,6 +76,23 @@ export const routes: Array<RouteConfig> = [
       },
     ],
   },
+  /* ##### Test ##### */
+  {
+    path: NavigationModule.TestRoute,
+    component: LayoutBase,
+    children: [
+      {
+        path: '',
+        name: NavigationModule.Test,
+        component: () => import('@/views/views/test.vue'),
+        meta: {
+          hidden: false,
+          icon: 'mdi-xml',
+          title: NavigationModule.TestTitle,
+        },
+      },
+    ],
+  },
   // /* ##### Calendrier ##### */
   // {
   //   path: NavigationModule.calendarRoute,
