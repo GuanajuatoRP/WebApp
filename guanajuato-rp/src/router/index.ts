@@ -61,17 +61,17 @@ export const routes: Array<RouteConfig> = [
   },
   /* ##### Entreprises/Dealership ##### */
   {
-    path: NavigationModule.entreprisesDealershipRoute,
+    path: NavigationModule.entreprisesConcessionnaireRoute,
     component: LayoutBase,
     children: [
       {
         path: '',
-        name: NavigationModule.entreprisesDealership,
-        component: () => import('@/views/entreprises/dealership.vue'),
+        name: NavigationModule.entreprisesConcessionnaire,
+        component: () => import('@/views/entreprises/concessionnaire.vue'),
         meta: {
           hidden: false,
           icon: 'mdi-car-key',
-          title: NavigationModule.entreprisesDealershipTitle,
+          title: NavigationModule.entreprisesConcessionnaireTitle,
         },
       },
     ],

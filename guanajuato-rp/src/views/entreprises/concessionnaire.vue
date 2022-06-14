@@ -27,7 +27,7 @@ import { GridOptions, ColDef, GridApi, ColumnApi } from 'ag-grid-community';
     AgGridVue,
   },
 })
-export default class Dealership extends Vue {
+export default class Concessionnaire extends Vue {
   @Prop()
   gridOptions: GridOptions | null | undefined;
   @Prop()
