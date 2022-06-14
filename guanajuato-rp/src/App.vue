@@ -53,4 +53,6 @@ export default class App extends Vue {
 
 <style lang="scss">
 @import '@/scss/styles.scss';
+@import '~ag-grid-community/dist/styles/ag-theme-alpine.css';
+@import '~ag-grid-community/dist/styles/ag-grid.css';
 </style>
