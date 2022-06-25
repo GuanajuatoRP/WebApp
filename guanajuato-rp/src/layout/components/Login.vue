@@ -83,14 +83,16 @@ export default class Login extends Vue {
     this.authErrors = '';
     const { username, password } = this;
     const authParams = new AuthParams();
-    authParams.userName = username;
+    authParams.username = username;
     authParams.password = password;
 
     AuthModule.login(authParams)
       .then(() => {
         this.username = '';
         this.password = '';
-        this.$router.push(NavigationModule.homeRoute);
+        this?.$refs.form.reset();
+        this.dialog = false;
+        this.$router.push(NavigationModule.home);
       })
       .catch((reason) => {
         this.authErrors = reason;

@@ -49,11 +49,11 @@ export default class LayoutBase extends Vue {
 
   private logout() {
     AuthModule.logout();
-    this.$router.push({ name: NavigationModule.login, params: { noAutoLogon: 'true' } });
+    this.$router.push({ name: NavigationModule.home, params: { noAutoLogon: 'true' } });
   }
 
   get userID() {
-    return AuthModule.user ? `${AuthModule.user.UserId}` : '';
+    return AuthModule.user ? `${AuthModule.user.DiscordId}` : '';
   }
 
   get userName() {

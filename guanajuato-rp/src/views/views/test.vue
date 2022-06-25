@@ -1,4 +1,4 @@
-<template><h1>Test</h1></template>
+<template><p>Uwu</p></template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
