@@ -69,10 +69,12 @@ class Authentication extends VuexModule implements IAuthState {
   @Action({ rawError: true })
   public login(userInfo: AuthParams): Promise<any> {
     return new Promise((resolve, reject) => {
-      api.Authentication.post<Token>('Authentication/LoginApp', userInfo)
+      api.Authentication.post<Token>('/Login', userInfo)
         .then((resp) => {
-          this.setToken(resp.data);
-          const tokenDecode = jwtDecode(resp.data.value);
+          const token = resp.data.token;
+
+          this.setToken(token);
+          const tokenDecode = jwtDecode(token);
           const jsonConvert: JsonConvert = new JsonConvert();
           const user = jsonConvert.deserializeObject(tokenDecode, AuthUser);
 
@@ -81,6 +83,7 @@ class Authentication extends VuexModule implements IAuthState {
           resolve(resp);
         })
         .catch((err) => {
+          console.log(err);
           this.resetToken();
           let errorMessage = "Impossible de se connecter au serveur d'authentification";
           if (err.response && err.response.status === 400) {

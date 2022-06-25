@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter, { Route, RouteConfig } from 'vue-router';
-//import LayoutNotLogged from '@/layout/LayoutNotConnected.vue';
+// import LayoutNotLogged from '@/layout/LayoutNotConnected.vue';
 import LayoutBase from '@/layout/LayoutBase.vue';
 import { AuthModule } from '@/store/modules/Authentication';
 import { NavigationModule } from '@/store/modules/NavigationMod';
@@ -89,6 +89,7 @@ export const routes: Array<RouteConfig> = [
           hidden: false,
           icon: 'mdi-xml',
           title: NavigationModule.TestTitle,
+          rule: 'isAdmin',
         },
       },
     ],
@@ -294,7 +295,7 @@ router.beforeEach(async (to: Route, from: Route, next: any) => {
     //AuthModule.user.Roles.some((e) => e == NavigationModule.droitApp) &&
     new Date() < new Date(+AuthModule.user.Exp * 1000)
   ) {
-    if (to.name == NavigationModule.login) next(NavigationModule.home);
+    if (to.name == NavigationModule.home) next(NavigationModule.home);
     else next();
   } else next();
   /* else {

@@ -14,8 +14,8 @@ export class SingleOrArrayConverter implements JsonCustomConvert<string[]> {
 
 @JsonObject('AuthUser')
 export class AuthUser {
-  @JsonProperty('http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name', String)
-  public UserId = '';
+  @JsonProperty('DiscordId', String)
+  public DiscordId = '';
   @JsonProperty('Name', String)
   public Name = '';
   @JsonProperty('Roles', SingleOrArrayConverter)
