@@ -58,7 +58,6 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { AuthParams } from '@/models/Authentication/AuthParams';
 import { AuthModule } from '@/store/modules/Authentication';
-import { NavigationModule } from '@/store/modules/NavigationMod';
 
 @Component
 export default class Login extends Vue {
@@ -77,7 +76,6 @@ export default class Login extends Vue {
     this.authErrors = '';
     this.dialog = false;
   }
-
   private login() {
     this.authLoading = true;
     this.authErrors = '';
@@ -90,9 +88,10 @@ export default class Login extends Vue {
       .then(() => {
         this.username = '';
         this.password = '';
+        // eslint-disable-next-line
         this?.$refs.form.reset();
         this.dialog = false;
-        this.$router.push(NavigationModule.home);
+        this.$router.go();
       })
       .catch((reason) => {
         this.authErrors = reason;

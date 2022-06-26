@@ -59,7 +59,6 @@ export default class Home extends Vue {
     UserAPI.getCarouselImage()
       .then((srcList: any) => {
         this.items = srcList;
-        console.log(this.items);
       })
       .catch((err: any) => {
         console.log(err);

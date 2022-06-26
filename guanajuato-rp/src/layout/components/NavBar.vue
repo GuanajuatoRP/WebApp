@@ -22,14 +22,17 @@
     <v-btn icon href="https://discord.gg/BtkWVH2Kq9" target="_blank">
       <v-icon color="#5865F2">mdi-discord</v-icon>
     </v-btn>
-
+    <!-- Bouton login/ logout-->
+    <Login v-if="!isConnected" />
+    <v-btn icon color="deep-purple" dark class="ml-3 btn_appBar" @click.stop="logout" v-else>
+      <v-icon>mdi-logout</v-icon>
+    </v-btn>
     <!-- Menu Profil à droite -->
-    <v-menu bottom left>
+    <v-menu bottom left v-if="isConnected">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn v-model="connected" icon v-bind="attrs" v-on="on">
+        <v-btn icon v-bind="attrs" v-on="on">
           <v-icon color="black">mdi-account</v-icon>
         </v-btn>
-        <Login />
       </template>
 
       <!--<v-list>
@@ -39,7 +42,7 @@
           </v-list-item-icon>
           <v-list-item-title>{{ right_menu_item.title }}</v-list-item-title>
         </v-list-item>
-      </v-list> -->
+      </v-list>-->
     </v-menu>
   </v-app-bar>
 </template>
@@ -48,10 +51,10 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import { RouteConfig } from 'vue-router';
-import { routes } from '@/router';
 import { PropSync } from 'vue-property-decorator';
 import { NavigationModule } from '@/store/modules/NavigationMod';
 import Login from './Login.vue';
+import { AuthModule } from '@/store/modules/Authentication';
 
 @Component({ components: { Login } })
 export default class NavBar extends Vue {
@@ -59,15 +62,23 @@ export default class NavBar extends Vue {
   private navbar!: boolean;
   @PropSync('Drawer')
   private drawer!: boolean;
-  private routesDisplay: (RouteConfig | undefined)[] = [];
-  private connected = true;
 
-  mounted() {
-    this.routesDisplay = routes.flatMap((e) => e.children).filter((r) => r && r.meta && !r.meta.hidden);
+  private isConnected = false;
+
+  async mounted() {
+    this.isConnected = await AuthModule.isLoggedIn();
   }
 
   private changeDrawer(drawerOn: boolean) {
     this.drawer = drawerOn;
+  }
+
+  private async logout() {
+    AuthModule.logout();
+    if (this.$router.currentRoute.name !== 'Home') {
+      await this.$router.push({ name: NavigationModule.home, params: { noAutoLogon: 'true' } });
+    }
+    this.$router.go();
   }
 
   get currentRouteName() {

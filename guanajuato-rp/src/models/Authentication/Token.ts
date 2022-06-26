@@ -1,4 +1,4 @@
 export class Token {
   public value = '';
-  public expiresIn = 0;
+  public exp = 0;
 }
