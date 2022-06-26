@@ -21,6 +21,7 @@ export const routes: Array<RouteConfig> = [
           hidden: false,
           icon: 'mdi-home-variant-outline',
           title: NavigationModule.homeTitle,
+          allowAnonymous: true,
         },
       },
     ],
@@ -38,6 +39,7 @@ export const routes: Array<RouteConfig> = [
           hidden: false,
           icon: 'mdi-file-document-multiple-outline',
           title: NavigationModule.rulesTitle,
+          allowAnonymous: true,
         },
       },
     ],
@@ -89,7 +91,7 @@ export const routes: Array<RouteConfig> = [
           hidden: false,
           icon: 'mdi-xml',
           title: NavigationModule.TestTitle,
-          rule: 'isAdmin',
+          allowAnonymous: true,
         },
       },
     ],
@@ -289,19 +291,12 @@ const router = new VueRouter({
 });
 
 router.beforeEach(async (to: Route, from: Route, next: any) => {
-  if (AuthModule.token) AuthModule.loadUser();
-  if (
-    AuthModule.user?.Exp &&
-    //AuthModule.user.Roles.some((e) => e == NavigationModule.droitApp) &&
-    new Date() < new Date(+AuthModule.user.Exp * 1000)
-  ) {
-    if (to.name == NavigationModule.home) next(NavigationModule.home);
-    else next();
+  const loggedIn = await AuthModule.isLoggedIn();
+  if (!to.meta.allowAnonymous && !loggedIn) {
+    router.push(NavigationModule.home);
+    //TODO crée une popup d'alerte
+    alert('Veuillez vous connecter pour accéder à cette page');
   } else next();
-  /* else {
-    if (to.name != NavigationModule.login) next(NavigationModule.login);
-    else next();
-  }*/
 });
 
 //défini le titre du tab

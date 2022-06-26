@@ -4,11 +4,11 @@ import jwtDecode from 'jwt-decode';
 import api from '@/api/BaseApi';
 import { AuthUser } from '@/models/Authentication/AuthUser';
 import { AuthParams } from '@/models/Authentication/AuthParams';
-import store from '@/store/index';
 import { Token } from '@/models/Authentication/Token';
+import store from '@/store/index';
 
 export interface IAuthState {
-  token: string;
+  token: string | null;
   expire: string;
   user: AuthUser | null;
   loading: boolean;
@@ -18,7 +18,7 @@ export interface IAuthState {
 @Module({ dynamic: true, store, name: 'Authentication' })
 class Authentication extends VuexModule implements IAuthState {
   //#region Propriétés
-  public token: string = localStorage.getItem('Auth-Token') || '';
+  public token: string | null = localStorage.getItem('Auth-Token');
   public expire: string = localStorage.getItem('token-expire') || '';
   public user: AuthUser | null = null;
   public errorMessage = '';
@@ -37,9 +37,8 @@ class Authentication extends VuexModule implements IAuthState {
   }
 
   @Mutation
-  private setToken(token: Token): void {
-    localStorage.setItem('Auth-Token', token.value);
-    this.token = token.value;
+  private setToken(token: string): void {
+    localStorage.setItem('Auth-Token', token);
   }
 
   @Mutation
@@ -49,6 +48,32 @@ class Authentication extends VuexModule implements IAuthState {
     this.expire = dateExpire;
   }
 
+  @Action
+  private getTokenExpirationDate(encodedToken: Token) {
+    const token: Token = jwtDecode(encodedToken as unknown as string);
+    if (!token.exp) {
+      return null;
+    }
+
+    const date = new Date(0);
+    date.setUTCSeconds(token.exp);
+
+    return date;
+  }
+
+  @Mutation
+  private isTokenExpired(encodedToken: Token): boolean {
+    const token: Token = jwtDecode(encodedToken as unknown as string);
+
+    if (!token || !token.exp) {
+      return false;
+    }
+
+    const date = new Date(0);
+    date.setUTCSeconds(token.exp);
+    // eslint-disable-next-line
+    return date! > new Date();
+  }
   @Mutation
   private setUser(user: AuthUser): void {
     this.user = user;
@@ -62,6 +87,15 @@ class Authentication extends VuexModule implements IAuthState {
     this.token = '';
     this.user = null;
   }
+
+  @Mutation
+  public getUserInfo(): any {
+    if (this.isLoggedIn()) {
+      // eslint-disable-next-line
+      return jwtDecode(this.getToken()! as unknown as string);
+    }
+  }
+
   //#endregion
 
   //#region Actions
@@ -69,9 +103,9 @@ class Authentication extends VuexModule implements IAuthState {
   @Action({ rawError: true })
   public login(userInfo: AuthParams): Promise<any> {
     return new Promise((resolve, reject) => {
-      api.Authentication.post<Token>('/Login', userInfo)
+      api.Authentication.post<any>('/Login', userInfo)
         .then((resp) => {
-          const token = resp.data.token;
+          const token: string = resp.data.token;
 
           this.setToken(token);
           const tokenDecode = jwtDecode(token);
@@ -97,12 +131,27 @@ class Authentication extends VuexModule implements IAuthState {
   @Action({ rawError: true })
   public loadUser(): void {
     try {
-      const tokenDecode = jwtDecode(this.token);
+      const tokenDecode = jwtDecode(this.token as unknown as string);
       const jsonConvert: JsonConvert = new JsonConvert();
       this.setUser(jsonConvert.deserializeObject(tokenDecode, AuthUser));
     } catch (err) {
       this.resetToken();
     }
+  }
+
+  @Action
+  private async getToken(): Promise<Token> {
+    return localStorage.getItem('Auth-Token') as unknown as Token;
+  }
+
+  @Action
+  public async isLoggedIn(): Promise<boolean> {
+    // eslint-disable-next-line
+    const token = await this.getToken();
+
+    if (!!token && !this.isTokenExpired(token)) {
+      return true;
+    } else return false;
   }
 
   @Action
