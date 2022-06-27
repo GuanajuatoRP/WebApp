@@ -4,6 +4,49 @@
       <!-- CarList of user-->
       <v-tabs v-model="tabs" background-color="transparent" grow>
         <v-tabs-slider></v-tabs-slider>
+
+        <!--User Profil-->
+        <v-tab>
+          <v-icon>mdi-account-box</v-icon>
+        </v-tab>
+
+        <v-tab-item>
+          <v-card class="py-6 mx-auto">
+            <v-row class="text-center">
+              <v-col cols="6">
+                <v-card-text>
+                  <v-avatar size="100" class="mx-auto">
+                    <v-img
+                      src="https://cdn.discordapp.com/attachments/729809533756506213/991076119975452732/avataaars_2_-removebg-preview.png?size=4096"
+                    ></v-img>
+                  </v-avatar>
+                  <h3 class="text-h5 mb-2">Gaëlle NoName</h3>
+                  <div class="blue--text subheading font-weight-bold">GaGa_Beautée</div>
+                  <div class="blue--text">27/06/2022</div>
+                  <div class="blue--text mb-2">Femme</div>
+                </v-card-text>
+              </v-col>
+              <v-divider vertical></v-divider>
+              <v-col cols="3">
+                <h3>Permis:</h3>
+                <p>C - Definitif</p>
+                <h3>Stage:</h3>
+                <p>B, A</p>
+                <h3>Sessions Police:</h3>
+                <p>13</p>
+              </v-col>
+              <v-col cols="3">
+                <h3>Points:</h3>
+                <p>12</p>
+                <h3>Sessions Permis:</h3>
+                <p>5</p>
+                <h3>Sessions</h3>
+                <p>27</p>
+              </v-col>
+            </v-row>
+          </v-card>
+        </v-tab-item>
+
         <v-tab>
           <v-icon>mdi-car</v-icon>
         </v-tab>
@@ -33,31 +76,20 @@
                     single-expand
                     item-key="model"
                   >
-                    <template v-slot:expanded-item>
-                      <v-card>aaa</v-card>
+                    <template v-slot:expanded-item="{ headers }">
+                      <td :colspan="headers.length" class="pa-5">
+                        <v-row>
+                          <v-img
+                            cols="12"
+                            md="4"
+                            :max-width="300"
+                            src="https://cdn.discordapp.com/attachments/729809533756506213/991069237881749585/HOR_XB1_Ferrari_488-removebg-preview.png?size=4096"
+                          ></v-img>
+                        </v-row>
+                      </td>
                     </template>
                   </v-data-table>
                 </v-card>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-tab-item>
-
-        <!--User Profil-->
-        <v-tab>
-          <v-icon>mdi-account-box</v-icon>
-        </v-tab>
-
-        <v-tab-item>
-          <v-container id="user-profile" fluid tag="section">
-            <v-row justify="center">
-              <v-col cols="12" md="4">
-                <v-card-text class="text-center">
-                  <v-avatar color="red" size="74">
-                    <span class="white--text text-h4">CJ</span>
-                  </v-avatar>
-                  <h4 class="display-2 font-weight-light mb-3 black--text">Alec Thompson</h4>
-                </v-card-text>
               </v-col>
             </v-row>
           </v-container>
