@@ -114,11 +114,11 @@ export default class Profile extends Vue {
   private user: UserProfil = {};
   async mounted() {
     await AuthModule.loadUser();
-    console.log(AuthModule.user);
 
     UserAPI.getUserProfile(AuthModule.user.DiscordId)
       .then((user: UserProfil) => {
         this.user = user;
+        this.voitures = user.voitures;
       })
       .catch((err: any) => {
         console.log(err);
