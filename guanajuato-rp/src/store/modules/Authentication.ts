@@ -117,7 +117,6 @@ class Authentication extends VuexModule implements IAuthState {
           resolve(resp);
         })
         .catch((err) => {
-          console.log(err);
           this.resetToken();
           let errorMessage = "Impossible de se connecter au serveur d'authentification";
           if (err.response && err.response.status === 400) {

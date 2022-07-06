@@ -24,13 +24,13 @@
     </v-btn>
     <!-- Bouton login/ logout-->
     <Login v-if="!isConnected" />
-    <v-btn icon color="deep-purple" dark class="ml-3 btn_appBar" @click.stop="logout" v-else>
+    <v-btn icon color="#FF0000" dark class="ml-3 btn_appBar" @click.stop="logout" v-else>
       <v-icon>mdi-logout</v-icon>
     </v-btn>
     <!-- Menu Profil à droite -->
     <v-menu bottom left v-if="isConnected">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn icon v-bind="attrs" v-on="on">
+        <v-btn icon v-bind="attrs" v-on="on" href="http://localhost:8080/profil">
           <v-icon color="black">mdi-account</v-icon>
         </v-btn>
       </template>

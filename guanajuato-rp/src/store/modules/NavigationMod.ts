@@ -92,9 +92,9 @@ class NavigationMod extends VuexModule {
   public resetPassword = 'ResetPassword';
 
   /* ##### Profile ##### */
-  public profileRoute = '/profile';
-  public profileTitle = 'Profil';
-  public profile = 'Profile';
+  public profilRoute = '/profil';
+  public profilTitle = 'Profil';
+  public profil = 'Profil';
 
   public currentPageName = '';
   public previousTarget = '';

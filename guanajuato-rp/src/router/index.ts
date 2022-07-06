@@ -91,7 +91,6 @@ export const routes: Array<RouteConfig> = [
           hidden: false,
           icon: 'mdi-xml',
           title: NavigationModule.TestTitle,
-          allowAnonymous: true,
         },
       },
     ],
@@ -252,23 +251,23 @@ export const routes: Array<RouteConfig> = [
   //     },
   //   ],
   // },
-  // /* ##### Profile ##### */
-  // {
-  //   path: NavigationModule.profileRoute,
-  //   component: LayoutBase,
-  //   children: [
-  //     {
-  //       path: '',
-  //       name: NavigationModule.profile,
-  //       component: () => import('@/views/profile/profile.vue'),
-  //       meta: {
-  //         hidden: true,
-  //         icon: 'mdi-account-outline',
-  //         title: NavigationModule.profileTitle,
-  //       },
-  //     },
-  //   ],
-  // },
+  /* ##### Profil ##### */
+  {
+    path: NavigationModule.profilRoute,
+    component: LayoutBase,
+    children: [
+      {
+        path: '',
+        name: NavigationModule.profil,
+        component: () => import('@/views/profil/profil.vue'),
+        meta: {
+          hidden: true,
+          icon: 'mdi-account-outline',
+          title: NavigationModule.profilTitle,
+        },
+      },
+    ],
+  },
   /* autre => redirect to home */
   {
     path: '*',

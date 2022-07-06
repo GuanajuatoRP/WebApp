@@ -1,6 +1,5 @@
 <template>
   <v-container fluid>
-    <h1 if="isConnected">UwU</h1>
     <v-card>
       <!-- CarList of user-->
       <v-tabs v-model="tabs" background-color="transparent" grow>
@@ -16,10 +15,8 @@
             <v-row class="text-center">
               <v-col cols="6">
                 <v-card-text class="my-auto">
-                  <v-avatar size="100" class="mx-auto">
-                    <v-img
-                      src="https://cdn.discordapp.com/attachments/729809533756506213/991076119975452732/avataaars_2_-removebg-preview.png?size=4096"
-                    ></v-img>
+                  <v-avatar size="62" class="mx-auto" color="red">
+                    <span class="white--text text-h5">{{ user.prenom.charAt(0) }} {{ user.nom.charAt(0) }}</span>
                   </v-avatar>
                   <h3 class="text-h5 mb-2">{{ user.prenom }} {{ user.nom }}</h3>
                   <div class="blue--text subheading font-weight-bold">{{ user.username }}</div>
@@ -113,89 +110,12 @@ import { UserAPI } from '@/api/UserAPI';
 import { UserProfil } from '@/store/modules/UserProfil';
 
 @Component
-export default class Test extends Vue {
-  private isConnected = false;
-  private user: UserProfil = {
-    id: '2e4c8847-15a7-46ee-a04d-d93a8fcfb08a',
-    prenom: 'string',
-    nom: 'string',
-    username: 'stringstring',
-    discordId: 'string',
-    sexe: 'H/F',
-    createdAt: '06/05/2022 09:22:22',
-    argent: 500215,
-    permis: 'Definitif',
-    stage: {
-      stageId: '0add89b4-6a5f-4a87-0ce4-08da474b501c',
-      name: 'S2',
-      users: null,
-    },
-    points: 50,
-    nbSessionsPermis: 40,
-    nbSessionsPolice: 0,
-    nbSessions: 0,
-    voitures: [
-      {
-        keyCar: 'b3255a62-0512-40f6-e726-08da5e039900',
-        idUser: '2e4c8847-15a7-46ee-a04d-d93a8fcfb08a',
-        username: 'stringstring',
-        idCar: '71f81953-3e65-4c00-a9f0-018ec4b9473f',
-        carId: 630,
-        carOrdinal: 1369,
-        maker: 'Pagani',
-        model: 'Zonda Cinque Roadster',
-        year: 2009,
-        transmission: 'RWD',
-        gearBox: 6,
-        type: 'Hypercars',
-        rarity: 'Legendary',
-        wikiLink: 'https://forza.fandom.com/wiki/Pagani_Zonda_Cinque_Roadster',
-        pictureLink: null,
-        engineConfiguration: 'V12',
-        originalPowerBhp: 678,
-        originalPowerKw: 506,
-        originalTorqueLbft: 575,
-        originalTorqueNm: 780,
-        originalWeightLbs: 2858,
-        originalWeightKg: 1296,
-        originalEngineDisplacement: 7.3,
-        originalNbCylindre: 12,
-        originalAspiration: 'Naturally_Aspirated ',
-        originalEnginePosition: 'Mid_Engine',
-        originalSpeed: 7.4,
-        originalHandling: 8,
-        originalAccelerate: 6.5,
-        originalLaunch: 6.9,
-        originalBraking: 8.9,
-        originalOffroad: 4.5,
-        originalPi: 896,
-        originalPrice: 2100000,
-        originalClass: '896',
-        powerBhp: 678,
-        powerKw: 506,
-        torqueLbft: 575,
-        torqueNm: 780,
-        weightLbs: 2858,
-        weightKg: 1296,
-        engineDisplacement: 7.3,
-        nbCylindre: 12,
-        aspiration: 'Naturally_Aspirated',
-        enginePosition: 'Mid_Engine',
-        speed: 7.4,
-        handling: 8,
-        accelerate: 6.5,
-        launch: 6.9,
-        braking: 8.9,
-        offroad: 4.5,
-        pi: 896,
-        class: '896',
-        imatriculation: '',
-        totalPrice: 2100000,
-        editPrice: 0,
-      },
-    ],
-  };
+export default class Profile extends Vue {
+  private user: UserProfil = {};
   async mounted() {
+    await AuthModule.loadUser();
+    console.log(AuthModule.user);
+
     UserAPI.getUserProfile(AuthModule.user.DiscordId)
       .then((user: UserProfil) => {
         this.user = user;
@@ -203,8 +123,6 @@ export default class Test extends Vue {
       .catch((err: any) => {
         console.log(err);
       });
-
-    this.isConnected = await AuthModule.isLoggedIn();
   }
 
   private search = '';

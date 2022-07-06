@@ -14,10 +14,10 @@ export class SingleOrArrayConverter implements JsonCustomConvert<string[]> {
 
 @JsonObject('AuthUser')
 export class AuthUser {
-  @JsonProperty('DiscordId', String)
-  public DiscordId = '';
   @JsonProperty('Name', String)
   public Name = '';
+  @JsonProperty('DiscordId', String)
+  public DiscordId = '';
   @JsonProperty('Roles', SingleOrArrayConverter)
   public Roles: string[] = [];
   @JsonProperty('nbf', Number)
