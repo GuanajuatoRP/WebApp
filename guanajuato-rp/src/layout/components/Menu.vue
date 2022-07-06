@@ -16,7 +16,7 @@
         append-icon=""
       >
         <template v-slot:activator>
-          <v-list-item :to="route" active-class="list-item-selected">
+          <v-list-item :to="route" active-class="list-item-selected red">
             <v-list-item-icon>
               <v-icon> {{ route.meta.icon }} </v-icon>
             </v-list-item-icon>

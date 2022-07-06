@@ -152,6 +152,15 @@ class Authentication extends VuexModule implements IAuthState {
       return true;
     } else return false;
   }
+  @Action
+  public async isAdmin(): Promise<boolean> {
+    // eslint-disable-next-line
+    const token: Token = jwtDecode(this.token as unknown as string);
+
+    if (token.Roles.includes('Admin')) {
+      return true;
+    } else return false;
+  }
 
   @Action
   public logout() {
