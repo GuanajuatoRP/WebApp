@@ -91,7 +91,7 @@ export const routes: Array<RouteConfig> = [
           hidden: false,
           icon: 'mdi-xml',
           title: NavigationModule.TestTitle,
-          isAdmin: true,
+          needAdmin: true,
         },
       },
     ],
@@ -104,30 +104,12 @@ export const routes: Array<RouteConfig> = [
       {
         path: '',
         name: NavigationModule.originalCarlist,
-        component: () => import('@/views/views/test.vue'),
+        component: () => import('@/views/admin/originalCarList.vue'),
         meta: {
           hidden: false,
           icon: 'mdi-car-info',
           title: NavigationModule.originalCarlistTitle,
-          isAdmin: true,
-        },
-      },
-    ],
-  },
-  /* ##### ADMIN OriginalCarList ##### */
-  {
-    path: NavigationModule.originalCarlistRoute,
-    component: LayoutBase,
-    children: [
-      {
-        path: '',
-        name: NavigationModule.originalCarlist,
-        component: () => import('@/views/views/test.vue'),
-        meta: {
-          hidden: false,
-          icon: 'mdi-car-info',
-          title: NavigationModule.originalCarlistTitle,
-          isAdmin: true,
+          needAdmin: true,
         },
       },
     ],
@@ -328,13 +310,11 @@ const router = new VueRouter({
 
 router.beforeEach(async (to: Route, from: Route, next: any) => {
   const loggedIn = await AuthModule.isLoggedIn();
-  let isAdmin = false;
-  if (loggedIn) isAdmin = await AuthModule.isAdmin();
   if (!to.meta.allowAnonymous && !loggedIn) {
     router.push(NavigationModule.home);
     //TODO crée une popup d'alerte
     alert('Veuillez vous connecter pour accéder à cette page');
-  } else if (to.meta.isAdmin && !isAdmin) {
+  } else if (to.meta.needAdmin && (await AuthModule.isAdmin())) {
     router.push(NavigationModule.home);
     //TODO crée une popup d'alerte
     alert('Vous avez pas la permision pour cela');

@@ -113,7 +113,9 @@ import { UserProfil } from '@/store/modules/UserProfil';
 export default class Profile extends Vue {
   private user: UserProfil = {};
   async mounted() {
-    await AuthModule.loadUser();
+    console.log(AuthModule.user);
+    AuthModule.loadUser();
+    console.log(AuthModule.user);
 
     UserAPI.getUserProfile(AuthModule.user.DiscordId)
       .then((user: UserProfil) => {
