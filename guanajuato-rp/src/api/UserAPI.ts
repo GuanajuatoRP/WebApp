@@ -7,7 +7,7 @@ export class UserAPI {
   }
 
   static async getUserProfile(discordId: string) {
-    const response = await BaseApi.AppLogged.get(`api/User/${discordId}`);
+    const response = await BaseApi.AppLogged.get(`api/User/garrage/${discordId}`);
     return response.data as UserProfil;
   }
 }
