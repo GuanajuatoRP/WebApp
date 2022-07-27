@@ -96,10 +96,15 @@ class NavigationMod extends VuexModule {
   public profilTitle = 'Profil';
   public profil = 'Profil';
 
-  /* ##### ADMIN OriginalCarList ##### */
-  public originalCarlistRoute = '/admin/originalcarlist';
-  public originalCarlistTitle = 'OriginalCarList';
-  public originalCarlist = 'OriginalCarList';
+  /* ##### ADMIN userCarlist ##### */
+  public userCarlistRoute = '/admin/userCarlist';
+  public userCarlistTitle = 'userCarlist';
+  public userCarlist = 'userCarlist';
+
+  /* ##### ADMIN userList ##### */
+  public userListRoute = '/admin/userList';
+  public userListTitle = 'userList';
+  public userList = 'userList';
 
   public currentPageName = '';
   public previousTarget = '';

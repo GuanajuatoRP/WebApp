@@ -6,10 +6,35 @@
           <v-card-title>
             Liste des voitures des utilisateurs
             <v-spacer></v-spacer>
-            <v-dialog v-model="dialog" max-width="500px">
+            <v-btn color="primary" dark class="mb-2" @click="openVoitureDialog"> New Voiture</v-btn>
+
+            <v-dialog v-model="VoitureDialog" max-width="500px">
+              <v-card>
+                <v-card-text>
+                  <v-container>
+                    <v-row>
+                      <v-col cols="12">
+                        <v-text-field v-model="addVoiture.discordId" label="DiscordId"></v-text-field>
+                      </v-col>
+                      <v-col cols="12">
+                        <v-text-field v-model="addVoiture.keyCar" label="Key Car"></v-text-field>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                </v-card-text>
+
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="blue darken-1" text @click="closeVoitureDialog"> Cancel </v-btn>
+                  <v-btn color="green darken-1" text @click="saveNewVoiture"> Save voiture</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+
+            <v-dialog v-model="dialog" max-width="75%">
               <v-card>
                 <v-card-title>
-                  <span class="text-h5">Edit Car -- {{ editedItem.model }}</span>
+                  <span class="text-h5">Edit Car -- {{ editedItem.model }} of {{ editedItem.username }}</span>
                 </v-card-title>
 
                 <v-card-text>
@@ -96,11 +121,29 @@
 
                 <v-card-actions>
                   <v-spacer></v-spacer>
+                  <v-btn color="red darken-1" text @click="openDelete"> Delete </v-btn>
                   <v-btn color="blue darken-1" text @click="close"> Cancel </v-btn>
                   <v-btn color="blue darken-1" text @click="save"> Save </v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
+
+            <v-dialog v-model="deleteDialog" max-width="75%">
+              <v-card>
+                <v-card-title>
+                  <span class="text-h5">Delete {{ editedItem.model }} Of {{ editedItem.username }}</span>
+                </v-card-title>
+
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="red darken-1" text @click="confirmDelete"> Delete </v-btn>
+                  <v-btn color="blue darken-1" text @click="closeDelete"> Cancel </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+
+            <v-spacer></v-spacer>
+
             <v-text-field
               v-model="search"
               append-icon="mdi-magnify"
@@ -123,6 +166,8 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { AuthModule } from '@/store/modules/Authentication';
+import { AdminAPI } from '@/api/AdminAPI';
+import { EditCarDTO } from '@/models/Cars/EditCarDTO.ts';
 
 @Component
 export default class Test extends Vue {
@@ -141,93 +186,41 @@ export default class Test extends Vue {
     { text: 'OriginalPrice', value: 'originalPrice' },
     { text: 'Edit', value: 'actions', sortable: false },
   ];
-  private voitures = [
-    {
-      keyCar: 'b3255a62-0512-40f6-e726-08da5e039900',
-      idUser: '2e4c8847-15a7-46ee-a04d-d93a8fcfb08a',
-      username: 'stringstring',
-      idCar: '71f81953-3e65-4c00-a9f0-018ec4b9473f',
-      carId: 630,
-      carOrdinal: 1369,
-      maker: 'Pagani',
-      model: 'Zonda Cinque Roadster',
-      year: 2009,
-      transmission: 'RWD',
-      gearBox: 6,
-      type: 'Hypercars',
-      rarity: 'Legendary',
-      wikiLink: 'https://forza.fandom.com/wiki/Pagani_Zonda_Cinque_Roadster',
-      pictureLink: null,
-      engineConfiguration: 'V12',
-      originalPowerBhp: 678,
-      originalPowerKw: 506,
-      originalTorqueLbft: 575,
-      originalTorqueNm: 780,
-      originalWeightLbs: 2858,
-      originalWeightKg: 1296,
-      originalEngineDisplacement: 7.3,
-      originalNbCylindre: 12,
-      originalAspiration: 'Naturally_Aspirated ',
-      originalEnginePosition: 'Mid_Engine',
-      originalSpeed: 7.4,
-      originalHandling: 8,
-      originalAccelerate: 6.5,
-      originalLaunch: 6.9,
-      originalBraking: 8.9,
-      originalOffroad: 4.5,
-      originalPi: 896,
-      originalPrice: 2100000,
-      originalClass: '896',
-      powerBhp: 678,
-      powerKw: 506,
-      torqueLbft: 575,
-      torqueNm: 780,
-      weightLbs: 2858,
-      weightKg: 1296,
-      engineDisplacement: 7.3,
-      nbCylindre: 12,
-      aspiration: 'Naturally_Aspirated',
-      enginePosition: 'Mid_Engine',
-      speed: 7.4,
-      handling: 8,
-      accelerate: 6.5,
-      launch: 6.9,
-      braking: 8.9,
-      offroad: 4.5,
-      pi: 896,
-      class: '896',
-      imatriculation: '',
-      totalPrice: 2100000,
-      editPrice: 0,
-    },
-  ];
+  private voitures = [];
+  private VoitureDialog = false;
+  private deleteDialog = false;
   private dialog = false;
   private editedIndex = -1;
   private editedItem = {
-    transmission: 'RWD',
-    gearBox: 6,
-    engineConfiguration: 'V12',
-    powerBhp: 678,
-    powerKw: 506,
-    torqueLbft: 575,
-    torqueNm: 780,
-    weightLbs: 2858,
-    weightKg: 1296,
-    engineDisplacement: 7.3,
-    nbCylindre: 12,
-    aspiration: 'Naturally_Aspirated',
-    enginePosition: 'Mid_Engine',
-    speed: 7.4,
-    handling: 8,
-    accelerate: 6.5,
-    launch: 6.9,
-    braking: 8.9,
-    offroad: 4.5,
-    pi: 896,
-    class: '896',
+    keyCar: '',
+    transmission: '',
+    gearBox: 0,
+    engineConfiguration: '',
+    powerBhp: 0,
+    powerKw: 0,
+    torqueLbft: 0,
+    torqueNm: 0,
+    weightLbs: 0,
+    weightKg: 0,
+    engineDisplacement: 0,
+    nbCylindre: 0,
+    aspiration: '',
+    enginePosition: '',
+    speed: 0,
+    handling: 0,
+    accelerate: 0,
+    launch: 0,
+    braking: 0,
+    offroad: 0,
+    pi: 0,
+    class: '',
     imatriculation: '',
-    totalPrice: 2100000,
+    totalPrice: 0,
     editPrice: 0,
+  };
+  private addVoiture = {
+    keyCar: '',
+    discordId: '',
   };
 
   public editItem(item) {
@@ -235,8 +228,106 @@ export default class Test extends Vue {
     this.editedItem = item;
   }
 
+  public close() {
+    this.dialog = false;
+  }
+
+  public openDelete() {
+    this.deleteDialog = true;
+  }
+  public openVoitureDialog() {
+    this.VoitureDialog = true;
+  }
+
+  public closeVoitureDialog() {
+    this.addVoiture.discordId = '';
+    this.addVoiture.keyCar = '';
+    this.VoitureDialog = false;
+  }
+
+  public closeDelete() {
+    this.deleteDialog = false;
+  }
+
+  public confirmDelete() {
+    AdminAPI.deleteVoiture(this.editedItem.keyCar)
+      .then(() => {
+        this.voitures = this.voitures.filter((item) => item.keyCar !== this.editedItem.keyCar);
+        this.closeDelete();
+        this.close();
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
+  }
+
+  public save() {
+    let editedCar = new EditCarDTO();
+    editedCar.keyCar = this.editedItem.keyCar;
+    editedCar.transmission = this.editedItem.transmission;
+    editedCar.gearBox = this.editedItem.gearBox;
+    editedCar.engineConfiguration = this.editedItem.engineConfiguration;
+    editedCar.powerBhp = this.editedItem.powerBhp;
+    editedCar.powerKw = this.editedItem.powerKw;
+    editedCar.torqueLbft = this.editedItem.torqueLbft;
+    editedCar.torqueNm = this.editedItem.torqueNm;
+    editedCar.weightLbs = this.editedItem.weightLbs;
+    editedCar.weightKg = this.editedItem.weightKg;
+    editedCar.engineDisplacement = this.editedItem.engineDisplacement;
+    editedCar.nbCylindre = this.editedItem.nbCylindre;
+    editedCar.aspiration = this.editedItem.aspiration;
+    editedCar.enginePosition = this.editedItem.enginePosition;
+    editedCar.speed = this.editedItem.speed;
+    editedCar.handling = this.editedItem.handling;
+    editedCar.accelerate = this.editedItem.accelerate;
+    editedCar.launch = this.editedItem.launch;
+    editedCar.braking = this.editedItem.braking;
+    editedCar.offroad = this.editedItem.offroad;
+    editedCar.pi = this.editedItem.pi;
+    editedCar.class = this.editedItem.class;
+    editedCar.imatriculation = this.editedItem.imatriculation ?? '';
+    editedCar.prixModif = this.editedItem.totalPrice;
+    editedCar.prixModif = this.editedItem.editPrice;
+
+    AdminAPI.updateVoiture(editedCar)
+      .then(() => {
+        this.dialog = false;
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
+  }
+
+  public saveNewVoiture() {
+    AdminAPI.addVoiture(this.addVoiture.discordId, this.addVoiture.keyCar)
+      .then(() => {
+        this.addVoiture.discordId = '';
+        this.addVoiture.keyCar = '';
+        this.closeVoitureDialog();
+
+        AdminAPI.getUserCarList()
+          .then((carList: any) => {
+            this.voitures = carList;
+          })
+          .catch((err: any) => {
+            console.log(err);
+          });
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
+  }
+
   async mounted() {
     this.isConnected = await AuthModule.isLoggedIn();
+
+    AdminAPI.getUserCarList()
+      .then((carList: any) => {
+        this.voitures = carList;
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
   }
 }
 </script>

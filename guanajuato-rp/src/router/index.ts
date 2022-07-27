@@ -96,19 +96,37 @@ export const routes: Array<RouteConfig> = [
       },
     ],
   },
-  /* ##### ADMIN OriginalCarList ##### */
+  /* ##### ADMIN userCarlist ##### */
   {
-    path: NavigationModule.originalCarlistRoute,
+    path: NavigationModule.userCarlistRoute,
     component: LayoutBase,
     children: [
       {
         path: '',
-        name: NavigationModule.originalCarlist,
-        component: () => import('@/views/admin/originalCarList.vue'),
+        name: NavigationModule.userCarlist,
+        component: () => import('@/views/admin/userCarlist.vue'),
         meta: {
           hidden: false,
           icon: 'mdi-car-info',
-          title: NavigationModule.originalCarlistTitle,
+          title: NavigationModule.userCarlistTitle,
+          needAdmin: true,
+        },
+      },
+    ],
+  },
+  /* ##### ADMIN userList ##### */
+  {
+    path: NavigationModule.userListRoute,
+    component: LayoutBase,
+    children: [
+      {
+        path: '',
+        name: NavigationModule.userList,
+        component: () => import('@/views/admin/userList.vue'),
+        meta: {
+          hidden: false,
+          icon: 'mdi-account-convert',
+          title: NavigationModule.userListTitle,
           needAdmin: true,
         },
       },

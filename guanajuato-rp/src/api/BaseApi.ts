@@ -3,6 +3,7 @@ import axios, { AxiosInstance } from 'axios';
 
 export default class BaseApi {
   private static _appAnonymous: AxiosInstance | null;
+  private URL = 'https://localhost:49155' as string;
   static get AppAnonymous() {
     if (!this._appAnonymous) {
       this._appAnonymous = axios.create({
