@@ -323,6 +323,24 @@ export const routes: Array<RouteConfig> = [
       },
     ],
   },
+  /* ##### Validation ##### */
+  {
+    path: NavigationModule.confirmAccountRoute,
+    component: LayoutBase,
+    children: [
+      {
+        path: '',
+        name: NavigationModule.confirmAccount,
+        component: () => import('@/views/authentication/validation.vue'),
+        meta: {
+          hidden: false,
+          icon: 'mdi-account-outline',
+          title: NavigationModule.confirmAccountTitle,
+          allowAnonymous: true,
+        },
+      },
+    ],
+  },
   /* autre => redirect to home */
   {
     path: '*',
