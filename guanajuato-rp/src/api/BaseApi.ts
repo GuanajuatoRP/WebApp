@@ -3,7 +3,6 @@ import axios, { AxiosInstance } from 'axios';
 
 export default class BaseApi {
   private static _appAnonymous: AxiosInstance | null;
-  private URL = 'https://localhost:49155' as string;
   static get AppAnonymous() {
     if (!this._appAnonymous) {
       this._appAnonymous = axios.create({
@@ -34,9 +33,20 @@ export default class BaseApi {
     return this._authentication;
   }
 
+  private static _appToBotApi: AxiosInstance | null;
+  static get AppToBotApi() {
+    if (!this._appToBotApi) {
+      this._appToBotApi = axios.create({
+        baseURL: 'http://localhost:53216',
+      });
+    }
+    return this._appToBotApi;
+  }
+
   static reset() {
     this._authentication = null;
     this._appAnonymous = null;
     this._appLogged = null;
+    this._appToBotApi = null;
   }
 }
