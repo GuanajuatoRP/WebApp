@@ -305,6 +305,24 @@ export const routes: Array<RouteConfig> = [
       },
     ],
   },
+  /* ##### Register ##### */
+  {
+    path: NavigationModule.registerRoute,
+    component: LayoutBase,
+    children: [
+      {
+        path: '',
+        name: NavigationModule.register,
+        component: () => import('@/views/authentication/register.vue'),
+        meta: {
+          hidden: false,
+          icon: 'mdi-account-outline',
+          title: NavigationModule.registerTitle,
+          allowAnonymous: true,
+        },
+      },
+    ],
+  },
   /* autre => redirect to home */
   {
     path: '*',
