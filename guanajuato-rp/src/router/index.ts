@@ -315,7 +315,7 @@ export const routes: Array<RouteConfig> = [
         name: NavigationModule.register,
         component: () => import('@/views/authentication/register.vue'),
         meta: {
-          hidden: false,
+          hidden: true,
           icon: 'mdi-account-outline',
           title: NavigationModule.registerTitle,
           allowAnonymous: true,
@@ -333,7 +333,7 @@ export const routes: Array<RouteConfig> = [
         name: NavigationModule.confirmAccount,
         component: () => import('@/views/authentication/validation.vue'),
         meta: {
-          hidden: false,
+          hidden: true,
           icon: 'mdi-account-outline',
           title: NavigationModule.confirmAccountTitle,
           allowAnonymous: true,
