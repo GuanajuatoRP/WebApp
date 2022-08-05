@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter, { Route, RouteConfig } from 'vue-router';
-//import LayoutNotLogged from '@/layout/LayoutNotConnected.vue';
+// import LayoutNotLogged from '@/layout/LayoutNotConnected.vue';
 import LayoutBase from '@/layout/LayoutBase.vue';
 import { AuthModule } from '@/store/modules/Authentication';
 import { NavigationModule } from '@/store/modules/NavigationMod';
@@ -21,6 +21,7 @@ export const routes: Array<RouteConfig> = [
           hidden: false,
           icon: 'mdi-home-variant-outline',
           title: NavigationModule.homeTitle,
+          allowAnonymous: true,
         },
       },
     ],
@@ -38,6 +39,7 @@ export const routes: Array<RouteConfig> = [
           hidden: false,
           icon: 'mdi-file-document-multiple-outline',
           title: NavigationModule.rulesTitle,
+          allowAnonymous: true,
         },
       },
     ],
@@ -59,19 +61,73 @@ export const routes: Array<RouteConfig> = [
       },
     ],
   },
-  /* ##### Entreprises/Dealership ##### */
+  /* ##### Entreprises/Concessionnaire ##### */
   {
-    path: NavigationModule.entreprisesDealershipRoute,
+    path: NavigationModule.entreprisesConcessionnaireRoute,
     component: LayoutBase,
     children: [
       {
         path: '',
-        name: NavigationModule.entreprisesDealership,
-        component: () => import('@/views/entreprises/dealership.vue'),
+        name: NavigationModule.entreprisesConcessionnaire,
+        component: () => import('@/views/entreprises/concessionnaire.vue'),
         meta: {
           hidden: false,
           icon: 'mdi-car-key',
-          title: NavigationModule.entreprisesDealershipTitle,
+          title: NavigationModule.entreprisesConcessionnaireTitle,
+        },
+      },
+    ],
+  },
+  /* ##### Test ##### */
+  {
+    path: NavigationModule.TestRoute,
+    component: LayoutBase,
+    children: [
+      {
+        path: '',
+        name: NavigationModule.Test,
+        component: () => import('@/views/views/test.vue'),
+        meta: {
+          hidden: false,
+          icon: 'mdi-xml',
+          title: NavigationModule.TestTitle,
+          needAdmin: true,
+        },
+      },
+    ],
+  },
+  /* ##### ADMIN userCarlist ##### */
+  {
+    path: NavigationModule.userCarlistRoute,
+    component: LayoutBase,
+    children: [
+      {
+        path: '',
+        name: NavigationModule.userCarlist,
+        component: () => import('@/views/admin/userCarlist.vue'),
+        meta: {
+          hidden: false,
+          icon: 'mdi-car-info',
+          title: NavigationModule.userCarlistTitle,
+          needAdmin: true,
+        },
+      },
+    ],
+  },
+  /* ##### ADMIN userList ##### */
+  {
+    path: NavigationModule.userListRoute,
+    component: LayoutBase,
+    children: [
+      {
+        path: '',
+        name: NavigationModule.userList,
+        component: () => import('@/views/admin/userList.vue'),
+        meta: {
+          hidden: false,
+          icon: 'mdi-account-convert',
+          title: NavigationModule.userListTitle,
+          needAdmin: true,
         },
       },
     ],
@@ -164,23 +220,6 @@ export const routes: Array<RouteConfig> = [
   //     },
   //   ],
   // },
-  // /* ##### Auth/login ##### */
-  // {
-  //   path: NavigationModule.loginRoute,
-  //   component: LayoutBase,
-  //   children: [
-  //     {
-  //       path: '',
-  //       name: NavigationModule.login,
-  //       component: () => import('@/views/authentication/login.vue'),
-  //       meta: {
-  //         hidden: true,
-  //         icon: 'mdi-login-variant',
-  //         title: NavigationModule.loginTitle,
-  //       },
-  //     },
-  //   ],
-  // },
   // /* ##### Auth/logout ##### */
   // {
   //   path: NavigationModule.logoutRoute,
@@ -249,23 +288,59 @@ export const routes: Array<RouteConfig> = [
   //     },
   //   ],
   // },
-  // /* ##### Profile ##### */
-  // {
-  //   path: NavigationModule.profileRoute,
-  //   component: LayoutBase,
-  //   children: [
-  //     {
-  //       path: '',
-  //       name: NavigationModule.profile,
-  //       component: () => import('@/views/profile/profile.vue'),
-  //       meta: {
-  //         hidden: true,
-  //         icon: 'mdi-account-outline',
-  //         title: NavigationModule.profileTitle,
-  //       },
-  //     },
-  //   ],
-  // },
+  /* ##### Profil ##### */
+  {
+    path: NavigationModule.profilRoute,
+    component: LayoutBase,
+    children: [
+      {
+        path: '',
+        name: NavigationModule.profil,
+        component: () => import('@/views/profil/profil.vue'),
+        meta: {
+          hidden: true,
+          icon: 'mdi-account-outline',
+          title: NavigationModule.profilTitle,
+        },
+      },
+    ],
+  },
+  /* ##### Register ##### */
+  {
+    path: NavigationModule.registerRoute,
+    component: LayoutBase,
+    children: [
+      {
+        path: '',
+        name: NavigationModule.register,
+        component: () => import('@/views/authentication/register.vue'),
+        meta: {
+          hidden: true,
+          icon: 'mdi-account-outline',
+          title: NavigationModule.registerTitle,
+          allowAnonymous: true,
+        },
+      },
+    ],
+  },
+  /* ##### Validation ##### */
+  {
+    path: NavigationModule.confirmAccountRoute,
+    component: LayoutBase,
+    children: [
+      {
+        path: '',
+        name: NavigationModule.confirmAccount,
+        component: () => import('@/views/authentication/validation.vue'),
+        meta: {
+          hidden: true,
+          icon: 'mdi-account-outline',
+          title: NavigationModule.confirmAccountTitle,
+          allowAnonymous: true,
+        },
+      },
+    ],
+  },
   /* autre => redirect to home */
   {
     path: '*',
@@ -288,19 +363,16 @@ const router = new VueRouter({
 });
 
 router.beforeEach(async (to: Route, from: Route, next: any) => {
-  if (AuthModule.token) AuthModule.loadUser();
-  if (
-    AuthModule.user?.Exp &&
-    //AuthModule.user.Roles.some((e) => e == NavigationModule.droitApp) &&
-    new Date() < new Date(+AuthModule.user.Exp * 1000)
-  ) {
-    if (to.name == NavigationModule.login) next(NavigationModule.home);
-    else next();
+  const loggedIn = await AuthModule.isLoggedIn();
+  if (!to.meta.allowAnonymous && !loggedIn) {
+    router.push(NavigationModule.home);
+    //TODO crée une popup d'alerte
+    alert('Veuillez vous connecter pour accéder à cette page');
+  } else if (to.meta.needAdmin && (await AuthModule.isAdmin())) {
+    router.push(NavigationModule.home);
+    //TODO crée une popup d'alerte
+    alert('Vous avez pas la permision pour cela');
   } else next();
-  /* else {
-    if (to.name != NavigationModule.login) next(NavigationModule.login);
-    else next();
-  }*/
 });
 
 //défini le titre du tab

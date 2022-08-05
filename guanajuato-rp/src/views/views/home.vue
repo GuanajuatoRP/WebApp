@@ -31,7 +31,7 @@
         </v-col>
         <v-col cols="12" md="4">
           <iframe
-            src="https://discord.com/widget?id=877644017255465011&theme=dark"
+            src="https://discord.com/widget?id=854140376867930122&theme=dark"
             width="100%"
             height="400"
             allowtransparency="true"
@@ -59,7 +59,6 @@ export default class Home extends Vue {
     UserAPI.getCarouselImage()
       .then((srcList: any) => {
         this.items = srcList;
-        console.log(this.items);
       })
       .catch((err: any) => {
         console.log(err);

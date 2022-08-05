@@ -36,10 +36,15 @@ class NavigationMod extends VuexModule {
   public entreprisesTitle = 'Entreprises';
   public entreprises = 'Entreprises';
 
+  //test
+  public TestRoute = '/Test';
+  public TestTitle = 'Test';
+  public Test = 'Test';
+
   //dealership
-  public entreprisesDealershipRoute = '/entreprises/dealership';
-  public entreprisesDealershipTitle = 'Dealership';
-  public entreprisesDealership = 'Dealership';
+  public entreprisesConcessionnaireRoute = '/entreprises/concessionnaire';
+  public entreprisesConcessionnaireTitle = 'Concessionnaire';
+  public entreprisesConcessionnaire = 'Concessionnaire';
 
   //mécano
   public entreprisesMecanoRoute = '/entreprises/mecano';
@@ -60,12 +65,6 @@ class NavigationMod extends VuexModule {
   public legalRoute = '/legal';
   public legalTitle = 'Mentions légales';
   public legal = 'Legal';
-
-  /* ##### Authentication ##### */
-  //login
-  public loginRoute = '/login';
-  public loginTitle = 'Connexion';
-  public login = 'Login';
 
   //logout
   public logoutRoute = '/logout';
@@ -93,9 +92,19 @@ class NavigationMod extends VuexModule {
   public resetPassword = 'ResetPassword';
 
   /* ##### Profile ##### */
-  public profileRoute = '/profile';
-  public profileTitle = 'Profil';
-  public profile = 'Profile';
+  public profilRoute = '/profil';
+  public profilTitle = 'Profil';
+  public profil = 'Profil';
+
+  /* ##### ADMIN userCarlist ##### */
+  public userCarlistRoute = '/admin/userCarlist';
+  public userCarlistTitle = 'userCarlist';
+  public userCarlist = 'userCarlist';
+
+  /* ##### ADMIN userList ##### */
+  public userListRoute = '/admin/userList';
+  public userListTitle = 'userList';
+  public userList = 'userList';
 
   public currentPageName = '';
   public previousTarget = '';
