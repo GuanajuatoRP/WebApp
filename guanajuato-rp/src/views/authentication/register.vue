@@ -163,6 +163,7 @@ export default class Register extends Vue {
 
   async mounted() {
     this.discordId = this.$route.query.discordId;
+    if (!this.discordId) this.$router.push({ name: 'Home' });
 
     await RegisterApi.isUserOnDB(this.discordId)
       .then((res: any) => {

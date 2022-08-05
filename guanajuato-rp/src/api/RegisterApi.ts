@@ -13,4 +13,11 @@ export class RegisterApi {
     const response = await BaseApi.AppAnonymous.post(`/register/${registerModel.discordId}`, registerModel);
     return response;
   }
+  static async registrationValidation(validationModel) {
+    const response = await BaseApi.AppAnonymous.post(
+      `register/validation/${validationModel.discordId}`,
+      validationModel
+    );
+    return response;
+  }
 }
