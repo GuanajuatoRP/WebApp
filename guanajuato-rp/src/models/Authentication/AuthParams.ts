@@ -1,4 +1,4 @@
 export class AuthParams {
-  public userName = '';
+  public username = '';
   public password = '';
 }

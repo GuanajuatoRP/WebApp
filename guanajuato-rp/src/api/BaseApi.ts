@@ -3,11 +3,11 @@ import axios, { AxiosInstance } from 'axios';
 
 export default class BaseApi {
   private static _appAnonymous: AxiosInstance | null;
+  private URL = 'https://localhost:49155' as string;
   static get AppAnonymous() {
     if (!this._appAnonymous) {
       this._appAnonymous = axios.create({
-        baseURL: 'https://localhost:49155',
-        // baseURL: process.env.VUE_APP_USERAP  I,
+        baseURL: 'https://localhost:49153',
       });
     }
     return this._appAnonymous;
@@ -17,7 +17,7 @@ export default class BaseApi {
   static get AppLogged() {
     if (!this._appLogged) {
       this._appLogged = axios.create({
-        baseURL: process.env.VUE_APP_CARAPI,
+        baseURL: 'https://localhost:49153',
         headers: { Authorization: `Bearer ${AuthModule.token}` },
       });
     }
@@ -28,7 +28,7 @@ export default class BaseApi {
   static get Authentication() {
     if (!this._authentication) {
       this._authentication = axios.create({
-        baseURL: process.env.VUE_APP_USERAPI,
+        baseURL: 'https://localhost:49153',
       });
     }
     return this._authentication;

@@ -46,12 +46,15 @@ import { routes } from '@/router';
 import { PropSync } from 'vue-property-decorator';
 import { NavigationModule } from '@/store/modules/NavigationMod';
 import { CookieAndStorage } from '@/store/modules/CookieAndStorage';
+import { AuthModule } from '@/store/modules/Authentication';
 
 @Component
 export default class Menu extends Vue {
   @PropSync('Drawer')
   private drawer!: boolean;
   private routesDisplay: (RouteConfig | undefined)[] = [];
+  private isConnected = false;
+
   private get darktheme() {
     return CookieAndStorage.darkTheme;
   }
@@ -60,9 +63,15 @@ export default class Menu extends Vue {
     CookieAndStorage.setDarkTheme(value);
   }
 
-  mounted() {
+  async mounted() {
+    this.isConnected = await AuthModule.isLoggedIn();
     this.$vuetify.theme.dark = CookieAndStorage.darkTheme;
     this.routesDisplay = routes.flatMap((e) => e.children).filter((r) => r && r.meta && !r.meta.hidden);
+    if (!this.isConnected) {
+      this.routesDisplay = routes
+        .flatMap((e) => e.children)
+        .filter((r) => r && r.meta && !r.meta.hidden && r.meta.allowAnonymous);
+    }
   }
 
   get currentRouteName() {
