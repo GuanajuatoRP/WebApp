@@ -1,8 +1,55 @@
 <template>
   <v-container fluid>
     <v-card>
-      <!-- CarList of user-->
       <v-tabs background-color="transparent" grow>
+        <!--User Profil-->
+        <v-tab>
+          <v-icon>mdi-account-box</v-icon>
+        </v-tab>
+
+        <v-tab-item>
+          <v-card class="py-6 mx-auto">
+            <v-row class="text-center">
+              <v-col cols="6">
+                <v-card-text class="my-auto">
+                  <v-avatar size="62" class="mx-auto" color="red">
+                    <span class="white--text text-h5">{{ user.prenom.charAt(0) }} {{ user.nom.charAt(0) }}</span>
+                  </v-avatar>
+                  <h3 class="text-h5 mb-2">{{ user.prenom }} {{ user.nom }}</h3>
+                  <div class="blue--text subheading font-weight-bold">{{ user.username }}</div>
+                  <div class="blue--text">{{ user.createdAt }}</div>
+                  <div class="blue--text mb-2">{{ user.sexe }}</div>
+                </v-card-text>
+              </v-col>
+              <v-divider vertical></v-divider>
+              <v-row>
+                <v-col cols="12">
+                  <h3>Argent:</h3>
+                  <p>{{ user.argent }}€</p>
+                </v-col>
+                <v-col cols="6">
+                  <h3>Permis:</h3>
+                  <p>{{ user.permis }}</p>
+                  <h3>Stage:</h3>
+                  <p>{{ user.stage.name }}</p>
+                  <h3>Sessions Police:</h3>
+                  <p>{{ user.nbSessionsPolice }}</p>
+                </v-col>
+                <v-col cols="6">
+                  <h3>Points:</h3>
+                  <p>{{ user.points }}</p>
+                  <h3>Sessions Permis:</h3>
+                  <p>{{ user.nbSessionsPermis }}</p>
+                  <h3>Sessions</h3>
+                  <p>{{ user.nbSessions }}</p>
+                </v-col>
+              </v-row>
+            </v-row>
+          </v-card>
+        </v-tab-item>
+
+        <!-- CarList of user-->
+
         <v-tabs-slider></v-tabs-slider>
         <v-tab>
           <v-icon>mdi-car</v-icon>
@@ -546,52 +593,6 @@
               </v-col>
             </v-row>
           </v-container>
-        </v-tab-item>
-
-        <!--User Profil-->
-        <v-tab>
-          <v-icon>mdi-account-box</v-icon>
-        </v-tab>
-
-        <v-tab-item>
-          <v-card class="py-6 mx-auto">
-            <v-row class="text-center">
-              <v-col cols="6">
-                <v-card-text class="my-auto">
-                  <v-avatar size="62" class="mx-auto" color="red">
-                    <span class="white--text text-h5">{{ user.prenom.charAt(0) }} {{ user.nom.charAt(0) }}</span>
-                  </v-avatar>
-                  <h3 class="text-h5 mb-2">{{ user.prenom }} {{ user.nom }}</h3>
-                  <div class="blue--text subheading font-weight-bold">{{ user.username }}</div>
-                  <div class="blue--text">{{ user.createdAt }}</div>
-                  <div class="blue--text mb-2">{{ user.sexe }}</div>
-                </v-card-text>
-              </v-col>
-              <v-divider vertical></v-divider>
-              <v-row>
-                <v-col cols="12">
-                  <h3>Argent:</h3>
-                  <p>{{ user.argent }}€</p>
-                </v-col>
-                <v-col cols="6">
-                  <h3>Permis:</h3>
-                  <p>{{ user.permis }}</p>
-                  <h3>Stage:</h3>
-                  <p>{{ user.stage.name }}</p>
-                  <h3>Sessions Police:</h3>
-                  <p>{{ user.nbSessionsPolice }}</p>
-                </v-col>
-                <v-col cols="6">
-                  <h3>Points:</h3>
-                  <p>{{ user.points }}</p>
-                  <h3>Sessions Permis:</h3>
-                  <p>{{ user.nbSessionsPermis }}</p>
-                  <h3>Sessions</h3>
-                  <p>{{ user.nbSessions }}</p>
-                </v-col>
-              </v-row>
-            </v-row>
-          </v-card>
         </v-tab-item>
       </v-tabs>
     </v-card>
