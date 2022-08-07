@@ -1,5 +1,5 @@
 export class Token {
   public value = '';
-  public roles: string[] = [];
-  public exp = 0;
+  public Roles: string[] = [];
+  public Exp = 0;
 }

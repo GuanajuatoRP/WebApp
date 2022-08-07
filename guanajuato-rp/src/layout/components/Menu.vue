@@ -54,6 +54,7 @@ export default class Menu extends Vue {
   private drawer!: boolean;
   private routesDisplay: (RouteConfig | undefined)[] = [];
   private isConnected = false;
+  private haveAdminRole = false;
 
   private get darktheme() {
     return CookieAndStorage.darkTheme;
@@ -65,8 +66,16 @@ export default class Menu extends Vue {
 
   async mounted() {
     this.isConnected = await AuthModule.isLoggedIn();
+    this.haveAdminRole = await AuthModule.isAdmin();
+    console.log('haveAdminRole', this.haveAdminRole);
+
     this.$vuetify.theme.dark = CookieAndStorage.darkTheme;
     this.routesDisplay = routes.flatMap((e) => e.children).filter((r) => r && r.meta && !r.meta.hidden);
+    if (!this.haveAdminRole) {
+      this.routesDisplay = routes
+        .flatMap((e) => e.children)
+        .filter((r) => r && r.meta && !r.meta.hidden && !r.meta.needAdmin);
+    }
     if (!this.isConnected) {
       this.routesDisplay = routes
         .flatMap((e) => e.children)

@@ -363,16 +363,19 @@ const router = new VueRouter({
 });
 
 router.beforeEach(async (to: Route, from: Route, next: any) => {
-  const loggedIn = await AuthModule.isLoggedIn();
-  if (!to.meta!.allowAnonymous && !loggedIn) {
-    router.push(NavigationModule.home);
-    //TODO crée une popup d'alerte
-    alert('Veuillez vous connecter pour accéder à cette page');
-  } else if (to.meta!.needAdmin && (await AuthModule.isAdmin())) {
-    router.push(NavigationModule.home);
-    //TODO crée une popup d'alerte
-    alert('Vous avez pas la permision pour cela');
-  } else next();
+  const isLoggedIn = await AuthModule.isLoggedIn();
+  const isAdmin = await AuthModule.isAdmin();
+  const meta = to.meta as any;
+
+  if (meta.allowAnonymous) {
+    next();
+  } else if (isLoggedIn) {
+    if (meta.needAdmin && !isAdmin) {
+      router.push({ name: NavigationModule.home });
+    } else next();
+  } else {
+    router.push({ name: NavigationModule.home });
+  }
 });
 
 //défini le titre du tab

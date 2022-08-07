@@ -401,8 +401,6 @@ export default class Sessions extends Vue {
   mounted() {
     AuthModule.isAdmin()
       .then((response: any) => {
-        //TODO: Check this
-        // this.isAdmin = false;
         this.isAdmin = response;
       })
       .catch((error) => {

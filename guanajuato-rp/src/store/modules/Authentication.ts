@@ -51,12 +51,12 @@ class Authentication extends VuexModule implements IAuthState {
   @Action
   private getTokenExpirationDate(encodedToken: Token) {
     const token: Token = jwtDecode(encodedToken as unknown as string);
-    if (!token.exp) {
+    if (!token.Exp) {
       return null;
     }
 
     const date = new Date(0);
-    date.setUTCSeconds(token.exp);
+    date.setUTCSeconds(token.Exp);
 
     return date;
   }
@@ -65,15 +65,29 @@ class Authentication extends VuexModule implements IAuthState {
   private isTokenExpired(encodedToken: Token): boolean {
     const token: Token = jwtDecode(encodedToken as unknown as string);
 
-    if (!token || !token.exp) {
+    if (!token || !token.Exp) {
       return false;
     }
 
     const date = new Date(0);
-    date.setUTCSeconds(token.exp);
+    date.setUTCSeconds(token.Exp);
     // eslint-disable-next-line
     return date! > new Date();
   }
+  @Mutation
+  private isTokenAdmin(encodedToken: Token): boolean {
+    const token: Token = jwtDecode(encodedToken as unknown as string);
+
+    if (!token || !token.Roles) {
+      return false;
+    }
+    if (token.Roles.includes('Admin')) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   @Mutation
   private setUser(user: AuthUser): void {
     this.user = user;
@@ -94,13 +108,6 @@ class Authentication extends VuexModule implements IAuthState {
       // eslint-disable-next-line
       return jwtDecode(this.getToken()! as unknown as string);
     }
-  }
-
-  @Mutation
-  public haveAdminRole(roles: string[]): boolean {
-    if (roles.includes('Admin')) {
-      return true;
-    } else return false;
   }
 
   //#endregion
@@ -161,10 +168,14 @@ class Authentication extends VuexModule implements IAuthState {
   }
   @Action
   public async isAdmin(): Promise<boolean> {
-    const token: Token = jwtDecode(this.token as unknown as string);
-    return false;
-    // if (this.haveAdminRole(token.roles)) return true;
-    // else return false;
+    // eslint-disable-next-line
+    const token = await this.getToken();
+    const isAdmin: boolean = (await this.isTokenAdmin(token)) as boolean;
+    console.log('aaa', isAdmin as boolean);
+    return true;
+    if (!!token && this.isTokenAdmin(token)) {
+      return true;
+    } else return false;
   }
 
   @Action
