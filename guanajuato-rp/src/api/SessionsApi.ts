@@ -19,6 +19,10 @@ export class SessionsApi {
   }
 
   static async getUserAreNotInSessions(id: string) {
+    const response = await BaseApi.AppLogged.get(`api/Sessions/${id}/!users`);
+    return response.data;
+  }
+  static async getUserAreInSessions(id: string) {
     const response = await BaseApi.AppLogged.get(`api/Sessions/${id}/users`);
     return response.data;
   }

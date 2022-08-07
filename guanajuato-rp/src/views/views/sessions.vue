@@ -331,9 +331,14 @@ export default class Sessions extends Vue {
   public openRemoveUserDialog(item) {
     this.editItem(item);
     this.removeUserDialog = true;
-
-    this.userList = this.editedItem.users.map((u) => u.username);
-    this.isUserLoaded = true;
+    SessionsApi.getUserAreInSessions(this.editedItem.sessionId)
+      .then((response: any) => {
+        this.userList = response.map((item) => item.username);
+        this.isUserLoaded = true;
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
   }
 
   public closeRemoveUserDialog() {
