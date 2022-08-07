@@ -20,7 +20,7 @@
                       prepend-icon="mdi-account-multiple-plus"
                       chips
                       :loading="!isUserLoaded"
-                      v-model="usersSelected.username"
+                      v-model="usersSelected"
                       :items="userList"
                       label="Selectionne les utilisateurs a ajouter"
                       multiple
@@ -33,6 +33,35 @@
                   <v-spacer></v-spacer>
                   <v-btn color="blue darken-1" text @click="closeAddUserDialog"> Cancel </v-btn>
                   <v-btn color="green darken-1" text @click="addUserIntoSession"> Add Users </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+
+            <v-dialog v-model="removeUserDialog" max-width="75%">
+              <v-card>
+                <v-card-title>
+                  <span class="text-h5">Retrait d'utilisateurs de la sessions</span>
+                </v-card-title>
+
+                <v-card-text>
+                  <v-col cols="12" sm="6">
+                    <v-select
+                      prepend-icon="mdi-account-multiple-plus"
+                      chips
+                      :loading="!isUserLoaded"
+                      v-model="usersSelected"
+                      :items="userList"
+                      label="Selectionne les utilisateurs a supprimer de la session"
+                      multiple
+                      outlined
+                    ></v-select>
+                  </v-col>
+                </v-card-text>
+
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="blue darken-1" text @click="closeRemoveUserDialog"> Cancel </v-btn>
+                  <v-btn color="red darken-1" text @click="removeUserIntoSession"> Remove Users </v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
@@ -81,7 +110,7 @@
                 </v-row>
                 <v-row v-if="isAdmin">
                   <v-btn color="success" col="12" md="4" @click="openAddUserDialog(item)">Add Users</v-btn>
-                  <v-btn color="error" col="12" md="4">Remove USer</v-btn>
+                  <v-btn color="error" col="12" md="4" @click="openRemoveUserDialog(item)">Remove USer</v-btn>
                   <v-btn color="orange" col="12" md="4">Edit Session</v-btn>
                   <v-btn color="error" col="12" md="4" outlined @click="openDeleteDialog(item)">Delete Session</v-btn>
                 </v-row>
@@ -121,6 +150,7 @@ export default class Sessions extends Vue {
   ];
 
   private addUserDialog = false;
+  private removeUserDialog = false;
   private isUserLoaded = false;
   private userList = ['foo', 'bar', 'fizz', 'buzz'];
   private usersSelected = [];
@@ -178,7 +208,7 @@ export default class Sessions extends Vue {
     this.addUserDialog = true;
     SessionsApi.getUserAreNotInSessions(this.editedItem.sessionId)
       .then((response: any) => {
-        this.userList = response;
+        this.userList = response.map((item) => item.username);
         this.isUserLoaded = true;
       })
       .catch((err: any) => {
@@ -193,13 +223,47 @@ export default class Sessions extends Vue {
   }
 
   public addUserIntoSession() {
-    const dtos = this.usersSelected.map((u) => u.id);
-    console.log(this.usersSelected);
-    console.log(this.usersSelected);
-
-    SessionsApi.addUserIntoSession(this.editedItem.sessionId, this.usersSelected)
+    SessionsApi.addUserIntoSession(this.editedItem.sessionId, this.usersSelected as string[])
       .then(() => {
         this.closeAddUserDialog();
+        SessionsApi.getSessionsWithUser()
+          .then((response: any) => {
+            this.sessions = response;
+          })
+          .catch((err: any) => {
+            console.log(err);
+          });
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
+  }
+
+  public openRemoveUserDialog(item) {
+    this.editItem(item);
+    this.removeUserDialog = true;
+
+    this.userList = this.editedItem.users.map((u) => u.username);
+    this.isUserLoaded = true;
+  }
+
+  public closeRemoveUserDialog() {
+    this.userList = [];
+    this.usersSelected = [];
+    this.removeUserDialog = false;
+  }
+
+  public removeUserIntoSession() {
+    SessionsApi.removeUserIntoSession(this.editedItem.sessionId, this.usersSelected as string[])
+      .then(() => {
+        this.closeRemoveUserDialog();
+        SessionsApi.getSessionsWithUser()
+          .then((response: any) => {
+            this.sessions = response;
+          })
+          .catch((err: any) => {
+            console.log(err);
+          });
       })
       .catch((err: any) => {
         console.log(err);

@@ -1,3 +1,3 @@
-export class AddUsersInSession {
-  public userId = 0;
+export class addUsersInSession {
+  public username = '';
 }

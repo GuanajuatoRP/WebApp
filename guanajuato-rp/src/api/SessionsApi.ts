@@ -1,4 +1,5 @@
 import BaseApi from '@/api/BaseApi';
+import { newSessionDTO } from '@/models/Sessions/newSessionDTO';
 
 export class SessionsApi {
   static async getSessionsWithUser() {
@@ -11,18 +12,23 @@ export class SessionsApi {
     return response.data;
   }
 
-  static async deleteSession(id) {
+  static async deleteSession(id: string) {
     const response = await BaseApi.AppLogged.delete(`api/Sessions/${id}`);
     return response.data;
   }
 
-  static async getUserAreNotInSessions(id) {
+  static async getUserAreNotInSessions(id: string) {
     const response = await BaseApi.AppLogged.get(`api/Sessions/${id}/users`);
     return response.data;
   }
 
-  static async addUserIntoSession(sessionId, dtos) {
-    const response = await BaseApi.AppLogged.put(`api/Sessions/add/${sessionId}`, dtos);
+  static async addUserIntoSession(sessionId: string, usernames: string[]) {
+    const response = await BaseApi.AppLogged.post(`api/Sessions/add/${sessionId}/users`, usernames);
+    return response.data;
+  }
+
+  static async removeUserIntoSession(sessionId: string, usernames: string[]) {
+    const response = await BaseApi.AppLogged.post(`api/Sessions/remove/${sessionId}/users`, usernames);
     return response.data;
   }
 }
