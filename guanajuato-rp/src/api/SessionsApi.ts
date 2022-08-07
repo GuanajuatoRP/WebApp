@@ -1,5 +1,6 @@
 import BaseApi from '@/api/BaseApi';
 import { newSessionDTO } from '@/models/Sessions/newSessionDTO';
+import { editSessionDateDTO } from '@/models/Sessions/editSessionDateDTO';
 
 export class SessionsApi {
   static async getSessionsWithUser() {
@@ -29,6 +30,11 @@ export class SessionsApi {
 
   static async removeUserIntoSession(sessionId: string, usernames: string[]) {
     const response = await BaseApi.AppLogged.post(`api/Sessions/remove/${sessionId}/users`, usernames);
+    return response.data;
+  }
+
+  static async editSessionTime(sessionId: string, sessionTimesDTO: editSessionDateDTO) {
+    const response = await BaseApi.AppLogged.put(`api/Sessions/${sessionId}/date`, sessionTimesDTO);
     return response.data;
   }
 }

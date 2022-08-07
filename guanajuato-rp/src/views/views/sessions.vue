@@ -6,7 +6,7 @@
           <v-card-title>
             Liste des sessions
             <v-spacer></v-spacer>
-            <v-btn color="primary" dark class="mb-2" @click="createNewSession"> New Sessions</v-btn>
+            <v-btn color="primary" dark class="mb-2" @click="createNewSession" v-if="isAdmin"> New Sessions</v-btn>
 
             <v-dialog v-model="addUserDialog" max-width="75%">
               <v-card>
@@ -66,6 +66,89 @@
               </v-card>
             </v-dialog>
 
+            <v-dialog v-model="editSessionDialog" max-width="75%">
+              <v-card>
+                <v-card-title>
+                  <span class="text-h5">Modification de la session</span>
+                </v-card-title>
+
+                <v-card-text>
+                  <template>
+                    <v-row>
+                      <v-col cols="12" md="6">
+                        <v-menu
+                          ref="menuStart"
+                          v-model="startMenu"
+                          :close-on-content-click="false"
+                          :nudge-right="40"
+                          :return-value.sync="startTime"
+                          transition="scale-transition"
+                          offset-y
+                          max-width="290px"
+                          min-width="290px"
+                        >
+                          <template v-slot:activator="{ on, attrs }">
+                            <v-text-field
+                              v-model="startTime"
+                              label="Set start time"
+                              prepend-icon="mdi-clock-time-four-outline"
+                              readonly
+                              v-bind="attrs"
+                              v-on="on"
+                            ></v-text-field>
+                          </template>
+                          <v-time-picker
+                            v-if="startMenu"
+                            v-model="startTime"
+                            color="green lighten-1"
+                            header-color="primary"
+                            format="24hr"
+                            @click:minute="$refs.menuStart.save(startTime)"
+                          ></v-time-picker>
+                        </v-menu>
+                        <v-menu
+                          ref="menuEnd"
+                          v-model="endMenu"
+                          :close-on-content-click="false"
+                          :nudge-right="40"
+                          :return-value.sync="endTime"
+                          transition="scale-transition"
+                          offset-y
+                          max-width="290px"
+                          min-width="290px"
+                        >
+                          <template v-slot:activator="{ on, attrs }">
+                            <v-text-field
+                              v-model="endTime"
+                              label="Set start time"
+                              prepend-icon="mdi-clock-time-four-outline"
+                              readonly
+                              v-bind="attrs"
+                              v-on="on"
+                            ></v-text-field>
+                          </template>
+                          <v-time-picker
+                            v-if="endMenu"
+                            v-model="endTime"
+                            color="green lighten-1"
+                            header-color="primary"
+                            format="24hr"
+                            @click:minute="$refs.menuEnd.save(endTime)"
+                          ></v-time-picker>
+                        </v-menu>
+                      </v-col>
+                    </v-row>
+                  </template>
+                </v-card-text>
+
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="blue darken-1" text @click="closeEditSessionDialog"> Cancel </v-btn>
+                  <v-btn color="green darken-1" text @click="editSession"> Valider </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+
             <v-dialog v-model="deleteDialog" max-width="75%">
               <v-card>
                 <v-card-title class="justify-content">
@@ -111,7 +194,7 @@
                 <v-row v-if="isAdmin">
                   <v-btn color="success" col="12" md="4" @click="openAddUserDialog(item)">Add Users</v-btn>
                   <v-btn color="error" col="12" md="4" @click="openRemoveUserDialog(item)">Remove USer</v-btn>
-                  <v-btn color="orange" col="12" md="4">Edit Session</v-btn>
+                  <v-btn color="orange" col="12" md="4" @click="openEditSessionDialog(item)">Edit Session</v-btn>
                   <v-btn color="error" col="12" md="4" outlined @click="openDeleteDialog(item)">Delete Session</v-btn>
                 </v-row>
               </td>
@@ -127,8 +210,8 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { SessionsApi } from '@/api/SessionsApi';
 import { AuthModule } from '@/store/modules/Authentication';
-import { AdminAPI } from '@/api/AdminAPI';
 import { newSessionDTO } from '@/model/Sessions/newSessionDTO';
+import { editSessionDateDTO } from '@/models/Sessions/editSessionDateDTO';
 
 @Component
 export default class Sessions extends Vue {
@@ -151,13 +234,19 @@ export default class Sessions extends Vue {
 
   private addUserDialog = false;
   private removeUserDialog = false;
+  private editSessionDialog = false;
+  private deleteDialog = false;
   private isUserLoaded = false;
-  private userList = ['foo', 'bar', 'fizz', 'buzz'];
+  private userList = [];
   private usersSelected = [];
 
-  private deleteDialog = false;
   private dialog = false;
   private editedItem = {};
+
+  private startMenu = false;
+  private endMenu = false;
+  private startTime = null;
+  private endTime = null;
 
   public createNewSession() {
     const newSession: newSessionDTO = {
@@ -270,25 +359,39 @@ export default class Sessions extends Vue {
       });
   }
 
-  public save() {
-    let editedUser = '';
-    editedUser.id = this.editedItem.id;
-    editedUser.prenom = this.editedItem.prenom;
-    editedUser.nom = this.editedItem.nom;
-    editedUser.username = this.editedItem.username;
-    editedUser.discordId = this.editedItem.discordId;
-    editedUser.sexe = this.editedItem.sexe;
-    editedUser.createdAt = this.editedItem.createdAt;
-    editedUser.argent = this.editedItem.argent;
-    editedUser.permis = this.editedItem.permis;
-    editedUser.points = this.editedItem.points;
-    editedUser.nbSessionsPermis = this.editedItem.nbSessionsPermis;
-    editedUser.nbSessionsPolice = this.editedItem.nbSessionsPolice;
-    editedUser.nbSessions = this.editedItem.nbSessions;
+  public openEditSessionDialog(item) {
+    this.editItem(item);
+    this.editSessionDialog = true;
 
-    AdminAPI.updateUser(editedUser)
+    this.startTime = this.editedItem.startDate.slice(
+      this.editedItem.startDate.indexOf(' '),
+      this.editedItem.startDate.length
+    );
+    this.endTime = this.editedItem.endDate.slice(this.editedItem.endDate.indexOf(' '), this.editedItem.endDate.length);
+  }
+
+  public closeEditSessionDialog() {
+    this.editSessionDialog = false;
+    this.startTime;
+    this.endTime = null;
+  }
+
+  public editSession() {
+    let editSessionTime = {} as editSessionDateDTO;
+    editSessionTime.sessionId = this.editedItem.sessionId;
+    editSessionTime.Debut = `${this.editedItem.startDate.split(' ')[0]} ${this.startTime}`;
+    editSessionTime.Fin = `${this.editedItem.endDate.split(' ')[0]} ${this.endTime}`;
+
+    SessionsApi.editSessionTime(this.editedItem.sessionId, editSessionTime as editSessionDateDTO)
       .then(() => {
-        this.dialog = false;
+        this.closeEditSessionDialog();
+        SessionsApi.getSessionsWithUser()
+          .then((response: any) => {
+            this.sessions = response;
+          })
+          .catch((err: any) => {
+            console.log(err);
+          });
       })
       .catch((err: any) => {
         console.log(err);
@@ -297,10 +400,10 @@ export default class Sessions extends Vue {
 
   mounted() {
     AuthModule.isAdmin()
-      .then(() => {
+      .then((response: any) => {
         //TODO: Check this
-        this.isAdmin = true;
-        // this.isAdmin = isAdmin;
+        // this.isAdmin = false;
+        this.isAdmin = response;
       })
       .catch((error) => {
         console.log(error);

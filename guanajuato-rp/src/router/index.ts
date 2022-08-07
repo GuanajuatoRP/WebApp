@@ -364,11 +364,11 @@ const router = new VueRouter({
 
 router.beforeEach(async (to: Route, from: Route, next: any) => {
   const loggedIn = await AuthModule.isLoggedIn();
-  if (!to.meta.allowAnonymous && !loggedIn) {
+  if (!to.meta!.allowAnonymous && !loggedIn) {
     router.push(NavigationModule.home);
     //TODO crée une popup d'alerte
     alert('Veuillez vous connecter pour accéder à cette page');
-  } else if (to.meta.needAdmin && (await AuthModule.isAdmin())) {
+  } else if (to.meta!.needAdmin && (await AuthModule.isAdmin())) {
     router.push(NavigationModule.home);
     //TODO crée une popup d'alerte
     alert('Vous avez pas la permision pour cela');

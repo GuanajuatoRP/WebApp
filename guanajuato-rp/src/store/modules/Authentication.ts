@@ -96,6 +96,13 @@ class Authentication extends VuexModule implements IAuthState {
     }
   }
 
+  @Mutation
+  public haveAdminRole(roles: string[]): boolean {
+    if (roles.includes('Admin')) {
+      return true;
+    } else return false;
+  }
+
   //#endregion
 
   //#region Actions
@@ -154,12 +161,10 @@ class Authentication extends VuexModule implements IAuthState {
   }
   @Action
   public async isAdmin(): Promise<boolean> {
-    // eslint-disable-next-line
     const token: Token = jwtDecode(this.token as unknown as string);
     return false;
-    if (token.Roles.includes('Admin')) {
-      return true;
-    } else return false;
+    // if (this.haveAdminRole(token.roles)) return true;
+    // else return false;
   }
 
   @Action
