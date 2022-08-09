@@ -163,26 +163,12 @@ export default class Test extends Vue {
     { text: 'NbSessions', value: 'nbSessions' },
     { text: 'Edit', value: 'actions', sortable: false },
   ];
-  private users = [];
+  private users: UserDTO[] = [];
   private UserDialog = false;
   private deleteDialog = false;
   private dialog = false;
   private editedIndex = -1;
-  private editedItem = {
-    id: '',
-    prenom: '',
-    nom: '',
-    username: '',
-    discordId: '',
-    sexe: '',
-    createdAt: '',
-    argent: 0,
-    permis: '',
-    points: '',
-    nbSessionsPermis: '',
-    nbSessionsPolice: '',
-    nbSessions: '',
-  } as UserDTO;
+  private editedItem: UserDTO = new UserDTO();
   private addUser = {
     DiscordId: '',
     Prenom: '',
@@ -192,7 +178,7 @@ export default class Test extends Vue {
     Argent: '',
   } as userRegister;
 
-  public editItem(item) {
+  public editItem(item: any) {
     this.dialog = true;
     this.editedItem = item;
   }
@@ -260,7 +246,7 @@ export default class Test extends Vue {
         this.closeUserDialog();
 
         AdminAPI.getUserList()
-          .then((userList: UserDTO) => {
+          .then((userList: UserDTO[]) => {
             this.users = userList;
           })
           .catch((err: any) => {
@@ -276,7 +262,7 @@ export default class Test extends Vue {
     this.isConnected = await AuthModule.isLoggedIn();
 
     AdminAPI.getUserList()
-      .then((userList: UserDTO) => {
+      .then((userList: UserDTO[]) => {
         this.users = userList;
       })
       .catch((err: any) => {

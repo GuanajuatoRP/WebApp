@@ -91,7 +91,8 @@ export default class Login extends Vue {
         // eslint-disable-next-line
         this?.$refs.form.reset();
         this.dialog = false;
-        this.$router.go();
+        this.$router.push({ name: this.$router.currentRoute.name as string | undefined });
+        this.$router.go(0);
       })
       .catch((reason) => {
         this.authErrors = reason;

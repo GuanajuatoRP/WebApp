@@ -145,11 +145,11 @@ export default class Register extends Vue {
     this.isValid = true;
     if (this.isValid) {
       let registerModel = new RegisterModel();
-      registerModel.discordId = this.discordId;
-      registerModel.prenom = this.prenom;
-      registerModel.nom = this.nom;
-      registerModel.sexe = this.sexe;
-      registerModel.password = this.password;
+      registerModel.DiscordId = this.discordId as string;
+      registerModel.Prenom = this.prenom as string;
+      registerModel.Nom = this.nom as string;
+      registerModel.Sexe = this.sexe as string;
+      registerModel.Password = this.password as string;
 
       RegisterApi.registerUser(registerModel)
         .then((response) => {
@@ -162,7 +162,7 @@ export default class Register extends Vue {
   }
 
   async mounted() {
-    this.discordId = this.$route.query.discordId;
+    this.discordId = this.$route.query.discordId as string;
     if (!this.discordId) this.$router.push({ name: 'Home' });
 
     await RegisterApi.isUserOnDB(this.discordId)

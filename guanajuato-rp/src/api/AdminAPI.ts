@@ -1,4 +1,5 @@
 import BaseApi from '@/api/BaseApi';
+import { userRegister } from '@/models/User/userRegister';
 
 export class AdminAPI {
   static async getUserCarList() {
@@ -30,7 +31,7 @@ export class AdminAPI {
     return response.data;
   }
   static async updateUser(user: userRegister) {
-    const response = await BaseApi.AppLogged.put(`api/User/${user.id}`, user);
+    const response = await BaseApi.AppLogged.put(`api/User/${user.DiscordId}`, user);
     return response.data;
   }
 }

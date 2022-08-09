@@ -1,4 +1,5 @@
 import BaseApi from '@/api/BaseApi';
+import { UserProfil } from '@/models/User/userProfil';
 
 export class UserAPI {
   static async getCarouselImage() {

@@ -223,7 +223,7 @@ export default class Test extends Vue {
     discordId: '',
   };
 
-  public editItem(item) {
+  public editItem(item: any) {
     this.dialog = true;
     this.editedItem = item;
   }
@@ -267,12 +267,12 @@ export default class Test extends Vue {
     editedCar.transmission = this.editedItem.transmission;
     editedCar.gearBox = this.editedItem.gearBox;
     editedCar.engineConfiguration = this.editedItem.engineConfiguration;
-    editedCar.powerBhp = this.editedItem.powerBhp;
-    editedCar.powerKw = this.editedItem.powerKw;
-    editedCar.torqueLbft = this.editedItem.torqueLbft;
-    editedCar.torqueNm = this.editedItem.torqueNm;
-    editedCar.weightLbs = this.editedItem.weightLbs;
-    editedCar.weightKg = this.editedItem.weightKg;
+    editedCar.powerBHP = this.editedItem.powerBhp;
+    editedCar.powerKW = this.editedItem.powerKw;
+    editedCar.torqueLBFT = this.editedItem.torqueLbft;
+    editedCar.torqueNM = this.editedItem.torqueNm;
+    editedCar.weightLBS = this.editedItem.weightLbs;
+    editedCar.weightKG = this.editedItem.weightKg;
     editedCar.engineDisplacement = this.editedItem.engineDisplacement;
     editedCar.nbCylindre = this.editedItem.nbCylindre;
     editedCar.aspiration = this.editedItem.aspiration;

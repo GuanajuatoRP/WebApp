@@ -210,8 +210,8 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { SessionsApi } from '@/api/SessionsApi';
 import { AuthModule } from '@/store/modules/Authentication';
-import { newSessionDTO } from '@/model/Sessions/newSessionDTO';
 import { editSessionDateDTO } from '@/models/Sessions/editSessionDateDTO';
+import { newSessionDTO } from '@/models/Sessions/newSessionDTO';
 
 @Component
 export default class Sessions extends Vue {
@@ -268,7 +268,7 @@ export default class Sessions extends Vue {
       });
   }
 
-  public openDeleteDialog(item) {
+  public openDeleteDialog(item: any) {
     this.editItem(item);
     this.deleteDialog = true;
   }
@@ -288,16 +288,16 @@ export default class Sessions extends Vue {
       });
   }
 
-  public editItem(item) {
+  public editItem(item: any) {
     this.editedItem = item;
   }
 
-  public openAddUserDialog(item) {
+  public openAddUserDialog(item: any) {
     this.editItem(item);
     this.addUserDialog = true;
     SessionsApi.getUserAreNotInSessions(this.editedItem.sessionId)
       .then((response: any) => {
-        this.userList = response.map((item) => item.username);
+        this.userList = response.map((item: any) => item.username);
         this.isUserLoaded = true;
       })
       .catch((err: any) => {
@@ -328,12 +328,12 @@ export default class Sessions extends Vue {
       });
   }
 
-  public openRemoveUserDialog(item) {
+  public openRemoveUserDialog(item: any) {
     this.editItem(item);
     this.removeUserDialog = true;
     SessionsApi.getUserAreInSessions(this.editedItem.sessionId)
       .then((response: any) => {
-        this.userList = response.map((item) => item.username);
+        this.userList = response.map((item: any) => item.username);
         this.isUserLoaded = true;
       })
       .catch((err: any) => {
@@ -364,7 +364,7 @@ export default class Sessions extends Vue {
       });
   }
 
-  public openEditSessionDialog(item) {
+  public openEditSessionDialog(item: any) {
     this.editItem(item);
     this.editSessionDialog = true;
 
@@ -383,7 +383,7 @@ export default class Sessions extends Vue {
 
   public editSession() {
     let editSessionTime = {} as editSessionDateDTO;
-    editSessionTime.sessionId = this.editedItem.sessionId;
+    editSessionTime.SessionId = this.editedItem.sessionId;
     editSessionTime.Debut = `${this.editedItem.startDate.split(' ')[0]} ${this.startTime}`;
     editSessionTime.Fin = `${this.editedItem.endDate.split(' ')[0]} ${this.endTime}`;
 

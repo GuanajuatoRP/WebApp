@@ -9,11 +9,12 @@ export class EditCarDTO {
   public gearBox = 0;
   public weightKG = 0;
   public engineDisplacement = 0;
+  public engineConfiguration = '';
   public nbCylindre = 0;
-  public enginePosition = 0;
+  public enginePosition = '';
   public prixTotal = 0;
   public prixModif = 0;
-  public aspiration = 0;
+  public aspiration = '';
   public speed = 0;
   public handling = 0;
   public accelerate = 0;
@@ -21,6 +22,6 @@ export class EditCarDTO {
   public braking = 0;
   public offroad = 0;
   public pi = 0;
-  public class = 0;
+  public class = '';
   public imatriculation = '';
 }

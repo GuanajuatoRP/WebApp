@@ -46,8 +46,8 @@ export default class Validation extends Vue {
   }
 
   async mounted() {
-    this.discordId = this.$route.query.discordId;
-    this.token = this.$route.query.token;
+    this.discordId = this.$route.query.discordId as string;
+    this.token = this.$route.query.token as string;
     if (!this.discordId || !this.token) this.$router.push({ name: 'Home' });
 
     let validateUser = new ValidationModel();

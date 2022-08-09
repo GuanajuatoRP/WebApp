@@ -78,7 +78,7 @@ export default class NavBar extends Vue {
     if (this.$router.currentRoute.name !== 'Home') {
       await this.$router.push({ name: NavigationModule.home, params: { noAutoLogon: 'true' } });
     }
-    this.$router.go();
+    this.$router.go(0);
   }
 
   get currentRouteName() {
