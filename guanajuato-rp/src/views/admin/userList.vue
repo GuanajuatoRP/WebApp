@@ -129,6 +129,7 @@
             ></v-text-field>
           </v-card-title>
           <v-data-table :headers="headers" :items="users" :search="search" :items-per-page="15" item-key="model">
+            <!-- eslint-disable-next-line -->
             <template v-slot:item.actions="{ item }">
               <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
             </template>
@@ -143,8 +144,8 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { AuthModule } from '@/store/modules/Authentication';
 import { AdminAPI } from '@/api/AdminAPI';
-import { UserDTO } from '@/models/User/UserDTO.ts';
-import { userRegister } from '@/models/User/userRegister.ts';
+import { UserDTO } from '@/models/User/UserDTO';
+import { userRegister } from '@/models/User/userRegister';
 
 @Component
 export default class Test extends Vue {
@@ -195,6 +196,7 @@ export default class Test extends Vue {
   }
 
   public closeUserDialog() {
+    //eslint-disable-next-line
     this.addUser = new userRegister();
     this.UserDialog = false;
   }
@@ -231,7 +233,7 @@ export default class Test extends Vue {
     editedUser.nbSessionsPolice = this.editedItem.nbSessionsPolice;
     editedUser.nbSessions = this.editedItem.nbSessions;
 
-    AdminAPI.updateUser(editedUser)
+    AdminAPI.updateUser(editedUser as any)
       .then(() => {
         this.dialog = false;
       })
@@ -246,7 +248,7 @@ export default class Test extends Vue {
         this.closeUserDialog();
 
         AdminAPI.getUserList()
-          .then((userList: UserDTO[]) => {
+          .then((userList: any) => {
             this.users = userList;
           })
           .catch((err: any) => {
@@ -262,7 +264,7 @@ export default class Test extends Vue {
     this.isConnected = await AuthModule.isLoggedIn();
 
     AdminAPI.getUserList()
-      .then((userList: UserDTO[]) => {
+      .then((userList: any) => {
         this.users = userList;
       })
       .catch((err: any) => {

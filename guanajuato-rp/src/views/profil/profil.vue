@@ -626,8 +626,8 @@ export default class Profile extends Vue {
   private voitures: VoitureDTO[] = [];
   async mounted() {
     AuthModule.loadUser();
-
-    UserAPI.getUserProfile(AuthModule.user.DiscordId)
+    //eslint-disable-next-line
+    UserAPI.getUserProfile(AuthModule.user!.DiscordId)
       .then((user: UserProfil) => {
         this.user = user as UserProfil;
         this.voitures = user.voitures as VoitureDTO[];

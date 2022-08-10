@@ -72,7 +72,8 @@ export default class Login extends Vue {
   private authErrors = '';
 
   public cancel() {
-    this?.$refs.form.reset();
+    //eslint-disable-next-line
+    (this.$refs.form! as any).reset();
     this.authErrors = '';
     this.dialog = false;
   }
@@ -88,8 +89,8 @@ export default class Login extends Vue {
       .then(() => {
         this.username = '';
         this.password = '';
-        // eslint-disable-next-line
-        this?.$refs.form.reset();
+        //eslint-disable-next-line
+        (this.$refs.form! as any).reset();
         this.dialog = false;
         this.$router.push({ name: this.$router.currentRoute.name as string | undefined });
         this.$router.go(0);

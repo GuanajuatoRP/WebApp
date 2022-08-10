@@ -102,7 +102,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { RegisterApi } from '@/api/RegisterApi';
-import { RegisterModel } from '@/models/Auth/RegisterModel.ts';
+import { RegisterModel } from '@/models/Auth/RegisterModel';
 
 @Component
 export default class Register extends Vue {
@@ -123,6 +123,7 @@ export default class Register extends Vue {
   private discordDisplayName = '';
 
   private registrationEffectued = false;
+  private dialog = false;
 
   public clearForm() {
     this.dialog = true;

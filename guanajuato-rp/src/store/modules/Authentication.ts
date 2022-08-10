@@ -168,13 +168,9 @@ class Authentication extends VuexModule implements IAuthState {
   }
   @Action
   public async isAdmin(): Promise<boolean> {
-    // eslint-disable-next-line
-    // const token = await this.getToken();
-    // const isAdmin: boolean = (await this.isTokenAdmin(token)) as boolean;
-    return true;
-    // if (!!token && this.isTokenAdmin(token)) {
-    //   return true;
-    // } else return false;
+    await this.loadUser();
+    if (this.user && this.user.Roles.includes('Admin')) return true;
+    return false;
   }
 
   @Action

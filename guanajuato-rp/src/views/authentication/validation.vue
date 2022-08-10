@@ -31,15 +31,19 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { RegisterApi } from '@/api/RegisterApi';
-import { ValidationModel } from '@/models/Auth/ValidationModel.ts';
+import { ValidationModel } from '@/models/Auth/ValidationModel';
 
 @Component
 export default class Validation extends Vue {
   private dbCheck = false;
   private acountActivated = false;
+  private isUsernameEmpty = false;
 
   private discordId = '';
   private token = '';
+  private username = '';
+  private nom = '';
+  private prenom = '';
   public updateUsername() {
     this.isUsernameEmpty = this.prenom == '' || this.nom == '' ? true : false;
     this.username = `${this.prenom} ${this.nom}`;

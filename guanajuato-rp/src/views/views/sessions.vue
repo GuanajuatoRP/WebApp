@@ -241,7 +241,7 @@ export default class Sessions extends Vue {
   private usersSelected = [];
 
   private dialog = false;
-  private editedItem = {};
+  private editedItem: any = {};
 
   private startMenu = false;
   private endMenu = false;
@@ -280,7 +280,7 @@ export default class Sessions extends Vue {
   public confirmDelete() {
     SessionsApi.deleteSession(this.editedItem.sessionId)
       .then(() => {
-        this.sessions = this.sessions.filter((item) => item.sessionId !== this.editedItem.sessionId);
+        this.sessions = this.sessions.filter((item: any) => item.sessionId !== this.editedItem.sessionId);
         this.closeDeleteDialog();
       })
       .catch((err: any) => {

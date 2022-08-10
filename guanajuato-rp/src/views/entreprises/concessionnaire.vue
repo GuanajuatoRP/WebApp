@@ -208,8 +208,7 @@ export default class Concessionnaire extends Vue {
   }
 
   rowClicked(row: OriginalCarDTO) {
-    const clipboardData =
-      event.clipboardData || window.clipboardData || event.originalEvent?.clipboardData || navigator.clipboard;
+    const clipboardData = navigator.clipboard;
     clipboardData.writeText(row.idCar);
     this.snackbar = true;
   }

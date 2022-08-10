@@ -153,6 +153,7 @@
             ></v-text-field>
           </v-card-title>
           <v-data-table :headers="headers" :items="voitures" :search="search" :items-per-page="15" item-key="model">
+            <!-- eslint-disable-next-line -->
             <template v-slot:item.actions="{ item }">
               <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
             </template>
@@ -167,7 +168,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { AuthModule } from '@/store/modules/Authentication';
 import { AdminAPI } from '@/api/AdminAPI';
-import { EditCarDTO } from '@/models/Cars/EditCarDTO.ts';
+import { EditCarDTO } from '@/models/Cars/EditCarDTO';
 
 @Component
 export default class Test extends Vue {
@@ -252,7 +253,7 @@ export default class Test extends Vue {
   public confirmDelete() {
     AdminAPI.deleteVoiture(this.editedItem.keyCar)
       .then(() => {
-        this.voitures = this.voitures.filter((item) => item.keyCar !== this.editedItem.keyCar);
+        this.voitures = this.voitures.filter((item: any) => item.keyCar !== this.editedItem.keyCar);
         this.closeDelete();
         this.close();
       })
