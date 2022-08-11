@@ -4,3 +4,8 @@ obj
 node_modules
 .env
 .vscode
+guanajuato-rp/dist/
+
+guanajuato-rp/.env.developement
+
+guanajuato-rp/.env.staging
