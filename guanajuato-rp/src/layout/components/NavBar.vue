@@ -30,7 +30,7 @@
     <!-- Menu Profil à droite -->
     <v-menu bottom left v-if="isConnected">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn icon v-bind="attrs" v-on="on" href="http://localhost:8080/profil">
+        <v-btn icon v-bind="attrs" v-on="on" @click.stop="goProfil()">
           <v-icon color="black">mdi-account</v-icon>
         </v-btn>
       </template>
@@ -93,6 +93,10 @@ export default class NavBar extends Vue {
   }
   get home() {
     return NavigationModule.homeRoute;
+  }
+
+  private async goProfil() {
+    await this.$router.push({ name: NavigationModule.profil });
   }
 
   private isActive(route: RouteConfig): boolean {

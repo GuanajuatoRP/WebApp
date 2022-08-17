@@ -8,22 +8,7 @@
       <v-card-text>
         <v-container>
           <v-row>
-            <h1>UwU</h1>
-            <!-- <v-col cols="12" sm="6" md="4">
-              <v-text-field v-model="editedItem.name" label="Dessert name"></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="6" md="4">
-              <v-text-field v-model="editedItem.calories" label="Calories"></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="6" md="4">
-              <v-text-field v-model="editedItem.fat" label="Fat (g)"></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="6" md="4">
-              <v-text-field v-model="editedItem.carbs" label="Carbs (g)"></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="6" md="4">
-              <v-text-field v-model="editedItem.protein" label="Protein (g)"></v-text-field>
-            </v-col> -->
+            <h1>{{ process.env.VUE_APP_TEST }}</h1>
           </v-row>
         </v-container>
       </v-card-text>
@@ -45,7 +30,10 @@ import { AuthModule } from '@/store/modules/Authentication';
 export default class Test extends Vue {
   private isConnected = false;
   private dialog = true;
+  private formTitle = process.env.VUE_APP_TEST;
   async mounted() {
+    console.log(process.env.VUE_APP_TEST);
+    console.log(process.env.VUE_APP_TEST);
     this.isConnected = await AuthModule.isLoggedIn();
   }
 }

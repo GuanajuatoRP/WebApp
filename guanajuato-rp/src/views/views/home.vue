@@ -52,7 +52,7 @@ import { UserAPI } from '@/api/UserAPI';
 export default class Home extends Vue {
   private items = [];
   // private slides = ['Innovation', 'Design', 'Technology', 'coucou'];
-  private cards = [{ text: 'VlaVlaVla mon text', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 8 }];
+  private cards = [{ text: 'Await data', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 8 }];
   private markdown = '# Hello world';
 
   mounted() {

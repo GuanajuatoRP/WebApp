@@ -3,7 +3,7 @@
     <v-col cols="12" md="10" v-if="!checkServer">
       <v-card>
         <v-card-title
-          >Formulaire d'inscription <v-progress-circular indeterminate color="primary"></v-progress-circular
+          >Formulaire d'inscription<v-progress-circular indeterminate color="primary"></v-progress-circular
         ></v-card-title>
         <v-card-text
           >Ton formulaire est en cours de création, il seras disponnible dans quelques instants !</v-card-text
@@ -61,7 +61,7 @@
               type="password"
               :rules="[
                 (v) => !!v || 'Password is required',
-                (v) => (v && v.length >= 5) || 'Password must have 5+ characters',
+                (v) => (v && v.length >= 10) || 'Password must have 10+ characters',
                 (v) => /(?=.*[A-Z])/.test(v) || 'Must have one uppercase character',
                 (v) => /(?=.*\d)/.test(v) || 'Must have one number',
                 (v) => /([!@$%])/.test(v) || 'Must have one special character [!@#$%]',
@@ -80,7 +80,7 @@
     </v-col>
     <v-col cols="12" md="10" v-if="checkServer && !IsOnServer && !IsAlradyRegistred">
       <v-card>
-        <v-card-title>Oupss... il semblerais que tu ne sois pas encors sur le serveur discord !</v-card-title>
+        <v-card-title>Oupss... il semblerait que tu ne sois pas encore sur le serveur discord !</v-card-title>
 
         <v-btn class="ma-2" dark large href="https://discord.gg/aFaBD4wKfM" color="indigo"
           >Rejoindre le serveur discord !</v-btn
@@ -141,8 +141,6 @@ export default class Register extends Vue {
   }
 
   public RegisterUser() {
-    console.log(this.discordId);
-
     this.isValid = true;
     if (this.isValid) {
       let registerModel = new RegisterModel();
