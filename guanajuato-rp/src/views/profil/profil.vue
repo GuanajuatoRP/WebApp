@@ -110,7 +110,7 @@
                                           v-model="item.idCar"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -120,7 +120,7 @@
                                           v-model="item.transmission"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -130,7 +130,7 @@
                                           v-model="item.gearBox"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -140,7 +140,7 @@
                                           v-model="item.engineConfiguration"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -150,7 +150,7 @@
                                           v-model="item.originalPowerBhp"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -160,7 +160,7 @@
                                           v-model="item.originalPowerKw"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -170,7 +170,7 @@
                                           v-model="item.originalTorqueLbft"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -180,7 +180,7 @@
                                           v-model="item.originalTorqueNm"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -190,7 +190,7 @@
                                           v-model="item.originalWeightLbs"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -200,7 +200,7 @@
                                           v-model="item.originalWeightKg"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -210,7 +210,7 @@
                                           v-model="item.originalEngineDisplacement"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -220,7 +220,7 @@
                                           v-model="item.originalNbCylindre"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -230,7 +230,7 @@
                                           v-model="item.originalAspiration"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -240,7 +240,7 @@
                                           v-model="item.originalEnginePosition"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -250,7 +250,7 @@
                                           v-model="item.originalSpeed"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -260,7 +260,7 @@
                                           v-model="item.originalHandling"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -270,7 +270,7 @@
                                           v-model="item.originalAccelerate"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -280,7 +280,7 @@
                                           v-model="item.originalLaunch"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -290,7 +290,7 @@
                                           v-model="item.originalBraking"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -300,7 +300,7 @@
                                           v-model="item.originalOffroad"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -310,7 +310,7 @@
                                           v-model="item.originalClass"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -349,7 +349,7 @@
                                           v-model="item.keyCar"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -359,7 +359,7 @@
                                           v-model="item.transmission"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -369,7 +369,7 @@
                                           v-model="item.gearBox"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -379,7 +379,7 @@
                                           v-model="item.engineConfiguration"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -389,7 +389,7 @@
                                           v-model="item.powerBhp"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -399,7 +399,7 @@
                                           v-model="item.powerKw"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -409,7 +409,7 @@
                                           v-model="item.torqueLbft"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -419,7 +419,7 @@
                                           v-model="item.torqueNm"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -429,7 +429,7 @@
                                           v-model="item.weightLbs"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -439,7 +439,7 @@
                                           v-model="item.weightLbs"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -449,7 +449,7 @@
                                           v-model="item.engineDisplacement"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -459,7 +459,7 @@
                                           v-model="item.nbCylindre"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -469,7 +469,7 @@
                                           v-model="item.aspiration"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -479,7 +479,7 @@
                                           v-model="item.enginePosition"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -489,7 +489,7 @@
                                           v-model="item.speed"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -499,7 +499,7 @@
                                           v-model="item.handling"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -509,7 +509,7 @@
                                           v-model="item.accelerate"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -519,7 +519,7 @@
                                           v-model="item.launch"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -529,7 +529,7 @@
                                           v-model="item.braking"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -539,7 +539,7 @@
                                           v-model="item.offroad"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -549,7 +549,7 @@
                                           v-model="item.class"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -559,7 +559,7 @@
                                           v-model="item.pi"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -569,7 +569,7 @@
                                           v-model="item.totalPrice"
                                         ></v-text-field>
                                       </v-col>
-                                      <v-col cols="12" sm="6" md="1">
+                                      <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
@@ -618,7 +618,7 @@ export default class Profile extends Vue {
     },
     { text: 'Model', value: 'model' },
     { text: 'Année', value: 'year' },
-    { text: 'Prix', value: 'originalPrice' },
+    { text: 'Prix', value: 'totalPrice' },
     { text: 'Class', value: 'class' },
     { text: 'PI', value: 'pi' },
     { text: 'Immatriculation', value: 'imatriculation' },

@@ -4,6 +4,7 @@
     "private": true,
     "scripts": {
         "serve": "vue-cli-service serve",
+        "docker": "cls && rmdir /s /q dist && npm run build && docker build -t dercraker0/guanajuato-web:latest . && docker push dercraker0/guanajuato-web:latest",
         "build": "vue-cli-service build --mode production",
         "staging": "vue-cli-service build --mode staging",
         "lint": "vue-cli-service lint"

@@ -67,9 +67,6 @@
     </v-row>
     <v-snackbar v-model="snackbar" :timeout="timeout" color="success" outlined right>
       Reference de modèle copier dans le presse-papier
-      <!-- <template v-slot:action="{ attrs }">
-        <v-btn color="blue" text v-bind="attrs" @click="snackbar = false"> Close </v-btn>
-      </template> -->
     </v-snackbar>
   </v-container>
 </template>
