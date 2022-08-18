@@ -9,7 +9,7 @@ export class RegisterApi {
   }
   static async isUserOnDB(discordId: string) {
     const response = await BaseApi.AppAnonymous.get(`/UserExist/${discordId}`);
-    return response.data;
+    return response;
   }
   static async registerUser(registerModel: RegisterModel) {
     const response = await BaseApi.AppAnonymous.post(`/register/${registerModel.DiscordId}`, registerModel);

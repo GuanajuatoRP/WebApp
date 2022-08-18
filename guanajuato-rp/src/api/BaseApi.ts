@@ -8,7 +8,6 @@ export default class BaseApi {
       this._appAnonymous = axios.create({
         baseURL: process.env.VUE_APP_USER_API_URL,
       });
-      console.log('process.env.VUE_APP_USER_API_URL', process.env.VUE_APP_USER_API_URL);
     }
     return this._appAnonymous;
   }
@@ -44,10 +43,21 @@ export default class BaseApi {
     return this._appToBotApi;
   }
 
+  private static _appDiscordApi: AxiosInstance | null;
+  static get AppDiscordApi() {
+    if (!this._appDiscordApi) {
+      this._appDiscordApi = axios.create({
+        baseURL: process.env.VUE_APP_DISCORD_API_URL,
+      });
+    }
+    return this._appDiscordApi;
+  }
+
   static reset() {
     this._authentication = null;
     this._appAnonymous = null;
     this._appLogged = null;
     this._appToBotApi = null;
+    this._appDiscordApi = null;
   }
 }

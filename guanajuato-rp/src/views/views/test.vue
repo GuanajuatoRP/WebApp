@@ -32,8 +32,6 @@ export default class Test extends Vue {
   private dialog = true;
   private formTitle = process.env.VUE_APP_TEST;
   async mounted() {
-    console.log(process.env.VUE_APP_TEST);
-    console.log(process.env.VUE_APP_TEST);
     this.isConnected = await AuthModule.isLoggedIn();
   }
 }

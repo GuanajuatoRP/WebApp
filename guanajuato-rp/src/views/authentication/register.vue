@@ -1,26 +1,32 @@
 <template>
   <v-container fluid>
-    <v-col cols="12" md="10" v-if="!checkServer">
+    <v-col cols="12" md="10" v-if="!IsDiscordAutentified">
       <v-card>
         <v-card-title
           >Formulaire d'inscription<v-progress-circular indeterminate color="primary"></v-progress-circular
         ></v-card-title>
-        <v-card-text
-          >Ton formulaire est en cours de création, il seras disponnible dans quelques instants !</v-card-text
-        >
+        <v-card-text>Ton formulaire est en cours de création, il sera disponible dans quelques instants !</v-card-text>
         <v-skeleton-loader type="article,actions"></v-skeleton-loader>
       </v-card>
     </v-col>
-    <v-col cols="12" md="10" v-if="checkServer && IsAlradyRegistred">
+    <v-col cols="12" md="10" v-if="IsDiscordAutentified && !IsOnServer">
       <v-card>
-        <v-card-title>Doucement!! Un compte sa suffit pas besoin de deux</v-card-title>
-        <v-btn class="ma-2" dark large to="/" color="indigo">Retour a l'Accueil</v-btn>
+        <v-card-title>Oupss... il semblerait que tu ne sois pas encore sur le serveur discord !</v-card-title>
+
+        <v-btn class="ma-2" dark large href="https://discord.gg/aFaBD4wKfM" color="indigo"
+          >Rejoindre le serveur discord !</v-btn
+        >
       </v-card>
     </v-col>
-
-    <v-col cols="12" md="10" v-if="checkServer && IsOnServer && !IsAlradyRegistred && !registrationEffectued">
+    <v-col cols="12" md="10" v-if="IsDiscordAutentified && IsOnServer && IsAlradyRegistred">
       <v-card>
-        <v-card-title>Formulaire d'inscription - {{ discordDisplayName }}</v-card-title>
+        <v-card-title>Doucement!! Un compte ça suffit pas besoin de deux</v-card-title>
+        <v-btn class="ma-2" dark large to="/" color="indigo">Retour à l'Accueil</v-btn>
+      </v-card>
+    </v-col>
+    <v-col cols="12" md="10" v-if="IsDiscordAutentified && IsOnServer && !IsAlradyRegistred && !registrationEffectued">
+      <v-card>
+        <v-card-title>Formulaire d'inscription - {{ discordDisplayName }}#{{ discordDiscriminator }}</v-card-title>
         <v-card-text>
           <v-form v-model="isValid">
             <v-text-field
@@ -78,22 +84,20 @@
         </v-card-actions>
       </v-card>
     </v-col>
-    <v-col cols="12" md="10" v-if="checkServer && !IsOnServer && !IsAlradyRegistred">
+    <v-col cols="12" md="10" v-if="IsDiscordAutentified && IsOnServer && !IsAlradyRegistred && registrationEffectued">
       <v-card>
-        <v-card-title>Oupss... il semblerait que tu ne sois pas encore sur le serveur discord !</v-card-title>
-
-        <v-btn class="ma-2" dark large href="https://discord.gg/aFaBD4wKfM" color="indigo"
-          >Rejoindre le serveur discord !</v-btn
-        >
+        <v-card-title>Ton compte a été créé !</v-card-title>
+        <v-btn class="ma-2" dark large to="/" color="indigo">Retour à l'Accueil</v-btn>
       </v-card>
     </v-col>
-    <v-col cols="12" md="10" v-if="checkServer && IsOnServer && !IsAlradyRegistred && registrationEffectued">
+    <v-col cols="12" md="10" v-if="IsDiscordAutentified && haveError">
       <v-card>
-        <v-card-title>Ton compte a été crée !</v-card-title>
-        <v-card-text>Tu va recevoir un message discord, pour activé ton compte !</v-card-text>
-        <v-card-text>Cette étape est importante. Si ton compte n'est pas activé tu n'auras pas accès au RP</v-card-text>
+        <v-card-title
+          >Oupss... il semblerait qu'une erreur soit survenue lors de la création de ton compte.</v-card-title
+        >
+        <v-card-subtitle> Réessaye plus tard. Si le problème persiste contacte le staff.</v-card-subtitle>
 
-        <v-btn class="ma-2" dark large to="/" color="indigo">Retour a l'Accueil</v-btn>
+        <v-btn class="ma-2" dark large to="/" color="indigo">Retour à l'Accueil</v-btn>
       </v-card>
     </v-col>
   </v-container>
@@ -102,28 +106,37 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { RegisterApi } from '@/api/RegisterApi';
+import { DiscordApi } from '@/api/DiscordApi';
 import { RegisterModel } from '@/models/Auth/RegisterModel';
+import { DiscordGetTokenModel } from '@/models/Auth/DiscordGetTokenModel';
+import { DiscordAuthTokenModel } from '@/models/Auth/DiscordAuthTokenModel';
 
 @Component
 export default class Register extends Vue {
-  private IsAlradyRegistred = false;
-  private checkServer = false;
+  private IsDiscordAutentified = false;
   private IsOnServer = false;
+  private IsAlradyRegistred = true;
+  private registrationEffectued = false;
+  private haveError = false;
+
   private isUsernameEmpty = true;
   private isValid = false;
 
   private prenom = '';
   private nom = '';
-  private username = `${this.prenom} ${this.nom}`;
+  private username = `${this.prenom}_${this.nom}`;
   private sexe = '';
   private sexeChoices = ['Homme', 'Femme', 'Autre'];
   private password = '';
 
   private discordId = '';
   private discordDisplayName = '';
+  private discordDiscriminator = '';
 
-  private registrationEffectued = false;
   private dialog = false;
+  private code = '';
+  private discordGetTokenDTO: DiscordGetTokenModel = new DiscordGetTokenModel();
+  private discordAuthTokenDTO: DiscordAuthTokenModel = new DiscordAuthTokenModel();
 
   public clearForm() {
     this.dialog = true;
@@ -161,26 +174,39 @@ export default class Register extends Vue {
   }
 
   async mounted() {
-    this.discordId = this.$route.query.discordId as string;
-    if (!this.discordId) this.$router.push({ name: 'Home' });
-
-    await RegisterApi.isUserOnDB(this.discordId)
-      .then((res: any) => {
-        if (res.status == 200) this.IsAlradyRegistred = true;
-        else this.IsAlradyRegistred = false;
-      })
-      .catch((err: any) => {
-        console.log(err);
+    this.code = this.$route.query.code as string;
+    if (!this.code) this.$router.push({ name: 'Home' });
+    else {
+      /* eslint-disable */
+      this.discordGetTokenDTO.client_id = process.env.VUE_APP_CLIENT_ID;
+      this.discordGetTokenDTO.client_secret = process.env.VUE_APP_CLIENT_SECRET;
+      this.discordGetTokenDTO.grant_type = process.env.VUE_APP_GRANT_TYPE;
+      this.discordGetTokenDTO.redirect_uri = process.env.VUE_APP_REDIRECT_URI;
+      /* eslint-disable */
+      this.discordGetTokenDTO.code = this.code as string;
+      await DiscordApi.getToken(this.discordGetTokenDTO).then((response: any) => {
+        this.discordAuthTokenDTO.token = response.access_token;
       });
-    await RegisterApi.isUserOnServer(this.discordId)
-      .then((userOnServer: any) => {
-        this.checkServer = true;
-        this.IsOnServer = userOnServer.isOnServeur;
-        this.discordDisplayName = userOnServer.username;
-      })
-      .catch((err: any) => {
-        console.log(err);
+      
+      await DiscordApi.getIdentity(this.discordAuthTokenDTO).then((response: any) => {
+        this.discordId = response.id;
+        this.discordDisplayName = response.username;
+        this.discordDiscriminator = response.discriminator;
       });
+      
+      await DiscordApi.getGuilds(this.discordAuthTokenDTO).then((response: any) => {
+        if (response.some((guild: any) => guild.id == process.env.VUE_APP_GUILD_ID)) this.IsOnServer = true;
+      });
+      
+      await RegisterApi.isUserOnDB(this.discordId)
+        .then((response: any) => {
+          if (response.status != 200) this.IsAlradyRegistred = false;
+        })
+        .catch((error: Error) => {
+          console.log(error);
+        })
+        .finally(() => (this.IsDiscordAutentified = true));
+    }
   }
 }
 </script>

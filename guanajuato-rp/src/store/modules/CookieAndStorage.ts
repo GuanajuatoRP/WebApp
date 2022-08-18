@@ -5,7 +5,6 @@ import store from '@/store/index';
 class CookieAndLocalStorage extends VuexModule {
   get darkTheme() {
     const darktheme = localStorage.getItem('dark-theme') === 'true' || false;
-    console.log('DarkTheme : ', darktheme);
     return darktheme;
   }
 

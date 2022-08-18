@@ -9,3 +9,5 @@ guanajuato-rp/dist/
 guanajuato-rp/.env.developement
 
 guanajuato-rp/.env.staging
+
+guanajuato-rp/.env.production
