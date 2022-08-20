@@ -4,7 +4,9 @@
     "private": true,
     "scripts": {
         "serve": "vue-cli-service serve",
-        "docker": "cls && rmdir /s /q dist && npm run build && docker build -t dercraker0/guanajuato-web:latest . && docker push dercraker0/guanajuato-web:latest",
+        "docker:major": "cls && rmdir /s /q dist && npx auto-version --major && npm run build && docker build -t dercraker0/guanajuato-web:latest . && docker push dercraker0/guanajuato-web:latest",
+        "docker": "cls && rmdir /s /q dist && npx auto-version --minor && npm run build && docker build -t dercraker0/guanajuato-web:latest . && docker push dercraker0/guanajuato-web:latest",
+        "docker:fix": "cls && rmdir /s /q dist && npx auto-version --patch && npm run build && docker build -t dercraker0/guanajuato-web:latest . && docker push dercraker0/guanajuato-web:latest",
         "build": "vue-cli-service build --mode production",
         "staging": "vue-cli-service build --mode staging",
         "lint": "vue-cli-service lint"

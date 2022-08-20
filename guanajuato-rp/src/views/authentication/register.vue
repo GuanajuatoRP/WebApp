@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-col cols="12" md="10" v-if="!IsDiscordAutentified">
+    <v-col cols="12" md="10" v-if="!IsDiscordAutentified && !haveError">
       <v-card>
         <v-card-title
           >Formulaire d'inscription<v-progress-circular indeterminate color="primary"></v-progress-circular
@@ -9,7 +9,7 @@
         <v-skeleton-loader type="article,actions"></v-skeleton-loader>
       </v-card>
     </v-col>
-    <v-col cols="12" md="10" v-if="IsDiscordAutentified && !IsOnServer">
+    <v-col cols="12" md="10" v-if="IsDiscordAutentified && !IsOnServer && !haveError">
       <v-card>
         <v-card-title>Oupss... il semblerait que tu ne sois pas encore sur le serveur discord !</v-card-title>
 
@@ -18,13 +18,17 @@
         >
       </v-card>
     </v-col>
-    <v-col cols="12" md="10" v-if="IsDiscordAutentified && IsOnServer && IsAlradyRegistred">
+    <v-col cols="12" md="10" v-if="IsDiscordAutentified && IsOnServer && IsAlradyRegistred && !haveError">
       <v-card>
         <v-card-title>Doucement!! Un compte ça suffit pas besoin de deux</v-card-title>
         <v-btn class="ma-2" dark large to="/" color="indigo">Retour à l'Accueil</v-btn>
       </v-card>
     </v-col>
-    <v-col cols="12" md="10" v-if="IsDiscordAutentified && IsOnServer && !IsAlradyRegistred && !registrationEffectued">
+    <v-col
+      cols="12"
+      md="10"
+      v-if="IsDiscordAutentified && IsOnServer && !IsAlradyRegistred && !registrationEffectued && !haveError"
+    >
       <v-card>
         <v-card-title>Formulaire d'inscription - {{ discordDisplayName }}#{{ discordDiscriminator }}</v-card-title>
         <v-card-text>
@@ -84,13 +88,21 @@
         </v-card-actions>
       </v-card>
     </v-col>
-    <v-col cols="12" md="10" v-if="IsDiscordAutentified && IsOnServer && !IsAlradyRegistred && registrationEffectued">
+    <v-col
+      cols="12"
+      md="10"
+      v-if="IsDiscordAutentified && IsOnServer && !IsAlradyRegistred && registrationEffectued && !haveError"
+    >
       <v-card>
-        <v-card-title>Ton compte a été créé !</v-card-title>
+        <v-card-title>Ton compte a été créé, tu peut a présent aller partous sur le site</v-card-title>
+        <v-card-title
+          >Attentions ce pendant il faut aussi que tu active ton compte sur discord, tu as un bouton pour cela dans le
+          règlement !</v-card-title
+        >
         <v-btn class="ma-2" dark large to="/" color="indigo">Retour à l'Accueil</v-btn>
       </v-card>
     </v-col>
-    <v-col cols="12" md="10" v-if="IsDiscordAutentified && haveError">
+    <v-col cols="12" md="10" v-if="haveError">
       <v-card>
         <v-card-title
           >Oupss... il semblerait qu'une erreur soit survenue lors de la création de ton compte.</v-card-title
