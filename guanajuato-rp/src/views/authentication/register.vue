@@ -34,24 +34,26 @@
         <v-card-text>
           <v-form v-model="isValid">
             <v-text-field
-              label="Prénom"
+              label="Prénom RôlePlay"
+              placeholder="Attentions ! Ce prénom est définitif"
               v-model="prenom"
-              :rules="[(v) => !!v || 'Le Prénom est requis']"
+              :rules="[(v) => !!v || 'Un prénom RP est requis']"
               @input="updateUsername"
               autofocus
               outlined
               required
             ></v-text-field>
             <v-text-field
-              label="Nom"
+              label="Nom RôlePlay"
+              placeholder="Attentions ! Ce nom est définitif"
               v-model="nom"
-              :rules="[(v) => !!v || 'Le Nom est requis']"
+              :rules="[(v) => !!v || 'Un nomm RP est requis']"
               @input="updateUsername"
               outlined
               required
             ></v-text-field>
             <v-text-field
-              label="UserName"
+              label="UserName RôlePlay"
               v-model="username"
               outlined
               :loading="isUsernameEmpty"
@@ -63,18 +65,18 @@
               v-model="sexe"
               outlined
               required
-              :rules="[(v) => !!v || 'Le Sexe est requis']"
+              :rules="[(v) => !!v || 'Le sexe est requis']"
             ></v-select>
             <v-text-field
               label="Password"
               v-model="password"
               type="password"
               :rules="[
-                (v) => !!v || 'Password is required',
-                (v) => (v && v.length >= 10) || 'Password must have 10+ characters',
-                (v) => /(?=.*[A-Z])/.test(v) || 'Must have one uppercase character',
-                (v) => /(?=.*\d)/.test(v) || 'Must have one number',
-                (v) => /([!@$%])/.test(v) || 'Must have one special character [!@#$%]',
+                (v) => !!v || 'Un mot de passe est requies',
+                (v) => (v && v.length >= 10) || 'Le mot de passe doit faire au moins 10 caractères',
+                (v) => /(?=.*[A-Z])/.test(v) || 'Doit avoir au moins une majuscule',
+                (v) => /(?=.*\d)/.test(v) || 'Doit avoir au moins un chiffre',
+                (v) => /([!@$%])/.test(v) || 'Doit avoir au moins un caractère spécial [!@#$%].',
               ]"
               error-count="5"
               outlined
@@ -125,9 +127,9 @@ import { DiscordAuthTokenModel } from '@/models/Auth/DiscordAuthTokenModel';
 
 @Component
 export default class Register extends Vue {
-  private IsDiscordAutentified = false;
-  private IsOnServer = false;
-  private IsAlradyRegistred = true;
+  private IsDiscordAutentified = true;
+  private IsOnServer = true;
+  private IsAlradyRegistred = false;
   private registrationEffectued = false;
   private haveError = false;
 
@@ -162,7 +164,7 @@ export default class Register extends Vue {
 
   public updateUsername() {
     this.isUsernameEmpty = this.prenom == '' || this.nom == '' ? true : false;
-    this.username = `${this.prenom} ${this.nom}`;
+    this.username = `${this.prenom}_${this.nom}`;
   }
 
   public RegisterUser() {

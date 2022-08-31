@@ -67,7 +67,6 @@ export default class Menu extends Vue {
   async mounted() {
     this.isConnected = await AuthModule.isLoggedIn();
     this.haveAdminRole = await AuthModule.isAdmin();
-    console.log(CookieAndStorage);
 
     this.$vuetify.theme.dark = CookieAndStorage.darkTheme;
     this.routesDisplay = routes.flatMap((e) => e.children).filter((r) => r && r.meta && !r.meta.hidden);

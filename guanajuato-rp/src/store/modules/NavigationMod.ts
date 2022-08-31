@@ -1,5 +1,5 @@
 import { Module, VuexModule, getModule } from 'vuex-module-decorators';
-import { version } from '../../../package.json';
+import { version } from '@/../package.json';
 import store from '@/store/index';
 
 @Module({ dynamic: true, store, name: 'NavigationMod' })

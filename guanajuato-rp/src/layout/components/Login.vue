@@ -17,6 +17,7 @@
             <v-text-field
               v-model="username"
               label="Utilisateur"
+              placeholder="PénomRP_NomRP"
               prepend-inner-icon="mdi-account"
               name="login"
               class="roundCorners"

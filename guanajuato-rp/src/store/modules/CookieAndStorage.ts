@@ -4,7 +4,9 @@ import store from '@/store/index';
 @Module({ dynamic: true, store, name: 'CookieAndLocalStorage' })
 class CookieAndLocalStorage extends VuexModule {
   get darkTheme() {
-    const darktheme = localStorage.getItem('dark-theme') === 'true' || false;
+    let darktheme: boolean;
+    if (localStorage.getItem('dark-theme') != null) darktheme = localStorage.getItem('dark-theme') === 'true' || false;
+    else darktheme = true;
     return darktheme;
   }
 
