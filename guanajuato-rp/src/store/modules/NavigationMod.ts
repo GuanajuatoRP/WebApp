@@ -1,10 +1,11 @@
 import { Module, VuexModule, getModule } from 'vuex-module-decorators';
+import { version } from '../../../package.json';
 import store from '@/store/index';
 
 @Module({ dynamic: true, store, name: 'NavigationMod' })
 class NavigationMod extends VuexModule {
   public nomApp = 'Guanajuato RP';
-  public version = '1.0.0';
+  public version = version;
 
   /* ##### Home ##### */
   public homeRoute = '';

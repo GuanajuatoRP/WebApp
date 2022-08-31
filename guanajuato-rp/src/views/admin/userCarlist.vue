@@ -17,7 +17,17 @@
                         <v-text-field v-model="addVoiture.discordId" label="DiscordId"></v-text-field>
                       </v-col>
                       <v-col cols="12">
-                        <v-text-field v-model="addVoiture.keyCar" label="Key Car"></v-text-field>
+                        <v-autocomplete
+                          v-model="addVoiture.keyCar"
+                          :items="carListToAdd"
+                          item-text="name"
+                          item-value="keyCar"
+                          outlined
+                          dense
+                          label="Car Name"
+                          solo
+                          :loading="isLoading"
+                        ></v-autocomplete>
                       </v-col>
                     </v-row>
                   </v-container>
@@ -165,6 +175,7 @@
 </template>
 
 <script lang="ts">
+import { CarsApi } from '@/api/CarsApi';
 import { Component, Vue } from 'vue-property-decorator';
 import { AuthModule } from '@/store/modules/Authentication';
 import { AdminAPI } from '@/api/AdminAPI';
@@ -173,6 +184,7 @@ import { EditCarDTO } from '@/models/Cars/EditCarDTO';
 @Component
 export default class Test extends Vue {
   private isConnected = false;
+  private isLoading = false;
   private search = '';
   private headers = [
     {
@@ -188,6 +200,7 @@ export default class Test extends Vue {
     { text: 'Edit', value: 'actions', sortable: false },
   ];
   private voitures = [];
+  private carListToAdd = [];
   private VoitureDialog = false;
   private deleteDialog = false;
   private dialog = false;
@@ -322,12 +335,28 @@ export default class Test extends Vue {
   async mounted() {
     this.isConnected = await AuthModule.isLoggedIn();
 
-    AdminAPI.getUserCarList()
+    await AdminAPI.getUserCarList()
       .then((carList: any) => {
         this.voitures = carList;
       })
       .catch((err: any) => {
         console.log(err);
+      });
+    await CarsApi.search('', '', '', '')
+      .then((reponse: any) => {
+        this.isLoading = true;
+        this.carListToAdd = reponse.map((item: any) => {
+          return {
+            keyCar: item.idCar,
+            name: `${item.maker} ${item.model} ${item.year}`,
+          };
+        });
+      })
+      .catch((err: any) => {
+        console.log(err);
+      })
+      .finally(() => {
+        this.isLoading = false;
       });
   }
 }

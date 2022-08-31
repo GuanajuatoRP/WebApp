@@ -1,4 +1,5 @@
 import BaseApi from '@/api/BaseApi';
+import { UserDTO } from '@/models/User/UserDTO';
 import { userRegister } from '@/models/User/userRegister';
 
 export class AdminAPI {
@@ -30,8 +31,8 @@ export class AdminAPI {
     const response = await BaseApi.AppLogged.delete(`DeleteUser/${discordId}`);
     return response.data;
   }
-  static async updateUser(user: userRegister) {
-    const response = await BaseApi.AppLogged.put(`api/User/${user.DiscordId}`, user);
+  static async updateUser(user: UserDTO) {
+    const response = await BaseApi.AppLogged.put(`api/User/${user.discordId}`, user);
     return response.data;
   }
 }

@@ -232,6 +232,8 @@ export default class Test extends Vue {
     editedUser.nbSessionsPermis = this.editedItem.nbSessionsPermis;
     editedUser.nbSessionsPolice = this.editedItem.nbSessionsPolice;
     editedUser.nbSessions = this.editedItem.nbSessions;
+    console.log(this.editedItem.discordId);
+    console.log(editedUser.discordId == this.editedItem.discordId);
 
     AdminAPI.updateUser(editedUser as any)
       .then(() => {
