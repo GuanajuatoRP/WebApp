@@ -319,24 +319,25 @@ export const routes: Array<RouteConfig> = [
           icon: 'mdi-account-outline',
           title: NavigationModule.registerTitle,
           allowAnonymous: true,
+          dontLogin: true,
         },
       },
     ],
   },
-  /* ##### Validation ##### */
+  /* ##### Mot de passe oublié ##### */
   {
-    path: NavigationModule.confirmAccountRoute,
+    path: NavigationModule.forgotPasswordRoute,
     component: LayoutBase,
     children: [
       {
         path: '',
-        name: NavigationModule.confirmAccount,
-        component: () => import('@/views/authentication/validation.vue'),
+        name: NavigationModule.forgotPassword,
+        component: () => import('@/views/authentication/resetpassword.vue'),
         meta: {
           hidden: true,
-          icon: 'mdi-account-outline',
-          title: NavigationModule.confirmAccountTitle,
+          title: NavigationModule.forgotPasswordTitle,
           allowAnonymous: true,
+          dontLogin: true,
         },
       },
     ],
@@ -368,9 +369,14 @@ router.beforeEach(async (to: Route, from: Route, next: any) => {
   const meta = to.meta as any;
 
   if (meta.allowAnonymous) {
+    if (meta.dontLogin && isLoggedIn) {
+      router.push({ name: NavigationModule.home });
+    }
     next();
   } else if (isLoggedIn) {
-    if (meta.needAdmin && !isAdmin) {
+    if (meta.dontLogin) {
+      router.push({ name: NavigationModule.home });
+    } else if (meta.needAdmin && !isAdmin) {
       router.push({ name: NavigationModule.home });
     } else next();
   } else {

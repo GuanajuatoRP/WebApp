@@ -16,7 +16,7 @@
           <v-form ref="form" v-model="isValid">
             <v-text-field
               v-model="username"
-              label="Utilisateur"
+              label="Username"
               placeholder="PénomRP_NomRP"
               prepend-inner-icon="mdi-account"
               name="login"
@@ -35,20 +35,29 @@
               :type="showPassword ? 'text' : 'password'"
               :rules="stringRules"
               :append-icon="showPassword ? `mdi-eye` : 'mdi-eye-off'"
-              @keypress.enter="login"
+              @keypress.enter="login()"
               @click:append="showPassword = !showPassword"
             ></v-text-field>
           </v-form>
           <v-btn
             class="roundCorners mb-3"
-            color="primary"
+            color="success"
             block
             :loading="authLoading"
             :disabled="!isValid"
-            @click="login"
+            @click="login()"
             >Connexion</v-btn
           >
-          <v-btn class="roundCorners" color="error" block @click="cancel">Annuler</v-btn>
+          <v-btn class="roundCorners mb-3" color="error" block @click="cancel">Annuler</v-btn>
+          <v-btn
+            class="roundCorners mb-3"
+            :href="linkFrogetPasswordToDiscord"
+            color="primary"
+            outlined
+            block
+            @click="cancel"
+            >Mot de passe oublier</v-btn
+          >
         </v-container>
       </v-card-text>
     </v-card>
@@ -64,6 +73,7 @@ import { AuthModule } from '@/store/modules/Authentication';
 export default class Login extends Vue {
   private dialog = false;
 
+  private linkFrogetPasswordToDiscord = process.env.VUE_APP_URI_FROGETPASSWD_DISCORD;
   private username = '';
   private password = '';
   private stringRules: any = [(v: string) => !!v || 'Valeur obligatoire'];
@@ -87,13 +97,13 @@ export default class Login extends Vue {
     authParams.password = password;
 
     AuthModule.login(authParams)
-      .then(() => {
+      .then(async () => {
         this.username = '';
         this.password = '';
         //eslint-disable-next-line
         (this.$refs.form! as any).reset();
         this.dialog = false;
-        this.$router.push({ name: this.$router.currentRoute.name as string | undefined });
+
         this.$router.go(0);
       })
       .catch((reason) => {

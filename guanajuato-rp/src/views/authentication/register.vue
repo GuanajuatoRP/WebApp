@@ -68,19 +68,17 @@
               :rules="[(v) => !!v || 'Le sexe est requis']"
             ></v-select>
             <v-text-field
-              label="Password"
               v-model="password"
-              type="password"
-              :rules="[
-                (v) => !!v || 'Un mot de passe est requies',
-                (v) => (v && v.length >= 10) || 'Le mot de passe doit faire au moins 10 caractères',
-                (v) => /(?=.*[A-Z])/.test(v) || 'Doit avoir au moins une majuscule',
-                (v) => /(?=.*\d)/.test(v) || 'Doit avoir au moins un chiffre',
-                (v) => /([!@$%])/.test(v) || 'Doit avoir au moins un caractère spécial [!@#$%].',
-              ]"
+              label="Mot de passe"
+              :rules="passwordRules"
               error-count="5"
               outlined
               required
+              prepend-inner-icon="mdi-lock"
+              :type="showPassword ? 'text' : 'password'"
+              :append-icon="showPassword ? `mdi-eye` : 'mdi-eye-off'"
+              @keypress.enter="RegisterUser"
+              @click:append="showPassword = !showPassword"
             ></v-text-field>
           </v-form>
         </v-card-text>
@@ -128,8 +126,8 @@ import { DiscordAuthTokenModel } from '@/models/Auth/DiscordAuthTokenModel';
 @Component
 export default class Register extends Vue {
   private IsDiscordAutentified = true;
-  private IsOnServer = true;
-  private IsAlradyRegistred = false;
+  private IsOnServer = false;
+  private IsAlradyRegistred = true;
   private registrationEffectued = false;
   private haveError = false;
 
@@ -141,8 +139,15 @@ export default class Register extends Vue {
   private username = `${this.prenom}_${this.nom}`;
   private sexe = '';
   private sexeChoices = ['Homme', 'Femme', 'Autre'];
+  private passwordRules = [
+    (v: string) => !!v || 'Un mot de passe est requies',
+    (v: string) => (v && v.length >= 8) || 'Le mot de passe doit faire au moins 8 caractères',
+    (v: string) => /(?=.*[A-Z])/.test(v) || 'Doit avoir au moins une majuscule',
+    (v: string) => /(?=.*\d)/.test(v) || 'Doit avoir au moins un chiffre',
+    (v: string) => /([!@€#$%-])/.test(v) || 'Doit avoir au moins un caractère spécial !@€#_$%-',
+  ];
   private password = '';
-
+  private showPassword = false;
   private discordId = '';
   private discordDisplayName = '';
   private discordDiscriminator = '';
@@ -200,23 +205,41 @@ export default class Register extends Vue {
       this.discordGetTokenDTO.code = this.code as string;
       await DiscordApi.getToken(this.discordGetTokenDTO).then((response: any) => {
         this.discordAuthTokenDTO.token = response.access_token;
-      });
+      }).catch((error: Error) => {
+          this.haveError = true;
+          console.log(error);
+        })
+        .finally(() => (this.IsDiscordAutentified = true));;
       
       await DiscordApi.getIdentity(this.discordAuthTokenDTO).then((response: any) => {
         this.discordId = response.id;
         this.discordDisplayName = response.username;
         this.discordDiscriminator = response.discriminator;
-      });
+      })
+      .catch((error: Error) => {
+          this.haveError = true;
+          console.log(error);
+        })
+        .finally(() => (this.IsDiscordAutentified = true));;
       
       await DiscordApi.getGuilds(this.discordAuthTokenDTO).then((response: any) => {
         if (response.some((guild: any) => guild.id == process.env.VUE_APP_GUILD_ID)) this.IsOnServer = true;
-      });
+      })
+      .catch((error: Error) => {
+          this.haveError = true;
+          console.log(error);
+        })
+        .finally(() => (this.IsDiscordAutentified = true));;
       
       await RegisterApi.isUserOnDB(this.discordId)
         .then((response: any) => {
+          console.log("this.IsAlradyRegistred : ", this.IsAlradyRegistred);
           if (response.status != 200) this.IsAlradyRegistred = false;
+          console.log("response.status != 200 : ", response.status != 200);
+          console.log("this.IsAlradyRegistred : ", this.IsAlradyRegistred);
         })
         .catch((error: Error) => {
+          this.haveError = true;
           console.log(error);
         })
         .finally(() => (this.IsDiscordAutentified = true));
