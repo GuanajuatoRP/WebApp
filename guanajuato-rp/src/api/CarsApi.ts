@@ -14,9 +14,9 @@ export class CarsApi {
     return response.data;
   }
 
-  static async search(marque: string, pays: string, type: string, modele: string) {
+  static async search(marque: string | null, pays: string | null, type: string | null, modele: string | null) {
     const response = await BaseApi.AppLogged.get(
-      `api/OriginalCar/Search?marque=${marque}&pays=${pays}&type=${type}&modele=${modele}`
+      `api/OriginalCar/Search?marque=${marque ?? ''}&pays=${pays ?? ''}&type=${type ?? ''}&modele=${modele ?? ''}`
     );
     return response.data;
   }

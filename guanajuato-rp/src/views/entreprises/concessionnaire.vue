@@ -79,18 +79,18 @@ import { Component, Vue } from 'vue-property-decorator';
 @Component
 export default class Concessionnaire extends Vue {
   private makers = [];
-  private selectedMaker = '';
+  private selectedMaker: string | null = null;
   private makerLoading = true;
 
   private pays = [];
-  private selectedPays = '';
+  private selectedPays: string | null = null;
   private paysLoading = true;
 
   private types = [];
-  private selectedType = '';
+  private selectedType: string | null = null;
   private typeLoading = true;
 
-  private selectedName = '';
+  private selectedName: string | null = null;
 
   private isLoading = false;
   private cars: OriginalCarDTO[] = [];
