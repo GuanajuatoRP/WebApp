@@ -19,7 +19,7 @@
 
     <v-spacer></v-spacer>
 
-    <v-btn icon href="https://discord.gg/BtkWVH2Kq9" target="_blank">
+    <v-btn icon href="https://discord.gg/rGPzz6BjuA" target="_blank">
       <v-icon color="#5865F2">mdi-discord</v-icon>
     </v-btn>
     <!-- Bouton login/ logout-->

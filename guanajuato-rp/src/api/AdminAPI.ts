@@ -24,7 +24,7 @@ export class AdminAPI {
     return response.data;
   }
   static async register(user: userRegister) {
-    const response = await BaseApi.AppLogged.post(`register`, user);
+    const response = await BaseApi.AppLogged.post(`register/${user.DiscordId}`, user);
     return response.data;
   }
   static async deleteUser(discordId: string) {

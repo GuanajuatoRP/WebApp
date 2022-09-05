@@ -13,7 +13,7 @@
       <v-card>
         <v-card-title>Oupss... il semblerait que tu ne sois pas encore sur le serveur discord !</v-card-title>
 
-        <v-btn class="ma-2" dark large href="https://discord.gg/aFaBD4wKfM" color="indigo"
+        <v-btn class="ma-2" dark large href="https://discord.gg/rGPzz6BjuA" color="indigo"
           >Rejoindre le serveur discord !</v-btn
         >
       </v-card>
@@ -24,18 +24,14 @@
         <v-btn class="ma-2" dark large to="/" color="indigo">Retour à l'Accueil</v-btn>
       </v-card>
     </v-col>
-    <v-col
-      cols="12"
-      md="10"
-      v-if="IsDiscordAutentified && IsOnServer && !IsAlradyRegistred && !registrationEffectued && !haveError"
-    >
+    <v-col cols="12" md="10" v-if="true">
       <v-card>
         <v-card-title>Formulaire d'inscription - {{ discordDisplayName }}#{{ discordDiscriminator }}</v-card-title>
         <v-card-text>
           <v-form v-model="isValid">
             <v-text-field
               label="Prénom RôlePlay"
-              placeholder="Attentions ! Ce prénom est définitif"
+              placeholder="Attention ! Ce prénom est définitif"
               v-model="prenom"
               :rules="[(v) => !!v || 'Un prénom RP est requis']"
               @input="updateUsername"
@@ -45,9 +41,9 @@
             ></v-text-field>
             <v-text-field
               label="Nom RôlePlay"
-              placeholder="Attentions ! Ce nom est définitif"
+              placeholder="Attention ! Ce nom est définitif"
               v-model="nom"
-              :rules="[(v) => !!v || 'Un nomm RP est requis']"
+              :rules="[(v) => !!v || 'Un nom RP est requis']"
               @input="updateUsername"
               outlined
               required
@@ -96,7 +92,7 @@
       <v-card>
         <v-card-title>Ton compte a été créé, tu peut a présent aller partous sur le site</v-card-title>
         <v-card-title
-          >Attentions ce pendant il faut aussi que tu active ton compte sur discord, tu as un bouton pour cela dans le
+          >Attention ce pendant il faut aussi que tu active ton compte sur discord, tu as un bouton pour cela dans le
           règlement !</v-card-title
         >
         <v-btn class="ma-2" dark large to="/" color="indigo">Retour à l'Accueil</v-btn>
@@ -125,7 +121,7 @@ import { DiscordAuthTokenModel } from '@/models/Auth/DiscordAuthTokenModel';
 
 @Component
 export default class Register extends Vue {
-  private IsDiscordAutentified = true;
+  private IsDiscordAutentified = false;
   private IsOnServer = false;
   private IsAlradyRegistred = true;
   private registrationEffectued = false;
@@ -143,6 +139,7 @@ export default class Register extends Vue {
     (v: string) => !!v || 'Un mot de passe est requies',
     (v: string) => (v && v.length >= 8) || 'Le mot de passe doit faire au moins 8 caractères',
     (v: string) => /(?=.*[A-Z])/.test(v) || 'Doit avoir au moins une majuscule',
+    (v: string) => /(?=.*[a-z])/.test(v) || 'Doit avoir au moins une minuscule',
     (v: string) => /(?=.*\d)/.test(v) || 'Doit avoir au moins un chiffre',
     (v: string) => /([!@€#$%-])/.test(v) || 'Doit avoir au moins un caractère spécial !@€#_$%-',
   ];
@@ -157,6 +154,15 @@ export default class Register extends Vue {
   private discordGetTokenDTO: DiscordGetTokenModel = new DiscordGetTokenModel();
   private discordAuthTokenDTO: DiscordAuthTokenModel = new DiscordAuthTokenModel();
 
+  public updateUsername() {
+    this.isUsernameEmpty = this.prenom == '' || this.nom == '' ? true : false;
+    this.username = `${this.prenom.normalize('NFD').replace(/[\u0300-\u036f]/g, '')}_${this.nom
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replaceAll(/'/g, '')
+      .replaceAll(/"/g, '')}`;
+  }
+
   public clearForm() {
     this.dialog = true;
     this.isUsernameEmpty = true;
@@ -165,11 +171,6 @@ export default class Register extends Vue {
     this.username = `${this.prenom} ${this.nom}`;
     this.sexe = '';
     this.password = '';
-  }
-
-  public updateUsername() {
-    this.isUsernameEmpty = this.prenom == '' || this.nom == '' ? true : false;
-    this.username = `${this.prenom}_${this.nom}`;
   }
 
   public RegisterUser() {

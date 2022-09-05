@@ -28,9 +28,6 @@
                       <v-col cols="12">
                         <v-text-field v-model="addUser.Password" label="Password"></v-text-field>
                       </v-col>
-                      <v-col cols="12">
-                        <v-text-field v-model="addUser.Argent" label="Argent"></v-text-field>
-                      </v-col>
                     </v-row>
                   </v-container>
                 </v-card-text>
@@ -176,7 +173,6 @@ export default class Test extends Vue {
     Nom: '',
     Sexe: '',
     Password: '',
-    Argent: '',
   } as userRegister;
 
   public editItem(item: any) {
@@ -245,6 +241,14 @@ export default class Test extends Vue {
   }
 
   public saveNewUser() {
+    this.addUser.Prenom = this.addUser.Prenom.normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replaceAll(/'/g, '')
+      .replaceAll(/"/g, '');
+    this.addUser.Nom = this.addUser.Nom.normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replaceAll(/'/g, '')
+      .replaceAll(/"/g, '');
     AdminAPI.register(this.addUser)
       .then(() => {
         this.closeUserDialog();

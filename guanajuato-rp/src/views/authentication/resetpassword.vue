@@ -16,7 +16,7 @@
       <v-card>
         <v-card-title>Oupss... il semblerait que tu ne sois pas encore sur le serveur discord !</v-card-title>
 
-        <v-btn class="ma-2" dark large href="https://discord.gg/aFaBD4wKfM" color="indigo"
+        <v-btn class="ma-2" dark large href="https://discord.gg/rGPzz6BjuA" color="indigo"
           >Rejoindre le serveur Discord !</v-btn
         >
       </v-card>
@@ -25,7 +25,7 @@
       <v-card>
         <v-card-title>Il semblerait que tu n'aies pas encore de compte sur le site</v-card-title>
         <v-card-text>Pour t'inscrire, tu dois passer sur discord</v-card-text>
-        <v-btn class="ma-2" dark large href="https://discord.gg/aFaBD4wKfM" color="indigo">Serveur Discord !</v-btn>
+        <v-btn class="ma-2" dark large href="https://discord.gg/rGPzz6BjuA" color="indigo">Serveur Discord !</v-btn>
       </v-card>
     </v-col>
     <v-col cols="12" md="10" v-if="IsDiscordAutentified && IsOnServer && IsRegistred && !PasswordEdited && !haveError">
