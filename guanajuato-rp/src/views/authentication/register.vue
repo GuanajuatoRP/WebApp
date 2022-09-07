@@ -24,7 +24,7 @@
         <v-btn class="ma-2" dark large to="/" color="indigo">Retour à l'Accueil</v-btn>
       </v-card>
     </v-col>
-    <v-col cols="12" md="10" v-if="true">
+    <v-col cols="12" md="10" v-if="IsDiscordAutentified && IsOnServer && !IsAlradyRegistred && !haveError">
       <v-card>
         <v-card-title>Formulaire d'inscription - {{ discordDisplayName }}#{{ discordDiscriminator }}</v-card-title>
         <v-card-text>
