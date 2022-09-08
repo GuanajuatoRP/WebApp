@@ -44,86 +44,59 @@
             <v-dialog v-model="dialog" max-width="75%">
               <v-card>
                 <v-card-title>
-                  <span class="text-h5">Edit Car -- {{ editedItem.model }} of {{ editedItem.username }}</span>
+                  <span class="text-h5">Edit Car -- {{ editedItem.Model }} of {{ editedItem.Username }}</span>
                 </v-card-title>
 
                 <v-card-text>
                   <v-container>
                     <v-row>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="Transmission" v-model="editedItem.transmission"></v-text-field>
+                        <v-text-field label="KeyCar" disabled v-model="editedItem.KeyCar"></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="GearBox" v-model="editedItem.gearBox"></v-text-field>
+                        <v-text-field label="PowerHp" v-model="editedItem.PowerHp"></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field
-                          label="EngineConfiguration"
-                          v-model="editedItem.engineConfiguration"
-                        ></v-text-field>
+                        <v-text-field label="WeightKg" v-model="editedItem.WeightKg"></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="PowerBhp" v-model="editedItem.powerBhp"></v-text-field>
+                        <v-text-field label="DriveTrain" v-model="editedItem.DriveTrain"></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="powerKw" v-model="editedItem.powerKw"></v-text-field>
+                        <v-text-field label="Class" v-model="editedItem.Class"></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="torqueLbft" v-model="editedItem.torqueLbft"></v-text-field>
+                        <v-text-field label="Pi" v-model="editedItem.Pi"></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="torqueNm" v-model="editedItem.torqueNm"></v-text-field>
+                        <v-text-field label="OnRoad" v-model="editedItem.OnRoad"></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="weightLbs" v-model="editedItem.weightLbs"></v-text-field>
+                        <v-text-field label="Speed" v-model="editedItem.Speed"></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="weightKg" v-model="editedItem.weightKg"></v-text-field>
+                        <v-text-field label="Handling" v-model="editedItem.Handling"></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="engineDisplacement" v-model="editedItem.engineDisplacement"></v-text-field>
+                        <v-text-field label="Accelerate" v-model="editedItem.Accelerate"></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="nbCylindre" v-model="editedItem.nbCylindre"></v-text-field>
+                        <v-text-field label="Launch" v-model="editedItem.Launch"></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="aspiration" v-model="editedItem.aspiration"></v-text-field>
+                        <v-text-field label="Braking" v-model="editedItem.Braking"></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="enginePosition" v-model="editedItem.enginePosition"></v-text-field>
+                        <v-text-field label="Offroad" v-model="editedItem.Offroad"></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="speed" v-model="editedItem.speed"></v-text-field>
+                        <v-text-field label="Imatriculation" v-model="editedItem.Imatriculation"></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="handling" v-model="editedItem.handling"></v-text-field>
+                        <v-text-field label="TotalPrice" disabled v-model="editedItem.TotalPrice"></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="accelerate" v-model="editedItem.accelerate"></v-text-field>
-                      </v-col>
-                      <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="launch" v-model="editedItem.launch"></v-text-field>
-                      </v-col>
-                      <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="braking" v-model="editedItem.braking"></v-text-field>
-                      </v-col>
-                      <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="offroad" v-model="editedItem.offroad"></v-text-field>
-                      </v-col>
-                      <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="pi" v-model="editedItem.pi"></v-text-field>
-                      </v-col>
-                      <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="class" v-model="editedItem.class"></v-text-field>
-                      </v-col>
-                      <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="imatriculation" v-model="editedItem.imatriculation"></v-text-field>
-                      </v-col>
-                      <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="totalPrice" v-model="editedItem.totalPrice"></v-text-field>
-                      </v-col>
-                      <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="editPrice" v-model="editedItem.editPrice"></v-text-field>
+                        <v-text-field label="EditPrice" v-model="editedItem.EditPrice"></v-text-field>
                       </v-col>
                     </v-row>
                   </v-container>
@@ -141,7 +114,7 @@
             <v-dialog v-model="deleteDialog" max-width="75%">
               <v-card>
                 <v-card-title>
-                  <span class="text-h5">Delete {{ editedItem.model }} Of {{ editedItem.username }}</span>
+                  <span class="text-h5">Delete {{ editedItem.Model }} of {{ editedItem.Username }}</span>
                 </v-card-title>
 
                 <v-card-actions>
@@ -179,7 +152,7 @@ import { CarsApi } from '@/api/CarsApi';
 import { Component, Vue } from 'vue-property-decorator';
 import { AuthModule } from '@/store/modules/Authentication';
 import { AdminAPI } from '@/api/AdminAPI';
-import { EditCarDTO } from '@/models/Cars/EditCarDTO';
+import { CarDTO } from '@/models/Cars/CarDTO';
 
 @Component
 export default class Test extends Vue {
@@ -196,50 +169,60 @@ export default class Test extends Vue {
     { text: 'Year', value: 'year' },
     { text: 'Type', value: 'type' },
     { text: 'Imatriculation', value: 'imatriculation' },
-    { text: 'OriginalPrice', value: 'originalPrice' },
+    { text: 'OriginalPrice', value: 'price' },
     { text: 'Edit', value: 'actions', sortable: false },
   ];
-  private voitures = [];
+  private voitures: CarDTO[] = [];
   private carListToAdd = [];
   private VoitureDialog = false;
   private deleteDialog = false;
   private dialog = false;
   private editedIndex = -1;
   private editedItem = {
-    keyCar: '',
-    transmission: '',
-    gearBox: 0,
-    engineConfiguration: '',
-    powerBhp: 0,
-    powerKw: 0,
-    torqueLbft: 0,
-    torqueNm: 0,
-    weightLbs: 0,
-    weightKg: 0,
-    engineDisplacement: 0,
-    nbCylindre: 0,
-    aspiration: '',
-    enginePosition: '',
-    speed: 0,
-    handling: 0,
-    accelerate: 0,
-    launch: 0,
-    braking: 0,
-    offroad: 0,
-    pi: 0,
-    class: '',
-    imatriculation: '',
-    totalPrice: 0,
-    editPrice: 0,
+    Model: '',
+    Username: '',
+    KeyCar: '',
+    PowerHp: 0,
+    WeightKg: 0,
+    DriveTrain: '',
+    Class: '',
+    Pi: 0,
+    OnRoad: false,
+    Speed: 0,
+    Handling: 0,
+    Accelerate: 0,
+    Launch: 0,
+    Braking: 0,
+    Offroad: 0,
+    Imatriculation: '',
+    TotalPrice: 0,
+    EditPrice: 0,
   };
   private addVoiture = {
     keyCar: '',
     discordId: '',
   };
 
-  public editItem(item: any) {
+  public editItem(item: CarDTO) {
     this.dialog = true;
-    this.editedItem = item;
+    this.editedItem.Model = item.model;
+    this.editedItem.Username = item.username;
+    this.editedItem.KeyCar = item.keyCar;
+    this.editedItem.PowerHp = item.editPowerHp;
+    this.editedItem.WeightKg = item.editWeightKg;
+    this.editedItem.DriveTrain = item.editDriveTrain;
+    this.editedItem.Class = item.editClass;
+    this.editedItem.Pi = item.editPi;
+    this.editedItem.OnRoad = item.editOnRoad;
+    this.editedItem.Speed = item.editSpeed;
+    this.editedItem.Handling = item.editHandling;
+    this.editedItem.Accelerate = item.editAccelerate;
+    this.editedItem.Launch = item.editLaunch;
+    this.editedItem.Braking = item.editBraking;
+    this.editedItem.Offroad = item.editOffroad;
+    this.editedItem.Imatriculation = item.imatriculation;
+    this.editedItem.EditPrice = item.editPrice;
+    this.editedItem.TotalPrice = item.editPrice + item.price;
   }
 
   public close() {
@@ -264,9 +247,9 @@ export default class Test extends Vue {
   }
 
   public confirmDelete() {
-    AdminAPI.deleteVoiture(this.editedItem.keyCar)
+    AdminAPI.deleteVoiture(this.editedItem.KeyCar)
       .then(() => {
-        this.voitures = this.voitures.filter((item: any) => item.keyCar !== this.editedItem.keyCar);
+        this.voitures = this.voitures.filter((item: any) => item.keyCar !== this.editedItem.KeyCar);
         this.closeDelete();
         this.close();
       })
@@ -276,36 +259,10 @@ export default class Test extends Vue {
   }
 
   public save() {
-    let editedCar = new EditCarDTO();
-    editedCar.keyCar = this.editedItem.keyCar;
-    editedCar.transmission = this.editedItem.transmission;
-    editedCar.gearBox = this.editedItem.gearBox;
-    editedCar.engineConfiguration = this.editedItem.engineConfiguration;
-    editedCar.powerBHP = this.editedItem.powerBhp;
-    editedCar.powerKW = this.editedItem.powerKw;
-    editedCar.torqueLBFT = this.editedItem.torqueLbft;
-    editedCar.torqueNM = this.editedItem.torqueNm;
-    editedCar.weightLBS = this.editedItem.weightLbs;
-    editedCar.weightKG = this.editedItem.weightKg;
-    editedCar.engineDisplacement = this.editedItem.engineDisplacement;
-    editedCar.nbCylindre = this.editedItem.nbCylindre;
-    editedCar.aspiration = this.editedItem.aspiration;
-    editedCar.enginePosition = this.editedItem.enginePosition;
-    editedCar.speed = this.editedItem.speed;
-    editedCar.handling = this.editedItem.handling;
-    editedCar.accelerate = this.editedItem.accelerate;
-    editedCar.launch = this.editedItem.launch;
-    editedCar.braking = this.editedItem.braking;
-    editedCar.offroad = this.editedItem.offroad;
-    editedCar.pi = this.editedItem.pi;
-    editedCar.class = this.editedItem.class;
-    editedCar.imatriculation = this.editedItem.imatriculation ?? '';
-    editedCar.prixModif = this.editedItem.totalPrice;
-    editedCar.prixModif = this.editedItem.editPrice;
-
-    AdminAPI.updateVoiture(editedCar)
+    AdminAPI.updateVoiture(this.editedItem)
       .then(() => {
         this.dialog = false;
+        this.$router.go(0);
       })
       .catch((err: any) => {
         console.log(err);

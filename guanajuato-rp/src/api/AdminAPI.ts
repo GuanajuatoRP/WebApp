@@ -12,7 +12,7 @@ export class AdminAPI {
     return response.data;
   }
   static async updateVoiture(car: any) {
-    const response = await BaseApi.AppLogged.put(`api/Garage/${car.keyCar}`, car);
+    const response = await BaseApi.AppLogged.put(`api/Garage/${car.KeyCar}`, car);
     return response.data;
   }
   static async deleteVoiture(keyCar: string) {

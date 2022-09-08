@@ -204,6 +204,7 @@ export default class Register extends Vue {
       this.discordGetTokenDTO.redirect_uri = process.env.VUE_APP_REDIRECT_URI;
       /* eslint-disable */
       this.discordGetTokenDTO.code = this.code as string;
+
       await DiscordApi.getToken(this.discordGetTokenDTO).then((response: any) => {
         this.discordAuthTokenDTO.token = response.access_token;
       }).catch((error: Error) => {

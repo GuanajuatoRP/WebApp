@@ -57,17 +57,12 @@
         hide-default-footer
         :page.sync="page"
         @page-count="pageCount = $event"
-        v-touch="rowClicked"
-        @click:row="rowClicked"
       >
       </v-data-table>
     </v-row>
     <v-row v-if="pageCount != 1" no-gutters justify="end" class="px-2">
       <v-pagination v-model="page" :length="pageCount" total-visible="7"></v-pagination>
     </v-row>
-    <v-snackbar v-model="snackbar" :timeout="timeout" color="success" outlined right>
-      Reference de modèle copier dans le presse-papier
-    </v-snackbar>
   </v-container>
 </template>
 
@@ -95,9 +90,6 @@ export default class Concessionnaire extends Vue {
   private isLoading = false;
   private cars: OriginalCarDTO[] = [];
 
-  private snackbar = false;
-  private timeout = 2000;
-
   private get headers() {
     return [
       {
@@ -116,17 +108,22 @@ export default class Concessionnaire extends Vue {
         value: 'year',
       },
       {
-        text: 'Pays',
-        sortable: true,
-        value: 'origin',
-      },
-      {
         text: 'Type',
         sortable: true,
         value: 'type',
       },
       {
+        text: 'Puissance CV',
+        sortable: true,
+        value: 'powerHp',
+      },
+      {
         text: 'Classe',
+        sortable: true,
+        value: 'class',
+      },
+      {
+        text: 'Pi',
         sortable: true,
         value: 'pi',
       },
@@ -202,12 +199,6 @@ export default class Concessionnaire extends Vue {
       .finally(() => {
         this.isLoading = false;
       });
-  }
-
-  rowClicked(row: OriginalCarDTO) {
-    const clipboardData = navigator.clipboard;
-    clipboardData.writeText(row.idCar);
-    this.snackbar = true;
   }
 }
 </script>

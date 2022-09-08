@@ -1,0 +1,45 @@
+export class CarDTO {
+  public keyCar = '';
+  public idUser = '';
+  public username = '';
+  public idCar = '';
+  public carId = 0;
+  public carOrdinal = 0;
+  public maker = '';
+  public model = '';
+  public year = 0;
+  public type = '';
+  public price = 0;
+  public rarity = '';
+  public wikiLink = '';
+  public pictureLink = '';
+
+  public originalPowerHp = 0;
+  public originalWeightKg = 0;
+  public originalDriveTrain = '';
+  public originalClass = '';
+  public originalPi = 0;
+  public originalOnRoad = false;
+  public originalSpeed = 0;
+  public originalHandling = 0;
+  public originalAccelerate = 0;
+  public originalLaunch = 0;
+  public originalBraking = 0;
+  public originalOffroad = 0;
+
+  public editPowerHp = 0;
+  public editWeightKg = 0;
+  public editDriveTrain = '';
+  public editClass = '';
+  public editPi = 0;
+  public editOnRoad = false;
+  public editSpeed = 0;
+  public editHandling = 0;
+  public editAccelerate = 0;
+  public editLaunch = 0;
+  public editBraking = 0;
+  public editOffroad = 0;
+  public imatriculation = '';
+  public totalPrice = 0;
+  public editPrice = 0;
+}

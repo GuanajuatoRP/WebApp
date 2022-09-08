@@ -96,7 +96,7 @@
                                     <v-row>
                                       <v-col cols="12" md="4">
                                         <v-col cols="12" md="4">
-                                          <v-img v-model="item.pictureLink"></v-img>
+                                          <v-img :src="item.pictureLink"></v-img>
                                         </v-col>
                                       </v-col>
                                       <v-col cols="12" md="8"> </v-col>
@@ -116,8 +116,8 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="Transmission"
-                                          v-model="item.transmission"
+                                          label="PowerHp"
+                                          v-model="item.originalPowerHp"
                                         ></v-text-field>
                                       </v-col>
                                       <v-col cols="12" sm="6" md="2">
@@ -126,77 +126,7 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="GearBox"
-                                          v-model="item.gearBox"
-                                        ></v-text-field>
-                                      </v-col>
-                                      <v-col cols="12" sm="6" md="2">
-                                        <v-text-field
-                                          outlined
-                                          dense
-                                          disabled
-                                          readonly
-                                          label="EngineConfiguration"
-                                          v-model="item.engineConfiguration"
-                                        ></v-text-field>
-                                      </v-col>
-                                      <v-col cols="12" sm="6" md="2">
-                                        <v-text-field
-                                          outlined
-                                          dense
-                                          disabled
-                                          readonly
-                                          label="PowerBhp"
-                                          v-model="item.originalPowerBhp"
-                                        ></v-text-field>
-                                      </v-col>
-                                      <v-col cols="12" sm="6" md="2">
-                                        <v-text-field
-                                          outlined
-                                          dense
-                                          disabled
-                                          readonly
-                                          label="powerKw"
-                                          v-model="item.originalPowerKw"
-                                        ></v-text-field>
-                                      </v-col>
-                                      <v-col cols="12" sm="6" md="2">
-                                        <v-text-field
-                                          outlined
-                                          dense
-                                          disabled
-                                          readonly
-                                          label="torqueLbft"
-                                          v-model="item.originalTorqueLbft"
-                                        ></v-text-field>
-                                      </v-col>
-                                      <v-col cols="12" sm="6" md="2">
-                                        <v-text-field
-                                          outlined
-                                          dense
-                                          disabled
-                                          readonly
-                                          label="torqueNm"
-                                          v-model="item.originalTorqueNm"
-                                        ></v-text-field>
-                                      </v-col>
-                                      <v-col cols="12" sm="6" md="2">
-                                        <v-text-field
-                                          outlined
-                                          dense
-                                          disabled
-                                          readonly
-                                          label="weightLbs"
-                                          v-model="item.originalWeightLbs"
-                                        ></v-text-field>
-                                      </v-col>
-                                      <v-col cols="12" sm="6" md="2">
-                                        <v-text-field
-                                          outlined
-                                          dense
-                                          disabled
-                                          readonly
-                                          label="weightKg"
+                                          label="WeightKg"
                                           v-model="item.originalWeightKg"
                                         ></v-text-field>
                                       </v-col>
@@ -206,8 +136,8 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="engineDisplacement"
-                                          v-model="item.originalEngineDisplacement"
+                                          label="DriveTrain"
+                                          v-model="item.originalDriveTrain"
                                         ></v-text-field>
                                       </v-col>
                                       <v-col cols="12" sm="6" md="2">
@@ -216,97 +146,7 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="nbCylindre"
-                                          v-model="item.originalNbCylindre"
-                                        ></v-text-field>
-                                      </v-col>
-                                      <v-col cols="12" sm="6" md="2">
-                                        <v-text-field
-                                          outlined
-                                          dense
-                                          disabled
-                                          readonly
-                                          label="aspiration"
-                                          v-model="item.originalAspiration"
-                                        ></v-text-field>
-                                      </v-col>
-                                      <v-col cols="12" sm="6" md="2">
-                                        <v-text-field
-                                          outlined
-                                          dense
-                                          disabled
-                                          readonly
-                                          label="enginePosition"
-                                          v-model="item.originalEnginePosition"
-                                        ></v-text-field>
-                                      </v-col>
-                                      <v-col cols="12" sm="6" md="2">
-                                        <v-text-field
-                                          outlined
-                                          dense
-                                          disabled
-                                          readonly
-                                          label="speed"
-                                          v-model="item.originalSpeed"
-                                        ></v-text-field>
-                                      </v-col>
-                                      <v-col cols="12" sm="6" md="2">
-                                        <v-text-field
-                                          outlined
-                                          dense
-                                          disabled
-                                          readonly
-                                          label="handling"
-                                          v-model="item.originalHandling"
-                                        ></v-text-field>
-                                      </v-col>
-                                      <v-col cols="12" sm="6" md="2">
-                                        <v-text-field
-                                          outlined
-                                          dense
-                                          disabled
-                                          readonly
-                                          label="accelerate"
-                                          v-model="item.originalAccelerate"
-                                        ></v-text-field>
-                                      </v-col>
-                                      <v-col cols="12" sm="6" md="2">
-                                        <v-text-field
-                                          outlined
-                                          dense
-                                          disabled
-                                          readonly
-                                          label="launch"
-                                          v-model="item.originalLaunch"
-                                        ></v-text-field>
-                                      </v-col>
-                                      <v-col cols="12" sm="6" md="2">
-                                        <v-text-field
-                                          outlined
-                                          dense
-                                          disabled
-                                          readonly
-                                          label="braking"
-                                          v-model="item.originalBraking"
-                                        ></v-text-field>
-                                      </v-col>
-                                      <v-col cols="12" sm="6" md="2">
-                                        <v-text-field
-                                          outlined
-                                          dense
-                                          disabled
-                                          readonly
-                                          label="offroad"
-                                          v-model="item.originalOffroad"
-                                        ></v-text-field>
-                                      </v-col>
-                                      <v-col cols="12" sm="6" md="2">
-                                        <v-text-field
-                                          outlined
-                                          dense
-                                          disabled
-                                          readonly
-                                          label="class"
+                                          label="Class"
                                           v-model="item.originalClass"
                                         ></v-text-field>
                                       </v-col>
@@ -316,8 +156,98 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="pi"
+                                          label="Pi"
                                           v-model="item.originalPi"
+                                        ></v-text-field>
+                                      </v-col>
+                                      <v-col cols="12" sm="6" md="2">
+                                        <v-text-field
+                                          outlined
+                                          dense
+                                          disabled
+                                          readonly
+                                          label="OnRoad"
+                                          v-model="item.originalOnRoad"
+                                        ></v-text-field>
+                                      </v-col>
+                                      <v-col cols="12" sm="6" md="2">
+                                        <v-text-field
+                                          outlined
+                                          dense
+                                          disabled
+                                          readonly
+                                          label="Speed"
+                                          v-model="item.originalSpeed"
+                                        ></v-text-field>
+                                      </v-col>
+                                      <v-col cols="12" sm="6" md="2">
+                                        <v-text-field
+                                          outlined
+                                          dense
+                                          disabled
+                                          readonly
+                                          label="Handling"
+                                          v-model="item.originalHandling"
+                                        ></v-text-field>
+                                      </v-col>
+                                      <v-col cols="12" sm="6" md="2">
+                                        <v-text-field
+                                          outlined
+                                          dense
+                                          disabled
+                                          readonly
+                                          label="Accelerate"
+                                          v-model="item.originalAccelerate"
+                                        ></v-text-field>
+                                      </v-col>
+                                      <v-col cols="12" sm="6" md="2">
+                                        <v-text-field
+                                          outlined
+                                          dense
+                                          disabled
+                                          readonly
+                                          label="Launch"
+                                          v-model="item.originalLaunch"
+                                        ></v-text-field>
+                                      </v-col>
+                                      <v-col cols="12" sm="6" md="2">
+                                        <v-text-field
+                                          outlined
+                                          dense
+                                          disabled
+                                          readonly
+                                          label="Braking"
+                                          v-model="item.originalBraking"
+                                        ></v-text-field>
+                                      </v-col>
+                                      <v-col cols="12" sm="6" md="2">
+                                        <v-text-field
+                                          outlined
+                                          dense
+                                          disabled
+                                          readonly
+                                          label="Offroad"
+                                          v-model="item.originalOffroad"
+                                        ></v-text-field>
+                                      </v-col>
+                                      <v-col cols="12" sm="6" md="2">
+                                        <v-text-field
+                                          outlined
+                                          dense
+                                          disabled
+                                          readonly
+                                          label="Type"
+                                          v-model="item.type"
+                                        ></v-text-field>
+                                      </v-col>
+                                      <v-col cols="12" sm="6" md="2">
+                                        <v-text-field
+                                          outlined
+                                          dense
+                                          disabled
+                                          readonly
+                                          label="Rareté"
+                                          v-model="item.rarity"
                                         ></v-text-field>
                                       </v-col>
                                     </v-row>
@@ -335,10 +265,6 @@
                                 <v-card-text>
                                   <v-container>
                                     <v-row>
-                                      <v-col cols="12" md="4">
-                                        <v-img v-model="item.pictureLink"></v-img>
-                                      </v-col>
-                                      <v-col cols="12" md="8"> </v-col>
                                       <v-col cols="12">
                                         <v-text-field
                                           outlined
@@ -355,8 +281,8 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="Transmission"
-                                          v-model="item.transmission"
+                                          label="PowerHp"
+                                          v-model="item.editPowerHp"
                                         ></v-text-field>
                                       </v-col>
                                       <v-col cols="12" sm="6" md="2">
@@ -365,8 +291,8 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="GearBox"
-                                          v-model="item.gearBox"
+                                          label="WeightKg"
+                                          v-model="item.editWeightKg"
                                         ></v-text-field>
                                       </v-col>
                                       <v-col cols="12" sm="6" md="2">
@@ -375,8 +301,8 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="EngineConfiguration"
-                                          v-model="item.engineConfiguration"
+                                          label="DriveTrain"
+                                          v-model="item.editDriveTrain"
                                         ></v-text-field>
                                       </v-col>
                                       <v-col cols="12" sm="6" md="2">
@@ -385,8 +311,8 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="PowerBhp"
-                                          v-model="item.powerBhp"
+                                          label="Class"
+                                          v-model="item.editClass"
                                         ></v-text-field>
                                       </v-col>
                                       <v-col cols="12" sm="6" md="2">
@@ -395,8 +321,8 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="powerKw"
-                                          v-model="item.powerKw"
+                                          label="Pi"
+                                          v-model="item.editPi"
                                         ></v-text-field>
                                       </v-col>
                                       <v-col cols="12" sm="6" md="2">
@@ -405,8 +331,8 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="torqueLbft"
-                                          v-model="item.torqueLbft"
+                                          label="OnRoad"
+                                          v-model="item.editOnRoad"
                                         ></v-text-field>
                                       </v-col>
                                       <v-col cols="12" sm="6" md="2">
@@ -415,8 +341,8 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="torqueNm"
-                                          v-model="item.torqueNm"
+                                          label="Speed"
+                                          v-model="item.editSpeed"
                                         ></v-text-field>
                                       </v-col>
                                       <v-col cols="12" sm="6" md="2">
@@ -425,8 +351,8 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="weightLbs"
-                                          v-model="item.weightLbs"
+                                          label="Handling"
+                                          v-model="item.editHandling"
                                         ></v-text-field>
                                       </v-col>
                                       <v-col cols="12" sm="6" md="2">
@@ -435,8 +361,8 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="weightKg"
-                                          v-model="item.weightLbs"
+                                          label="Accelerate"
+                                          v-model="item.editAccelerate"
                                         ></v-text-field>
                                       </v-col>
                                       <v-col cols="12" sm="6" md="2">
@@ -445,8 +371,8 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="engineDisplacement"
-                                          v-model="item.engineDisplacement"
+                                          label="Launch"
+                                          v-model="item.editLaunch"
                                         ></v-text-field>
                                       </v-col>
                                       <v-col cols="12" sm="6" md="2">
@@ -455,8 +381,8 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="nbCylindre"
-                                          v-model="item.nbCylindre"
+                                          label="Braking"
+                                          v-model="item.editBraking"
                                         ></v-text-field>
                                       </v-col>
                                       <v-col cols="12" sm="6" md="2">
@@ -465,8 +391,8 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="aspiration"
-                                          v-model="item.aspiration"
+                                          label="Offroad"
+                                          v-model="item.editOffroad"
                                         ></v-text-field>
                                       </v-col>
                                       <v-col cols="12" sm="6" md="2">
@@ -475,88 +401,8 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="enginePosition"
-                                          v-model="item.enginePosition"
-                                        ></v-text-field>
-                                      </v-col>
-                                      <v-col cols="12" sm="6" md="2">
-                                        <v-text-field
-                                          outlined
-                                          dense
-                                          disabled
-                                          readonly
-                                          label="speed"
-                                          v-model="item.speed"
-                                        ></v-text-field>
-                                      </v-col>
-                                      <v-col cols="12" sm="6" md="2">
-                                        <v-text-field
-                                          outlined
-                                          dense
-                                          disabled
-                                          readonly
-                                          label="handling"
-                                          v-model="item.handling"
-                                        ></v-text-field>
-                                      </v-col>
-                                      <v-col cols="12" sm="6" md="2">
-                                        <v-text-field
-                                          outlined
-                                          dense
-                                          disabled
-                                          readonly
-                                          label="accelerate"
-                                          v-model="item.accelerate"
-                                        ></v-text-field>
-                                      </v-col>
-                                      <v-col cols="12" sm="6" md="2">
-                                        <v-text-field
-                                          outlined
-                                          dense
-                                          disabled
-                                          readonly
-                                          label="launch"
-                                          v-model="item.launch"
-                                        ></v-text-field>
-                                      </v-col>
-                                      <v-col cols="12" sm="6" md="2">
-                                        <v-text-field
-                                          outlined
-                                          dense
-                                          disabled
-                                          readonly
-                                          label="braking"
-                                          v-model="item.braking"
-                                        ></v-text-field>
-                                      </v-col>
-                                      <v-col cols="12" sm="6" md="2">
-                                        <v-text-field
-                                          outlined
-                                          dense
-                                          disabled
-                                          readonly
-                                          label="offroad"
-                                          v-model="item.offroad"
-                                        ></v-text-field>
-                                      </v-col>
-                                      <v-col cols="12" sm="6" md="2">
-                                        <v-text-field
-                                          outlined
-                                          dense
-                                          disabled
-                                          readonly
-                                          label="class"
-                                          v-model="item.class"
-                                        ></v-text-field>
-                                      </v-col>
-                                      <v-col cols="12" sm="6" md="2">
-                                        <v-text-field
-                                          outlined
-                                          dense
-                                          disabled
-                                          readonly
-                                          label="pi"
-                                          v-model="item.pi"
+                                          label="imatriculation"
+                                          v-model="item.imatriculation"
                                         ></v-text-field>
                                       </v-col>
                                       <v-col cols="12" sm="6" md="2">
@@ -575,7 +421,7 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="editPrice"
+                                          label="Edit-Price"
                                           v-model="item.editPrice"
                                         ></v-text-field>
                                       </v-col>
@@ -603,13 +449,14 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { AuthModule } from '@/store/modules/Authentication';
 import { UserAPI } from '@/api/UserAPI';
-import { UserProfil, VoitureDTO } from '@/models/User/userProfil';
+import { UserProfil } from '@/models/User/userProfil';
+import { CarDTO } from '@/models/Cars/CarDTO';
 
 @Component
 export default class Profile extends Vue {
   private user: UserProfil = new UserProfil();
   private search = '';
-  private item = 'AAAA';
+  private item = '';
   private headers = [
     {
       text: 'Marque',
@@ -618,19 +465,19 @@ export default class Profile extends Vue {
     },
     { text: 'Model', value: 'model' },
     { text: 'Année', value: 'year' },
-    { text: 'Prix', value: 'totalPrice' },
-    { text: 'Class', value: 'class' },
-    { text: 'PI', value: 'pi' },
+    { text: "Prix d'origine", value: 'price' },
+    { text: 'Class', value: 'editClass' },
+    { text: 'PI', value: 'editPi' },
     { text: 'Immatriculation', value: 'imatriculation' },
   ];
-  private voitures: VoitureDTO[] = [];
+  private voitures: CarDTO[] = [];
   async mounted() {
     AuthModule.loadUser();
     //eslint-disable-next-line
     UserAPI.getUserProfile(AuthModule.user!.DiscordId)
       .then((user: UserProfil) => {
         this.user = user as UserProfil;
-        this.voitures = user.voitures as VoitureDTO[];
+        this.voitures = user.voitures as CarDTO[];
       })
       .catch((err: any) => {
         console.log(err);
