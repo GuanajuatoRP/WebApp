@@ -168,6 +168,7 @@ export default class Test extends Vue {
     { text: 'Model', value: 'model' },
     { text: 'Year', value: 'year' },
     { text: 'Type', value: 'type' },
+    { text: 'Puissance Cv', value: 'editPowerHp' },
     { text: 'Imatriculation', value: 'imatriculation' },
     { text: 'OriginalPrice', value: 'price' },
     { text: 'Edit', value: 'actions', sortable: false },
