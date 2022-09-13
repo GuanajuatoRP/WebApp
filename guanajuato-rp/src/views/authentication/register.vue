@@ -24,7 +24,11 @@
         <v-btn class="ma-2" dark large to="/" color="indigo">Retour à l'Accueil</v-btn>
       </v-card>
     </v-col>
-    <v-col cols="12" md="10" v-if="IsDiscordAutentified && IsOnServer && !IsAlradyRegistred && !haveError">
+    <v-col
+      cols="12"
+      md="10"
+      v-if="IsDiscordAutentified && IsOnServer && !IsAlradyRegistred && !registrationEffectued && !haveError"
+    >
       <v-card>
         <v-card-title>Formulaire d'inscription - {{ discordDisplayName }}#{{ discordDiscriminator }}</v-card-title>
         <v-card-text>
@@ -33,7 +37,11 @@
               label="Prénom RôlePlay"
               placeholder="Attention ! Ce prénom est définitif"
               v-model="prenom"
-              :rules="[(v) => !!v || 'Un prénom RP est requis']"
+              error-count="2"
+              :rules="[
+                (v) => !!v || 'Un prénom RP est requis',
+                (v) => !/(?=.*\s+)/.test(v) || 'Tu ne peux pas avoir d\'espace dans ton prénom !',
+              ]"
               @input="updateUsername"
               autofocus
               outlined
@@ -43,7 +51,11 @@
               label="Nom RôlePlay"
               placeholder="Attention ! Ce nom est définitif"
               v-model="nom"
-              :rules="[(v) => !!v || 'Un nom RP est requis']"
+              error-count="2"
+              :rules="[
+                (v) => !!v || 'Un nom RP est requis',
+                (v) => !/(?=.*\s+)/.test(v) || 'Tu ne peux pas avoir d\'espace dans ton nom !',
+              ]"
               @input="updateUsername"
               outlined
               required
@@ -51,6 +63,7 @@
             <v-text-field
               label="UserName RôlePlay"
               v-model="username"
+              error-count="1"
               outlined
               :loading="isUsernameEmpty"
               disabled
@@ -59,6 +72,7 @@
               :items="sexeChoices"
               label="Sexe"
               v-model="sexe"
+              error-count="1"
               outlined
               required
               :rules="[(v) => !!v || 'Le sexe est requis']"
@@ -67,7 +81,7 @@
               v-model="password"
               label="Mot de passe"
               :rules="passwordRules"
-              error-count="5"
+              error-count="6"
               outlined
               required
               prepend-inner-icon="mdi-lock"
