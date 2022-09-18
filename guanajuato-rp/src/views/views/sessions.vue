@@ -6,33 +6,42 @@
           <v-card-title>
             Liste des sessions
             <v-spacer></v-spacer>
-            <v-btn color="primary" dark class="mb-2" @click="createNewSession" v-if="isAdmin"> New Sessions</v-btn>
+            <v-btn color="primary" dark class="mb-2" @click="createNewSession" v-if="isAdmin">
+              <v-icon>mdi-plus</v-icon>
+              Ajouter une session
+            </v-btn>
 
             <v-dialog v-model="addUserDialog" max-width="75%">
               <v-card>
                 <v-card-title>
-                  <span class="text-h5">Ajout d'utilisateurs a la sessions</span>
+                  <span class="text-h5">Ajout d'utilisateurs à la session</span>
                 </v-card-title>
 
                 <v-card-text>
                   <v-col cols="12" sm="6">
-                    <v-select
+                    <v-autocomplete
                       prepend-icon="mdi-account-multiple-plus"
                       chips
                       :loading="!isUserLoaded"
                       v-model="usersSelected"
                       :items="userList"
-                      label="Selectionne les utilisateurs a ajouter"
+                      label="Selectionne les utilisateurs à ajouter"
                       multiple
                       outlined
-                    ></v-select>
+                    ></v-autocomplete>
                   </v-col>
                 </v-card-text>
 
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="blue darken-1" text @click="closeAddUserDialog"> Cancel </v-btn>
-                  <v-btn color="green darken-1" text @click="addUserIntoSession"> Add Users </v-btn>
+                  <v-btn color="blue darken-1" text @click="closeAddUserDialog">
+                    <v-icon class="mr-2">mdi-cancel</v-icon>
+                    Annuler
+                  </v-btn>
+                  <v-btn color="green darken-1" text @click="addUserIntoSession">
+                    <v-icon class="mr-2">mdi-plus</v-icon>
+                    Ajouter
+                  </v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
@@ -45,23 +54,29 @@
 
                 <v-card-text>
                   <v-col cols="12" sm="6">
-                    <v-select
+                    <v-autocomplete
                       prepend-icon="mdi-account-multiple-plus"
                       chips
                       :loading="!isUserLoaded"
                       v-model="usersSelected"
                       :items="userList"
-                      label="Selectionne les utilisateurs a supprimer de la session"
+                      label="Selectionne les utilisateurs à supprimer de la session"
                       multiple
                       outlined
-                    ></v-select>
+                    ></v-autocomplete>
                   </v-col>
                 </v-card-text>
 
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="blue darken-1" text @click="closeRemoveUserDialog"> Cancel </v-btn>
-                  <v-btn color="red darken-1" text @click="removeUserIntoSession"> Remove Users </v-btn>
+                  <v-btn color="blue darken-1" text @click="closeRemoveUserDialog">
+                    <v-icon class="mr-2">mdi-cancel</v-icon>
+                    Annuler
+                  </v-btn>
+                  <v-btn color="red darken-1" text @click="removeUserIntoSession">
+                    <v-icon class="mr-2">mdi-minus</v-icon>
+                    Retirer
+                  </v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
@@ -143,8 +158,14 @@
 
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="blue darken-1" text @click="closeEditSessionDialog"> Cancel </v-btn>
-                  <v-btn color="green darken-1" text @click="editSession"> Valider </v-btn>
+                  <v-btn color="blue darken-1" text @click="closeEditSessionDialog">
+                    <v-icon class="mr-2">mdi-cancel</v-icon>
+                    Annuler
+                  </v-btn>
+                  <v-btn color="green darken-1" text @click="editSession">
+                    <v-icon class="mr-2">mdi-check</v-icon>
+                    Valider
+                  </v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
@@ -152,13 +173,19 @@
             <v-dialog v-model="deleteDialog" max-width="75%">
               <v-card>
                 <v-card-title class="justify-content">
-                  <span class="text-h5">Est-tu sur de vouloir delete cette session ?</span>
+                  <span class="text-h5">Es-tu sûr de vouloir supprimer cette session ?</span>
                 </v-card-title>
 
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="red darken-1" text @click="confirmDelete" outlined> Delete </v-btn>
-                  <v-btn color="blue darken-1" @click="closeDeleteDialog"> Cancel </v-btn>
+                  <v-btn color="red darken-1" text @click="confirmDelete">
+                    <v-icon class="mr-2">mdi-delete</v-icon>
+                    Supprimer
+                  </v-btn>
+                  <v-btn color="blue darken-1" text @click="closeDeleteDialog">
+                    <v-icon class="mr-2">mdi-cancel</v-icon>
+                    Annuler
+                  </v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
@@ -192,10 +219,14 @@
                   </v-container>
                 </v-row>
                 <v-row v-if="isAdmin">
-                  <v-btn color="success" col="12" md="4" @click="openAddUserDialog(item)">Add Users</v-btn>
-                  <v-btn color="error" col="12" md="4" @click="openRemoveUserDialog(item)">Remove USer</v-btn>
-                  <v-btn color="orange" col="12" md="4" @click="openEditSessionDialog(item)">Edit Session</v-btn>
-                  <v-btn color="error" col="12" md="4" outlined @click="openDeleteDialog(item)">Delete Session</v-btn>
+                  <v-btn text color="success" col="12" md="4" @click="openAddUserDialog(item)"
+                    >Ajout d'utilisateurs</v-btn
+                  >
+                  <v-btn text color="error" col="12" md="4" @click="openRemoveUserDialog(item)"
+                    >Retrait d'utilisateurs</v-btn
+                  >
+                  <v-btn text color="orange" col="12" md="4" @click="openEditSessionDialog(item)">Modifier</v-btn>
+                  <v-btn text color="error" col="12" md="4" @click="openDeleteDialog(item)">Supprimer</v-btn>
                 </v-row>
               </td>
             </template>
@@ -298,6 +329,7 @@ export default class Sessions extends Vue {
     SessionsApi.getUserAreNotInSessions(this.editedItem.sessionId)
       .then((response: any) => {
         this.userList = response.map((item: any) => item.username);
+        this.userList.sort();
         this.isUserLoaded = true;
       })
       .catch((err: any) => {
