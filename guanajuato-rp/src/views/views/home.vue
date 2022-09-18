@@ -52,20 +52,16 @@ import { UserAPI } from '@/api/UserAPI';
 export default class Home extends Vue {
   private items = [];
   private slides = [
-    'Guanajuato RôlePlay FH5',
-    'RôlePlay FH5',
-    'Full-RôlePlay FH5',
-    'Exclusivitées',
-    'Permis',
-    'Économie',
-    'Custom Discord Bot',
-    'Custom Command',
+    'Guanajuato RolePlay sur Forza Horizon 5',
+    'Des modes de jeu exclusifs',
+    'Passage de Permis',
+    'Une économie accessible à tous',
   ];
   private tmpSlides: string[] = [];
   private cards = [
     {
-      text: `Tu cherches un serveur FH5 Full RôlePlay, ou le moindre détaille à son importance ? 
-Alors viens sur discord ! Nous t’attendons 
+      text: `Tu cherches un serveur Forza Horizon 5 Full RolePlay, où le moindre détail a son importance ? 
+Alors viens sur discord ! Nous t’attendons :
 `,
       src: '../../assets/Forza-Horizon-5.jpg',
       flex: 8,

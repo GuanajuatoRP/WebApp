@@ -49,7 +49,7 @@
             <v-dialog v-model="removeUserDialog" max-width="75%">
               <v-card>
                 <v-card-title>
-                  <span class="text-h5">Retrait d'utilisateurs de la sessions</span>
+                  <span class="text-h5">Retrait d'utilisateurs de la session</span>
                 </v-card-title>
 
                 <v-card-text>

@@ -56,7 +56,7 @@
             outlined
             block
             @click="cancel"
-            >Mot de passe oublier</v-btn
+            >Mot de passe oublié</v-btn
           >
         </v-container>
       </v-card-text>

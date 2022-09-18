@@ -99,12 +99,12 @@ class NavigationMod extends VuexModule {
 
   /* ##### ADMIN userCarlist ##### */
   public userCarlistRoute = '/admin/userCarlist';
-  public userCarlistTitle = 'userCarlist';
+  public userCarlistTitle = 'Voitures des utilisateurs';
   public userCarlist = 'userCarlist';
 
   /* ##### ADMIN userList ##### */
   public userListRoute = '/admin/userList';
-  public userListTitle = 'userList';
+  public userListTitle = 'Utilisateurs';
   public userList = 'userList';
 
   public currentPageName = '';

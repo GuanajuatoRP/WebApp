@@ -6,7 +6,10 @@
           <v-card-title>
             Liste des utilisateurs
             <v-spacer></v-spacer>
-            <v-btn color="primary" dark class="mb-2" @click="openUserDialog"> New User</v-btn>
+            <v-btn color="primary" dark class="mb-2" @click="openUserDialog">
+              <v-icon class="mr-2">mdi-plus</v-icon>
+              Ajouter
+            </v-btn>
 
             <v-dialog v-model="UserDialog" max-width="500px">
               <v-card>
@@ -17,7 +20,7 @@
                         <v-text-field v-model="addUser.DiscordId" label="DiscordId"></v-text-field>
                       </v-col>
                       <v-col cols="12">
-                        <v-text-field v-model="addUser.Prenom" label="Prenom"></v-text-field>
+                        <v-text-field v-model="addUser.Prenom" label="Prénom"></v-text-field>
                       </v-col>
                       <v-col cols="12">
                         <v-text-field v-model="addUser.Nom" label="Nom"></v-text-field>
@@ -34,8 +37,14 @@
 
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="blue darken-1" text @click="closeUserDialog"> Cancel </v-btn>
-                  <v-btn color="green darken-1" text @click="saveNewUser"> Register user</v-btn>
+                  <v-btn color="blue darken-1" text @click="closeUserDialog">
+                    <v-icon class="mr-2">mdi-cancel</v-icon>
+                    Annuler
+                  </v-btn>
+                  <v-btn color="green darken-1" text @click="saveNewUser">
+                    <v-icon class="mr-2">mdi-check</v-icon>
+                    Sauvegarder
+                  </v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
@@ -43,50 +52,62 @@
             <v-dialog v-model="dialog" max-width="75%">
               <v-card>
                 <v-card-title>
-                  <span class="text-h5">User -- {{ editedItem.username }}</span>
+                  <span class="text-h5">Utilisateur -- {{ editedItem.username }}</span>
                 </v-card-title>
 
                 <v-card-text>
                   <v-container>
                     <v-row>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="id" v-model="editedItem.id" disabled></v-text-field>
+                        <v-text-field label="ID" v-model="editedItem.id" disabled></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="prenom" v-model="editedItem.prenom" disabled></v-text-field>
+                        <v-text-field label="Prénom" v-model="editedItem.prenom" disabled></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="nom" v-model="editedItem.nom" disabled></v-text-field>
+                        <v-text-field label="Nom" v-model="editedItem.nom" disabled></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="username" v-model="editedItem.username" disabled></v-text-field>
+                        <v-text-field label="Username" v-model="editedItem.username" disabled></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="discordId" v-model="editedItem.discordId" disabled></v-text-field>
+                        <v-text-field label="DiscordId" v-model="editedItem.discordId" disabled></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="sexe" v-model="editedItem.sexe" disabled></v-text-field>
+                        <v-text-field label="Sexe" v-model="editedItem.sexe" disabled></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="createdAt" v-model="editedItem.createdAt" disabled></v-text-field>
+                        <v-text-field label="Création le" v-model="editedItem.createdAt" disabled></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="argent" v-model="editedItem.argent"></v-text-field>
+                        <v-text-field label="Argent" v-model="editedItem.argent"></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="permis" v-model="editedItem.permis"></v-text-field>
+                        <v-select
+                          v-model="editedItem.permis"
+                          :items="['Retrait', 'NA', 'Probatoire', 'Definitif']"
+                          label="Permis"
+                        >
+                        </v-select>
+                        <!-- <v-text-field label="Permis" v-model="editedItem.permis"></v-text-field> -->
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="points" v-model="editedItem.points"></v-text-field>
+                        <v-text-field label="Points" v-model="editedItem.points"></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="nbSessionsPermis" v-model="editedItem.nbSessionsPermis"></v-text-field>
+                        <v-text-field
+                          label="Sessions en probatoire restantes"
+                          v-model="editedItem.nbSessionsPermis"
+                        ></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="nbSessionsPolice" v-model="editedItem.nbSessionsPolice"></v-text-field>
+                        <v-text-field
+                          label="Nombre de sessions en policier"
+                          v-model="editedItem.nbSessionsPolice"
+                        ></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="nbSessions" v-model="editedItem.nbSessions"></v-text-field>
+                        <v-text-field label="Nombre de sessions total" v-model="editedItem.nbSessions"></v-text-field>
                       </v-col>
                     </v-row>
                   </v-container>
@@ -94,9 +115,18 @@
 
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="red darken-1" text @click="openDelete"> Delete </v-btn>
-                  <v-btn color="blue darken-1" text @click="close"> Cancel </v-btn>
-                  <v-btn color="green darken-1" text @click="save"> Save </v-btn>
+                  <v-btn color="red darken-1" text @click="openDelete">
+                    <v-icon class="mr-2">mdi-delete</v-icon>
+                    Supprimer
+                  </v-btn>
+                  <v-btn color="blue darken-1" text @click="close">
+                    <v-icon class="mr-2">mdi-cancel</v-icon>
+                    Annuler
+                  </v-btn>
+                  <v-btn color="green darken-1" text @click="save">
+                    <v-icon class="mr-2">mdi-check</v-icon>
+                    Sauvegarder
+                  </v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
@@ -104,13 +134,19 @@
             <v-dialog v-model="deleteDialog" max-width="75%">
               <v-card>
                 <v-card-title>
-                  <span class="text-h5">Delete {{ editedItem.username }}</span>
+                  <span class="text-h5">Supprimer {{ editedItem.username }} ?</span>
                 </v-card-title>
 
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="red darken-1" text @click="confirmDelete"> Delete </v-btn>
-                  <v-btn color="blue darken-1" text @click="closeDelete"> Cancel </v-btn>
+                  <v-btn color="red darken-1" text @click="confirmDelete">
+                    <v-icon class="mr-2">mdi-delete</v-icon>
+                    Supprimer
+                  </v-btn>
+                  <v-btn color="blue darken-1" text @click="closeDelete">
+                    <v-icon class="mr-2">mdi-cancel</v-icon>
+                    Annuler
+                  </v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>

@@ -4,7 +4,8 @@
       <v-tabs background-color="transparent" grow>
         <!--User Profil-->
         <v-tab>
-          <v-icon>mdi-account-box</v-icon>
+          <v-icon class="mr-2">mdi-account-box</v-icon>
+          Mon profil
         </v-tab>
 
         <v-tab-item>
@@ -52,7 +53,8 @@
 
         <v-tabs-slider></v-tabs-slider>
         <v-tab>
-          <v-icon>mdi-car</v-icon>
+          <v-icon class="mr-2">mdi-car</v-icon>
+          Mes voitures
         </v-tab>
 
         <v-tab-item>
@@ -88,7 +90,7 @@
                             <v-row>
                               <v-card>
                                 <v-card-title class="justify-content">
-                                  <span class="text-h5">Model Originel</span>
+                                  <span class="text-h5">Model de base</span>
                                 </v-card-title>
 
                                 <v-card-text>
@@ -100,23 +102,23 @@
                                         </v-col>
                                       </v-col>
                                       <v-col cols="12" md="8"> </v-col>
-                                      <v-col cols="12">
+                                      <!-- <v-col cols="12">
                                         <v-text-field
                                           outlined
                                           dense
                                           disabled
                                           readonly
-                                          label="Reference du model"
+                                          label="Réference du model"
                                           v-model="item.idCar"
                                         ></v-text-field>
-                                      </v-col>
+                                      </v-col> -->
                                       <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
                                           disabled
                                           readonly
-                                          label="PowerHp"
+                                          label="Puissance (cv)"
                                           v-model="item.originalPowerHp"
                                         ></v-text-field>
                                       </v-col>
@@ -126,7 +128,7 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="WeightKg"
+                                          label="Poids (kg)"
                                           v-model="item.originalWeightKg"
                                         ></v-text-field>
                                       </v-col>
@@ -136,7 +138,7 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="DriveTrain"
+                                          label="Transmission"
                                           v-model="item.originalDriveTrain"
                                         ></v-text-field>
                                       </v-col>
@@ -146,7 +148,7 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="Class"
+                                          label="Classe"
                                           v-model="item.originalClass"
                                         ></v-text-field>
                                       </v-col>
@@ -156,7 +158,7 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="Pi"
+                                          label="Indice"
                                           v-model="item.originalPi"
                                         ></v-text-field>
                                       </v-col>
@@ -166,7 +168,7 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="OnRoad"
+                                          label="Road legal"
                                           v-model="item.originalOnRoad"
                                         ></v-text-field>
                                       </v-col>
@@ -176,7 +178,7 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="Speed"
+                                          label="Vitesse"
                                           v-model="item.originalSpeed"
                                         ></v-text-field>
                                       </v-col>
@@ -186,7 +188,7 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="Handling"
+                                          label="Tenue de route"
                                           v-model="item.originalHandling"
                                         ></v-text-field>
                                       </v-col>
@@ -196,7 +198,7 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="Accelerate"
+                                          label="Accélération"
                                           v-model="item.originalAccelerate"
                                         ></v-text-field>
                                       </v-col>
@@ -206,7 +208,7 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="Launch"
+                                          label="Départ arrêté"
                                           v-model="item.originalLaunch"
                                         ></v-text-field>
                                       </v-col>
@@ -216,7 +218,7 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="Braking"
+                                          label="Freinage"
                                           v-model="item.originalBraking"
                                         ></v-text-field>
                                       </v-col>
@@ -226,7 +228,7 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="Offroad"
+                                          label="Tout-terrain"
                                           v-model="item.originalOffroad"
                                         ></v-text-field>
                                       </v-col>
@@ -259,29 +261,29 @@
                             <v-row>
                               <v-card>
                                 <v-card-title>
-                                  <span class="text-h5">Model-Personnel</span>
+                                  <span class="text-h5">Model personnel</span>
                                 </v-card-title>
 
                                 <v-card-text>
                                   <v-container>
                                     <v-row>
-                                      <v-col cols="12">
+                                      <!-- <v-col cols="12">
                                         <v-text-field
                                           outlined
                                           dense
                                           disabled
                                           readonly
-                                          label="Reference de la voiture"
+                                          label="Réference de la voiture"
                                           v-model="item.keyCar"
                                         ></v-text-field>
-                                      </v-col>
+                                      </v-col> -->
                                       <v-col cols="12" sm="6" md="2">
                                         <v-text-field
                                           outlined
                                           dense
                                           disabled
                                           readonly
-                                          label="PowerHp"
+                                          label="Puissance (cv)"
                                           v-model="item.editPowerHp"
                                         ></v-text-field>
                                       </v-col>
@@ -291,7 +293,7 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="WeightKg"
+                                          label="Poids (kg)"
                                           v-model="item.editWeightKg"
                                         ></v-text-field>
                                       </v-col>
@@ -301,7 +303,7 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="DriveTrain"
+                                          label="Transmission"
                                           v-model="item.editDriveTrain"
                                         ></v-text-field>
                                       </v-col>
@@ -311,7 +313,7 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="Class"
+                                          label="Classe"
                                           v-model="item.editClass"
                                         ></v-text-field>
                                       </v-col>
@@ -321,7 +323,7 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="Pi"
+                                          label="Indice"
                                           v-model="item.editPi"
                                         ></v-text-field>
                                       </v-col>
@@ -331,7 +333,7 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="OnRoad"
+                                          label="Road legal"
                                           v-model="item.editOnRoad"
                                         ></v-text-field>
                                       </v-col>
@@ -341,7 +343,7 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="Speed"
+                                          label="Vitesse"
                                           v-model="item.editSpeed"
                                         ></v-text-field>
                                       </v-col>
@@ -351,7 +353,7 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="Handling"
+                                          label="Tenue de route"
                                           v-model="item.editHandling"
                                         ></v-text-field>
                                       </v-col>
@@ -361,7 +363,7 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="Accelerate"
+                                          label="Accélération"
                                           v-model="item.editAccelerate"
                                         ></v-text-field>
                                       </v-col>
@@ -371,7 +373,7 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="Launch"
+                                          label="Départ arrêté"
                                           v-model="item.editLaunch"
                                         ></v-text-field>
                                       </v-col>
@@ -381,7 +383,7 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="Braking"
+                                          label="Freinage"
                                           v-model="item.editBraking"
                                         ></v-text-field>
                                       </v-col>
@@ -391,7 +393,7 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="Offroad"
+                                          label="Tout-terrain"
                                           v-model="item.editOffroad"
                                         ></v-text-field>
                                       </v-col>
@@ -401,7 +403,7 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="imatriculation"
+                                          label="Immatriculation"
                                           v-model="item.imatriculation"
                                         ></v-text-field>
                                       </v-col>
@@ -411,7 +413,7 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="totalPrice"
+                                          label="Prix total"
                                           v-model="item.totalPrice"
                                         ></v-text-field>
                                       </v-col>
@@ -421,7 +423,7 @@
                                           dense
                                           disabled
                                           readonly
-                                          label="Edit-Price"
+                                          label="Prix des modifications"
                                           v-model="item.editPrice"
                                         ></v-text-field>
                                       </v-col>
@@ -463,10 +465,10 @@ export default class Profile extends Vue {
       align: 'start',
       value: 'maker',
     },
-    { text: 'Model', value: 'model' },
+    { text: 'Modèle', value: 'model' },
     { text: 'Année', value: 'year' },
     { text: "Prix d'origine", value: 'price' },
-    { text: 'Class', value: 'editClass' },
+    { text: 'Classe', value: 'editClass' },
     { text: 'PI', value: 'editPi' },
     { text: 'Immatriculation', value: 'imatriculation' },
   ];

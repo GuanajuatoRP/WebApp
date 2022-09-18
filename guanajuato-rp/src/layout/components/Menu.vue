@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer v-model="drawer" app width="220" class="pt-0">
+  <v-navigation-drawer v-model="drawer" app width="250" class="pt-0">
     <v-list nav dense flat>
       <v-list-item align="center" justify="center">
         <v-list-item-content>

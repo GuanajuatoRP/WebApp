@@ -6,7 +6,10 @@
           <v-card-title>
             Liste des voitures des utilisateurs
             <v-spacer></v-spacer>
-            <v-btn color="primary" dark class="mb-2" @click="openVoitureDialog"> New Voiture</v-btn>
+            <v-btn color="primary" dark class="mb-2" @click="openVoitureDialog">
+              <v-icon class="mr-2">mdi-plus</v-icon>
+              Ajouter
+            </v-btn>
 
             <v-dialog v-model="VoitureDialog" max-width="500px">
               <v-card>
@@ -35,8 +38,14 @@
 
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="blue darken-1" text @click="closeVoitureDialog"> Cancel </v-btn>
-                  <v-btn color="green darken-1" text @click="saveNewVoiture"> Save voiture</v-btn>
+                  <v-btn color="blue darken-1" text @click="closeVoitureDialog">
+                    <v-icon class="mr-2">mdi-cancel</v-icon>
+                    Annuler
+                  </v-btn>
+                  <v-btn color="green darken-1" text @click="saveNewVoiture">
+                    <v-icon class="mr-2">mdi-check</v-icon>
+                    Sauvegarder
+                  </v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
@@ -44,7 +53,7 @@
             <v-dialog v-model="dialog" max-width="75%">
               <v-card>
                 <v-card-title>
-                  <span class="text-h5">Edit Car -- {{ editedItem.Model }} of {{ editedItem.Username }}</span>
+                  <span class="text-h5">Modification -- {{ editedItem.Model }} de {{ editedItem.Username }}</span>
                 </v-card-title>
 
                 <v-card-text>
@@ -54,49 +63,49 @@
                         <v-text-field label="KeyCar" disabled v-model="editedItem.KeyCar"></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="PowerHp" v-model="editedItem.PowerHp"></v-text-field>
+                        <v-text-field label="Puissance (cv)" v-model="editedItem.PowerHp"></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="WeightKg" v-model="editedItem.WeightKg"></v-text-field>
+                        <v-text-field label="Poids (kg)" v-model="editedItem.WeightKg"></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="DriveTrain" v-model="editedItem.DriveTrain"></v-text-field>
+                        <v-text-field label="Transmission" v-model="editedItem.DriveTrain"></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="Class" v-model="editedItem.Class"></v-text-field>
+                        <v-text-field label="Classe" v-model="editedItem.Class"></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="Pi" v-model="editedItem.Pi"></v-text-field>
+                        <v-text-field label="Indice de Performance" v-model="editedItem.Pi"></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
                         <v-text-field label="OnRoad" v-model="editedItem.OnRoad"></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="Speed" v-model="editedItem.Speed"></v-text-field>
+                        <v-text-field label="Vitesse" v-model="editedItem.Speed"></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="Handling" v-model="editedItem.Handling"></v-text-field>
+                        <v-text-field label="Tenue de route" v-model="editedItem.Handling"></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="Accelerate" v-model="editedItem.Accelerate"></v-text-field>
+                        <v-text-field label="Accélération" v-model="editedItem.Accelerate"></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="Launch" v-model="editedItem.Launch"></v-text-field>
+                        <v-text-field label="Départ arrêté" v-model="editedItem.Launch"></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="Braking" v-model="editedItem.Braking"></v-text-field>
+                        <v-text-field label="Freinage" v-model="editedItem.Braking"></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="Offroad" v-model="editedItem.Offroad"></v-text-field>
+                        <v-text-field label="Tout-terrain" v-model="editedItem.Offroad"></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="Imatriculation" v-model="editedItem.Imatriculation"></v-text-field>
+                        <v-text-field label="Immatriculation" v-model="editedItem.Imatriculation"></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="TotalPrice" disabled v-model="editedItem.TotalPrice"></v-text-field>
+                        <v-text-field label="Prix total" disabled v-model="editedItem.TotalPrice"></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="EditPrice" v-model="editedItem.EditPrice"></v-text-field>
+                        <v-text-field label="Prix des modifications" v-model="editedItem.EditPrice"></v-text-field>
                       </v-col>
                     </v-row>
                   </v-container>
@@ -104,9 +113,18 @@
 
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="red darken-1" text @click="openDelete"> Delete </v-btn>
-                  <v-btn color="blue darken-1" text @click="close"> Cancel </v-btn>
-                  <v-btn color="blue darken-1" text @click="save"> Save </v-btn>
+                  <v-btn color="red darken-1" text @click="openDelete">
+                    <v-icon class="mr-2">mdi-delete</v-icon>
+                    Supprimer
+                  </v-btn>
+                  <v-btn color="blue darken-1" text @click="close">
+                    <v-icon class="mr-2">mdi-cancel</v-icon>
+                    Annuler
+                  </v-btn>
+                  <v-btn color="green darken-1" text @click="save">
+                    <v-icon class="mr-2">mdi-check</v-icon>
+                    Sauvegarder
+                  </v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
@@ -114,13 +132,19 @@
             <v-dialog v-model="deleteDialog" max-width="75%">
               <v-card>
                 <v-card-title>
-                  <span class="text-h5">Delete {{ editedItem.Model }} of {{ editedItem.Username }}</span>
+                  <span class="text-h5">Supprimer {{ editedItem.Model }} de {{ editedItem.Username }} ?</span>
                 </v-card-title>
 
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="red darken-1" text @click="confirmDelete"> Delete </v-btn>
-                  <v-btn color="blue darken-1" text @click="closeDelete"> Cancel </v-btn>
+                  <v-btn color="red darken-1" text @click="confirmDelete">
+                    <v-icon class="mr-2">mdi-delete</v-icon>
+                    Supprimer
+                  </v-btn>
+                  <v-btn color="blue darken-1" text @click="closeDelete">
+                    <v-icon class="mr-2">mdi-cancel</v-icon>
+                    Annuler
+                  </v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
@@ -135,7 +159,7 @@
               hide-details
             ></v-text-field>
           </v-card-title>
-          <v-data-table :headers="headers" :items="voitures" :search="search" :items-per-page="15" item-key="model">
+          <v-data-table :headers="headers" :items="voitures" :search="search" :items-per-page="15" item-key="KeyCar">
             <!-- eslint-disable-next-line -->
             <template v-slot:item.actions="{ item }">
               <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
@@ -165,13 +189,13 @@ export default class Test extends Vue {
       align: 'start',
       value: 'username',
     },
-    { text: 'Model', value: 'model' },
-    { text: 'Year', value: 'year' },
+    { text: 'Modèle', value: 'model' },
+    { text: 'Année', value: 'year' },
     { text: 'Type', value: 'type' },
     { text: 'Puissance Cv', value: 'editPowerHp' },
-    { text: 'Imatriculation', value: 'imatriculation' },
-    { text: 'OriginalPrice', value: 'price' },
-    { text: 'Edit', value: 'actions', sortable: false },
+    { text: 'Immatriculation', value: 'imatriculation' },
+    { text: 'Prix de base', value: 'price' },
+    { text: '', value: 'actions', sortable: false },
   ];
   private voitures: CarDTO[] = [];
   private carListToAdd = [];
