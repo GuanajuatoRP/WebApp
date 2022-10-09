@@ -1,4 +1,5 @@
 import { CarDTO } from '../Cars/CarDTO';
+import { StageDTO } from '../Stage/StageDTO';
 
 export class UserProfil {
   public id = '';
@@ -16,9 +17,4 @@ export class UserProfil {
   public nbSessionsPolice = 0;
   public nbSessions = 0;
   public voitures: CarDTO[] = [];
-}
-
-export class StageDTO {
-  public stageId = '';
-  public name = '';
 }

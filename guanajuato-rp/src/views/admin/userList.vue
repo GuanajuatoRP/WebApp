@@ -83,13 +83,12 @@
                         <v-text-field label="Argent" v-model="editedItem.argent"></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-select
-                          v-model="editedItem.permis"
-                          :items="['Retrait', 'NA', 'Probatoire', 'Definitif']"
-                          label="Permis"
-                        >
+                        <v-select v-model="editedItem.permis" :items="permisListe" item-text="name" label="Permis">
                         </v-select>
-                        <!-- <v-text-field label="Permis" v-model="editedItem.permis"></v-text-field> -->
+                      </v-col>
+                      <v-col cols="12" sm="6" md="4">
+                        <v-select v-model="editedItem.stage" :items="stagesListe" item-text="name" label="Stage">
+                        </v-select>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
                         <v-text-field label="Points" v-model="editedItem.points"></v-text-field>
@@ -177,8 +176,12 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { AuthModule } from '@/store/modules/Authentication';
 import { AdminAPI } from '@/api/AdminAPI';
+import { StageApi } from '@/api/StageApi';
+import { PermisApi } from '@/api/PermisApi';
 import { UserDTO } from '@/models/User/UserDTO';
 import { userRegister } from '@/models/User/userRegister';
+import { StageDTO } from '@/models/Stage/StageDTO';
+import { PermisDTO } from '@/models/Permis/PermidDTO';
 
 @Component
 export default class Test extends Vue {
@@ -194,7 +197,9 @@ export default class Test extends Vue {
     { text: 'Argent', value: 'argent' },
     { text: 'Permis', value: 'permis' },
     { text: 'Points', value: 'points' },
+    { text: 'Stage', value: 'stage' },
     { text: 'NbSessions', value: 'nbSessions' },
+    { text: 'NbSessionsRestante', value: 'nbSessionsPermis' },
     { text: 'Edit', value: 'actions', sortable: false },
   ];
   private users: UserDTO[] = [];
@@ -203,6 +208,8 @@ export default class Test extends Vue {
   private dialog = false;
   private editedIndex = -1;
   private editedItem: UserDTO = new UserDTO();
+  private stagesListe: StageDTO[] = [];
+  private permisListe: PermisDTO[] = [];
   private addUser = {
     DiscordId: '',
     Prenom: '',
@@ -259,14 +266,13 @@ export default class Test extends Vue {
     editedUser.sexe = this.editedItem.sexe;
     editedUser.createdAt = this.editedItem.createdAt;
     editedUser.argent = this.editedItem.argent;
-    editedUser.permis = this.editedItem.permis;
+    editedUser.permis = this.permisListe.map((p) => p.name).find((p) => p == this.editedItem.permis) as string;
+    editedUser.stage = this.stagesListe.map((s) => s.name).find((s) => s == this.editedItem.stage) as string;
     editedUser.points = this.editedItem.points;
     editedUser.nbSessionsPermis = this.editedItem.nbSessionsPermis;
     editedUser.nbSessionsPolice = this.editedItem.nbSessionsPolice;
     editedUser.nbSessions = this.editedItem.nbSessions;
-    console.log(this.editedItem.discordId);
-    console.log(editedUser.discordId == this.editedItem.discordId);
-
+    console.log(editedUser);
     AdminAPI.updateUser(editedUser as any)
       .then(() => {
         this.dialog = false;
@@ -308,6 +314,21 @@ export default class Test extends Vue {
     AdminAPI.getUserList()
       .then((userList: any) => {
         this.users = userList;
+        console.log(userList);
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
+    StageApi.getAllStagesNames()
+      .then((stagesListe: any) => {
+        this.stagesListe = stagesListe;
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
+    PermisApi.getAllPermisNames()
+      .then((permisListe: any) => {
+        this.permisListe = permisListe;
       })
       .catch((err: any) => {
         console.log(err);

@@ -8,6 +8,7 @@ export class UserDTO {
   public createdAt = '';
   public argent = 0;
   public permis = '';
+  public stage = '';
   public points = 0;
   public nbSessionsPermis = 0;
   public nbSessionsPolice = 0;
