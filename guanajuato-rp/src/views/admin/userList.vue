@@ -80,7 +80,7 @@
                         <v-text-field label="Création le" v-model="editedItem.createdAt" disabled></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="Argent" v-model="editedItem.argent"></v-text-field>
+                        <v-text-field label="Argent" v-model="editedItem.argent" disabled></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
                         <v-select v-model="editedItem.permis" :items="permisListe" item-text="name" label="Permis">
@@ -106,7 +106,11 @@
                         ></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="Nombre de sessions total" v-model="editedItem.nbSessions"></v-text-field>
+                        <v-text-field
+                          label="Nombre de sessions total"
+                          v-model="editedItem.nbSessions"
+                          disabled
+                        ></v-text-field>
                       </v-col>
                     </v-row>
                   </v-container>

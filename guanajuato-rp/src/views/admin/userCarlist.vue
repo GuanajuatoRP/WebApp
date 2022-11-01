@@ -11,6 +11,7 @@
               Ajouter
             </v-btn>
 
+            <!-- Dialog - Ajouter une voiture -->
             <v-dialog v-model="VoitureDialog" max-width="500px">
               <v-card>
                 <v-card-text>
@@ -50,6 +51,7 @@
               </v-card>
             </v-dialog>
 
+            <!-- Dialog - Modifier une voiture -->
             <v-dialog v-model="dialog" max-width="75%">
               <v-card>
                 <v-card-title>
@@ -113,6 +115,10 @@
 
                 <v-card-actions>
                   <v-spacer></v-spacer>
+                  <v-btn color="blue darken-1" text @click="openChangeOwner">
+                    <v-icon class="mr-2">mdi-account-switch</v-icon>
+                    Changer de propriétaire
+                  </v-btn>
                   <v-btn color="red darken-1" text @click="openDelete">
                     <v-icon class="mr-2">mdi-delete</v-icon>
                     Supprimer
@@ -129,7 +135,8 @@
               </v-card>
             </v-dialog>
 
-            <v-dialog v-model="deleteDialog" max-width="75%">
+            <!-- Dialog - Supprimer une voiture -->
+            <v-dialog v-model="deleteDialog" max-width="50%">
               <v-card>
                 <v-card-title>
                   <span class="text-h5">Supprimer {{ editedItem.Model }} de {{ editedItem.Username }} ?</span>
@@ -142,6 +149,49 @@
                     Supprimer
                   </v-btn>
                   <v-btn color="blue darken-1" text @click="closeDelete">
+                    <v-icon class="mr-2">mdi-cancel</v-icon>
+                    Annuler
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+
+            <!-- Dialog - Modifier le propriétaire d'une voiture -->
+            <v-dialog v-model="changeOwnerDialog" max-width="50%">
+              <v-card>
+                <v-card-title>
+                  <span class="text-h5">À qui transférer {{ editedItem.Model }} de {{ editedItem.Username }} ?</span>
+                </v-card-title>
+                <v-card-text>
+                  <v-autocomplete
+                    placeholder="Nouveau propriétaire"
+                    :items="users"
+                    v-model="selectedUser"
+                    outlined
+                    item-text="username"
+                    item-value="discordId"
+                  >
+                    <!-- <template v-slot:item="data">
+                      <span> {{ data.prenom }} {{ data.nom }} </span>
+                    </template>
+                    <template v-slot:selection="data">
+                      <span> {{ data.prenom }} {{ data.nom }} </span>
+                    </template> -->
+                  </v-autocomplete>
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn
+                    color="success darken-1"
+                    text
+                    @click="confirmChangeOwner"
+                    :disabled="!canChangeOwner"
+                    :loading="isChangeOwnerLoading"
+                  >
+                    <v-icon class="mr-2">mdi-account-switch</v-icon>
+                    Changer de propriétaire
+                  </v-btn>
+                  <v-btn color="blue darken-1" text @click="closeChangeOwner">
                     <v-icon class="mr-2">mdi-cancel</v-icon>
                     Annuler
                   </v-btn>
@@ -177,11 +227,13 @@ import { Component, Vue } from 'vue-property-decorator';
 import { AuthModule } from '@/store/modules/Authentication';
 import { AdminAPI } from '@/api/AdminAPI';
 import { CarDTO } from '@/models/Cars/CarDTO';
+import { UserDTO } from '@/models/User/UserDTO';
 
 @Component
 export default class Test extends Vue {
   private isConnected = false;
   private isLoading = false;
+  private isChangeOwnerLoading = false;
   private search = '';
   private headers = [
     {
@@ -201,6 +253,7 @@ export default class Test extends Vue {
   private carListToAdd = [];
   private VoitureDialog = false;
   private deleteDialog = false;
+  private changeOwnerDialog = false;
   private dialog = false;
   private editedIndex = -1;
   private editedItem = {
@@ -227,6 +280,10 @@ export default class Test extends Vue {
     keyCar: '',
     discordId: '',
   };
+
+  //changeOwner
+  private users: UserDTO[] = [];
+  private selectedUser = '';
 
   public editItem(item: CarDTO) {
     this.dialog = true;
@@ -260,6 +317,9 @@ export default class Test extends Vue {
   public openVoitureDialog() {
     this.VoitureDialog = true;
   }
+  public openChangeOwner() {
+    this.changeOwnerDialog = true;
+  }
 
   public closeVoitureDialog() {
     this.addVoiture.discordId = '';
@@ -269,6 +329,9 @@ export default class Test extends Vue {
 
   public closeDelete() {
     this.deleteDialog = false;
+  }
+  public closeChangeOwner() {
+    this.changeOwnerDialog = false;
   }
 
   public confirmDelete() {
@@ -281,6 +344,26 @@ export default class Test extends Vue {
       .catch((err: any) => {
         console.log(err);
       });
+  }
+
+  public get canChangeOwner() {
+    return this.selectedUser != null;
+  }
+  public async confirmChangeOwner() {
+    if (this.selectedUser) {
+      try {
+        this.isChangeOwnerLoading = true;
+        await AdminAPI.changeOwner(this.selectedUser, this.editedItem.KeyCar);
+        this.closeChangeOwner();
+        this.close();
+        this.selectedUser = '';
+        await this.reload();
+      } catch (err: any) {
+        console.log(err);
+      } finally {
+        this.isChangeOwnerLoading = false;
+      }
+    }
   }
 
   public save() {
@@ -317,13 +400,8 @@ export default class Test extends Vue {
   async mounted() {
     this.isConnected = await AuthModule.isLoggedIn();
 
-    await AdminAPI.getUserCarList()
-      .then((carList: any) => {
-        this.voitures = carList;
-      })
-      .catch((err: any) => {
-        console.log(err);
-      });
+    await this.reload();
+
     await CarsApi.search('', '', '', '')
       .then((reponse: any) => {
         this.isLoading = true;
@@ -339,6 +417,22 @@ export default class Test extends Vue {
       })
       .finally(() => {
         this.isLoading = false;
+      });
+    await AdminAPI.getUserList()
+      .then((userList: any) => {
+        this.users = userList;
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
+  }
+  async reload() {
+    await AdminAPI.getUserCarList()
+      .then((carList: any) => {
+        this.voitures = carList;
+      })
+      .catch((err: any) => {
+        console.log(err);
       });
   }
 }

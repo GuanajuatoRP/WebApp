@@ -19,6 +19,10 @@ export class AdminAPI {
     const response = await BaseApi.AppLogged.delete(`api/Garage/${keyCar}`);
     return response.data;
   }
+  static async changeOwner(newUserId: string, keyCar: string) {
+    const response = await BaseApi.AppLogged.put(`api/Garage/${keyCar}/${newUserId}`);
+    return response.data;
+  }
   static async addVoiture(discordId: string, carId: string) {
     const response = await BaseApi.AppLogged.post(`api/Garage/add/${discordId}/${carId}`);
     return response.data;

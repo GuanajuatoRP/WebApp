@@ -219,40 +219,44 @@ export default class Register extends Vue {
       /* eslint-disable */
       this.discordGetTokenDTO.code = this.code as string;
 
-      await DiscordApi.getToken(this.discordGetTokenDTO).then((response: any) => {
-        this.discordAuthTokenDTO.token = response.access_token;
-      }).catch((error: Error) => {
+      await DiscordApi.getToken(this.discordGetTokenDTO)
+        .then((response: any) => {
+          this.discordAuthTokenDTO.token = response.access_token;
+        })
+        .catch((error: Error) => {
           this.haveError = true;
           console.log(error);
         })
-        .finally(() => (this.IsDiscordAutentified = true));;
-      
-      await DiscordApi.getIdentity(this.discordAuthTokenDTO).then((response: any) => {
-        this.discordId = response.id;
-        this.discordDisplayName = response.username;
-        this.discordDiscriminator = response.discriminator;
-      })
-      .catch((error: Error) => {
+        .finally(() => (this.IsDiscordAutentified = true));
+
+      await DiscordApi.getIdentity(this.discordAuthTokenDTO)
+        .then((response: any) => {
+          this.discordId = response.id;
+          this.discordDisplayName = response.username;
+          this.discordDiscriminator = response.discriminator;
+        })
+        .catch((error: Error) => {
           this.haveError = true;
           console.log(error);
         })
-        .finally(() => (this.IsDiscordAutentified = true));;
-      
-      await DiscordApi.getGuilds(this.discordAuthTokenDTO).then((response: any) => {
-        if (response.some((guild: any) => guild.id == process.env.VUE_APP_GUILD_ID)) this.IsOnServer = true;
-      })
-      .catch((error: Error) => {
+        .finally(() => (this.IsDiscordAutentified = true));
+
+      await DiscordApi.getGuilds(this.discordAuthTokenDTO)
+        .then((response: any) => {
+          if (response.some((guild: any) => guild.id == process.env.VUE_APP_GUILD_ID)) this.IsOnServer = true;
+        })
+        .catch((error: Error) => {
           this.haveError = true;
           console.log(error);
         })
-        .finally(() => (this.IsDiscordAutentified = true));;
-      
+        .finally(() => (this.IsDiscordAutentified = true));
+
       await RegisterApi.isUserOnDB(this.discordId)
         .then((response: any) => {
-          console.log("this.IsAlradyRegistred : ", this.IsAlradyRegistred);
+          console.log('this.IsAlradyRegistred : ', this.IsAlradyRegistred);
           if (response.status != 200) this.IsAlradyRegistred = false;
-          console.log("response.status != 200 : ", response.status != 200);
-          console.log("this.IsAlradyRegistred : ", this.IsAlradyRegistred);
+          console.log('response.status != 200 : ', response.status != 200);
+          console.log('this.IsAlradyRegistred : ', this.IsAlradyRegistred);
         })
         .catch((error: Error) => {
           this.haveError = true;
